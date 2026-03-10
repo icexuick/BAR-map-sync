@@ -565,12 +565,14 @@ def process_texture_from_archive(seven_zip_file, texture_filename, item_id, suff
             print(f"      [Image] Error opening {texture_filename}: {e}")
     return None, None
 
-def get_maps_to_process(new_only=False):
+def get_maps_to_process(new_only=False, map_filter=None):
     url = f"https://api.webflow.com/v2/collections/{COLLECTION_ID}/items"
     items_to_process = []
     offset = 0; limit = 100
     
-    if new_only:
+    if map_filter:
+        print(f"Checking Webflow items (FILTER: \"{map_filter}\")...")
+    elif new_only:
         print("Checking Webflow items (NEW-ONLY MODE: skipping maps that already have a version)...")
     else:
         print("Checking Webflow items...")
@@ -587,6 +589,23 @@ def get_maps_to_process(new_only=False):
 
         for item in current_batch:
             fields = item.get('fieldData', {})
+            
+            # MAP FILTER: skip maps that don't match the search term
+            if map_filter:
+                item_name = fields.get('name', '')
+                if map_filter.lower() not in item_name.lower():
+                    continue
+                # For filtered maps, force-update everything
+                item['tasks'] = {
+                    "diffuse": True, "height": True, "metal": True,
+                    "normal": True, "skybox": True,
+                    "water_tint": True, "water_base": True,
+                    "water_min": True, "water_absorb": True,
+                    "minmax": True
+                }
+                item['current_version'] = fields.get(FIELD_VERSION)
+                items_to_process.append(item)
+                continue
             
             webflow_version = fields.get(FIELD_VERSION)
             
@@ -808,19 +827,23 @@ def main():
     parser = argparse.ArgumentParser(description="BAR Map Sync — sync map data from SD7 archives to Webflow CMS")
     parser.add_argument('--new-only', action='store_true',
                         help='Only process maps that have no version in Webflow yet (new/empty maps)')
+    parser.add_argument('--map', type=str, default=None,
+                        help='Process only a specific map by name (case-insensitive partial match, e.g. --map "Throne")')
     args = parser.parse_args()
 
     lava_lookup = get_lava_data_from_github()
-    items = get_maps_to_process(new_only=args.new_only)
+    items = get_maps_to_process(new_only=args.new_only, map_filter=args.map)
     
     if not items:
-        if args.new_only:
+        if args.map:
+            print(f"No maps found matching \"{args.map}\".")
+        elif args.new_only:
             print("No NEW maps found (all maps already have a version). Nothing to do.")
         else:
             print("No maps to process.")
         return
 
-    mode_label = "NEW-ONLY MODE" if args.new_only else "VERSION SYNC MODE"
+    mode_label = f"SINGLE MAP: {args.map}" if args.map else "NEW-ONLY MODE" if args.new_only else "VERSION SYNC MODE"
     print(f"--- Processing {len(items)} maps ({mode_label}) ---\n")
     
     for item in items:

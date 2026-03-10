@@ -1,3 +1,6 @@
 requests
 py7zr
 Pillow
+python-dotenv
+numpy
+imageio
