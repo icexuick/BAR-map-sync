@@ -5,7 +5,7 @@ on:
   schedule:
     # Draai elk uur
     # Syntax is: minuut uur dag maand dag-van-de-week
-    - cron: '0 * * * *'
+    - cron: '0 5 * * *'
   
   # Optie 2: Handmatige knop (zodat je het nu direct kan testen)
   workflow_dispatch:
