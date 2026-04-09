@@ -1,2 +1,6 @@
 .env
 *.zip
+
+# Heightmaps live in Webflow CMS — only the placements.json files need to
+# go to GitHub for jsDelivr. The PNGs stay local for viewer/map.html.
+maps_features/**/*.png
