@@ -4,3 +4,4 @@ Pillow
 python-dotenv
 numpy
 imageio
+lupa

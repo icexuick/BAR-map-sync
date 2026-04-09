@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>BAR Feature GLB Viewer</title>
+<style>
+  :root {
+    --bg: #1a1b1f;
+    --panel: #24262c;
+    --panel-alt: #2b2e36;
+    --panel-border: #3a3d45;
+    --text: #e8e8ec;
+    --muted: #8a8d96;
+    --accent: #6cbaff;
+    --accent-bg: #1e3a5f;
+  }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    font-size: 13px;
+    height: 100vh;
+    overflow: hidden;
+  }
+  #app {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    height: 100vh;
+  }
+
+  /* -- Sidebar (list) ----------------------------------------------------- */
+  aside {
+    background: var(--panel);
+    border-right: 1px solid var(--panel-border);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  aside header {
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid var(--panel-border);
+    flex-shrink: 0;
+  }
+  aside h1 { font-size: 14px; margin: 0 0 8px 0; font-weight: 600; }
+  aside .stats { color: var(--muted); font-size: 11px; margin-bottom: 8px; }
+  aside input[type=text] {
+    width: 100%; box-sizing: border-box;
+    background: #15161a; border: 1px solid var(--panel-border);
+    color: var(--text); padding: 6px 10px; border-radius: 4px;
+    font-size: 13px;
+  }
+  #list {
+    flex: 1; overflow-y: auto;
+    padding: 4px 0;
+  }
+  .item {
+    padding: 7px 16px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    display: flex; justify-content: space-between; gap: 10px;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+  .item:hover { background: var(--panel-alt); }
+  .item.selected {
+    background: var(--accent-bg);
+    border-left-color: var(--accent);
+  }
+  .item .name { color: var(--text); word-break: break-all; }
+  .item .size { color: var(--muted); flex-shrink: 0; font-variant-numeric: tabular-nums; }
+
+  /* -- Main viewer -------------------------------------------------------- */
+  main {
+    position: relative;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    background: #0e0f13;
+  }
+  main header {
+    padding: 10px 16px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--panel-border);
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+  main header .title {
+    font-size: 14px; font-weight: 600;
+    flex: 1;
+    word-break: break-all;
+  }
+  main header .meta { color: var(--muted); font-size: 11px; }
+  main header label { color: var(--muted); display: flex; align-items: center; gap: 6px; font-size: 12px; }
+  main header select {
+    background: #15161a; border: 1px solid var(--panel-border);
+    color: var(--text); padding: 5px 8px; border-radius: 4px; font-size: 12px;
+  }
+  #viewport {
+    flex: 1;
+    position: relative;
+    min-height: 0;
+  }
+  #viewport canvas {
+    width: 100% !important; height: 100% !important;
+    display: block;
+  }
+  #empty {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 14px;
+  }
+  #status {
+    position: absolute; bottom: 12px; left: 12px;
+    background: rgba(0,0,0,0.5); color: var(--muted);
+    padding: 5px 10px; border-radius: 4px; font-size: 11px;
+    font-family: monospace;
+    pointer-events: none;
+  }
+  #status.err { color: #ff9090; }
+  .hint {
+    position: absolute; top: 12px; right: 12px;
+    background: rgba(0,0,0,0.5); color: var(--muted);
+    padding: 5px 10px; border-radius: 4px; font-size: 11px;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <aside>
+    <header>
+      <h1>BAR Feature Viewer</h1>
+      <div class="stats" id="stats">Loading…</div>
+      <input type="text" id="search" placeholder="Filter by name…" />
+    </header>
+    <div id="list"></div>
+  </aside>
+
+  <main>
+    <header>
+      <div class="title" id="title">Select a feature</div>
+      <div class="meta" id="meta"></div>
+      <label>
+        Background
+        <select id="bg">
+          <option value="dark">dark</option>
+          <option value="grey">grey</option>
+          <option value="white">white</option>
+        </select>
+      </label>
+      <label>
+        <input type="checkbox" id="spin" checked /> rotate
+      </label>
+      <label>
+        <input type="checkbox" id="normals" checked /> normal map
+      </label>
+      <label>
+        <input type="checkbox" id="wire" /> wireframe
+      </label>
+    </header>
+    <div id="viewport">
+      <canvas id="canvas"></canvas>
+      <div id="empty">← pick a feature from the list</div>
+      <div class="hint">drag to orbit · scroll to zoom</div>
+      <div id="status"></div>
+    </div>
+  </main>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+// -- Elements ---------------------------------------------------------------
+const listEl = document.getElementById('list');
+const statsEl = document.getElementById('stats');
+const searchEl = document.getElementById('search');
+const titleEl = document.getElementById('title');
+const metaEl = document.getElementById('meta');
+const bgEl = document.getElementById('bg');
+const spinEl = document.getElementById('spin');
+const normalsEl = document.getElementById('normals');
+const wireEl = document.getElementById('wire');
+const canvasEl = document.getElementById('canvas');
+const emptyEl = document.getElementById('empty');
+const statusEl = document.getElementById('status');
+
+// -- Single Three.js scene, reused for every feature -----------------------
+const renderer = new THREE.WebGLRenderer({ canvas: canvasEl, antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(bgColor());
+
+// Image-based lighting from Three.js's built-in RoomEnvironment. This is a
+// procedurally-built "soft studio" HDR-like cubemap — no external file
+// needed, works offline, and gives PBR materials realistic omni-directional
+// lighting + reflections without the flatness of pure directional lights.
+const pmrem = new THREE.PMREMGenerator(renderer);
+pmrem.compileEquirectangularShader();
+const envTexture = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+scene.environment = envTexture;
+// Note: scene.environment only affects PBR materials. We keep the
+// background as the solid color chosen in the UI so the viewer stays clean.
+
+// A gentle directional light on top of the IBL, to preserve a sense of
+// "sun direction" and make normal maps pop. Without this, RoomEnvironment
+// alone can look a bit flat on flat foliage cards.
+const sun = new THREE.DirectionalLight(0xffffff, 1.6);
+sun.position.set(4, 6, 3);
+scene.add(sun);
+
+const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100000);
+camera.position.set(10, 10, 10);
+
+const controls = new OrbitControls(camera, canvasEl);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+
+const loader = new GLTFLoader();
+let currentModel = null;
+
+function bgColor() {
+  switch (bgEl?.value) {
+    case 'grey': return 0x555861;
+    case 'white': return 0xeeeeee;
+    default: return 0x0e0f13;
+  }
+}
+
+function disposeModel(model) {
+  model.traverse((obj) => {
+    if (obj.isMesh) {
+      obj.geometry?.dispose();
+      const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+      for (const m of mats) {
+        m?.map?.dispose();
+        m?.normalMap?.dispose();
+        m?.dispose();
+      }
+    }
+  });
+}
+
+function frameModel(model) {
+  const box = new THREE.Box3().setFromObject(model);
+  const size = new THREE.Vector3();
+  const center = new THREE.Vector3();
+  box.getSize(size);
+  box.getCenter(center);
+
+  // Re-center model at origin so orbiting looks correct
+  model.position.sub(center);
+
+  const maxDim = Math.max(size.x, size.y, size.z) || 1;
+  const fov = camera.fov * (Math.PI / 180);
+  const dist = (maxDim / 2) / Math.tan(fov / 2) * 2.0;
+
+  camera.position.set(dist * 0.8, dist * 0.6, dist);
+  camera.near = dist * 0.01;
+  camera.far = dist * 100;
+  camera.lookAt(0, 0, 0);
+  camera.updateProjectionMatrix();
+
+  controls.target.set(0, 0, 0);
+  controls.update();
+}
+
+function setStatus(text, isErr = false) {
+  statusEl.textContent = text || '';
+  statusEl.classList.toggle('err', !!isErr);
+}
+
+async function loadFeature(entry) {
+  emptyEl.style.display = 'none';
+  titleEl.textContent = entry.name;
+  metaEl.textContent = `${(entry.size/1024).toFixed(0)} KB`;
+  setStatus('loading…');
+
+  // Clean up previous model
+  if (currentModel) {
+    scene.remove(currentModel);
+    disposeModel(currentModel);
+    currentModel = null;
+  }
+
+  try {
+    const gltf = await new Promise((resolve, reject) => {
+      loader.load(`../features/${entry.glb}`, resolve, undefined, reject);
+    });
+    const model = gltf.scene;
+
+    // Gather diagnostic info about materials + textures
+    let meshCount = 0, texCount = 0, normalCount = 0, vertCount = 0;
+    model.traverse((obj) => {
+      if (obj.isMesh) {
+        meshCount++;
+        vertCount += obj.geometry?.attributes?.position?.count || 0;
+        const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+        for (const m of mats) {
+          if (m?.map) {
+            m.map.colorSpace = THREE.SRGBColorSpace;
+            texCount++;
+          }
+          if (m?.normalMap) normalCount++;
+        }
+      }
+    });
+
+    currentModel = model;
+    scene.add(model);
+    frameModel(model);
+    applyMaterialDebug();
+
+    setStatus(`${meshCount} mesh · ${vertCount.toLocaleString()} verts · ${texCount} color · ${normalCount} normal`);
+  } catch (e) {
+    console.error(e);
+    setStatus(`load failed: ${e.message || e}`, true);
+  }
+}
+
+// -- Render loop -----------------------------------------------------------
+function resize() {
+  const rect = canvasEl.getBoundingClientRect();
+  const w = Math.floor(rect.width);
+  const h = Math.floor(rect.height);
+  if (w === 0 || h === 0) return;
+  if (canvasEl.width !== w || canvasEl.height !== h) {
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+}
+
+let lastT = performance.now();
+function tick(now) {
+  const dt = (now - lastT) / 1000;
+  lastT = now;
+  resize();
+  if (currentModel && spinEl.checked) {
+    currentModel.rotation.y += dt * 0.5;
+  }
+  controls.update();
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+// -- Sidebar list ----------------------------------------------------------
+const items = []; // {entry, el}
+let selectedEl = null;
+
+function createItem(entry) {
+  const el = document.createElement('div');
+  el.className = 'item';
+  el.dataset.name = entry.name;
+  el.innerHTML = `<span class="name">${entry.name}</span><span class="size">${(entry.size/1024).toFixed(0)} KB</span>`;
+  el.addEventListener('click', () => {
+    if (selectedEl) selectedEl.classList.remove('selected');
+    el.classList.add('selected');
+    selectedEl = el;
+    loadFeature(entry);
+  });
+  listEl.appendChild(el);
+  items.push({ entry, el });
+}
+
+// -- Boot ------------------------------------------------------------------
+async function boot() {
+  let data;
+  try {
+    const resp = await fetch('../features/index.json');
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    data = await resp.json();
+  } catch (e) {
+    statsEl.textContent = 'failed to load features/index.json';
+    return;
+  }
+  const features = data.features || [];
+  const totalKb = features.reduce((a, f) => a + f.size, 0) / 1024;
+  statsEl.textContent = `${features.length} features · ${(totalKb/1024).toFixed(1)} MB total`;
+
+  for (const entry of features) createItem(entry);
+
+  // Auto-select the first item so something shows immediately
+  if (items.length) items[0].el.click();
+}
+
+// -- Search ----------------------------------------------------------------
+searchEl.addEventListener('input', () => {
+  const q = searchEl.value.trim().toLowerCase();
+  let visible = 0;
+  for (const it of items) {
+    const hit = !q || it.entry.name.toLowerCase().includes(q);
+    it.el.style.display = hit ? '' : 'none';
+    if (hit) visible++;
+  }
+});
+
+// -- Background ------------------------------------------------------------
+bgEl.addEventListener('change', () => {
+  scene.background = new THREE.Color(bgColor());
+});
+
+// -- Material debug toggles ------------------------------------------------
+// These walk the currently-loaded model and flip flags on each material.
+// They do NOT dispose textures — just toggle references — so switching
+// back restores the original look instantly.
+function applyMaterialDebug() {
+  if (!currentModel) return;
+  currentModel.traverse((obj) => {
+    if (!obj.isMesh) return;
+    const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+    for (const m of mats) {
+      if (!m) continue;
+      // Store originals on first touch so we can restore them.
+      if (m.userData._origNormal === undefined) {
+        m.userData._origNormal = m.normalMap || null;
+      }
+      m.normalMap = normalsEl.checked ? m.userData._origNormal : null;
+      m.wireframe = wireEl.checked;
+      m.needsUpdate = true;
+    }
+  });
+}
+normalsEl.addEventListener('change', applyMaterialDebug);
+wireEl.addEventListener('change', applyMaterialDebug);
+
+boot();
+</script>
+</body>
+</html>

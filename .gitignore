@@ -4,3 +4,12 @@
 # Heightmaps live in Webflow CMS — only the placements.json files need to
 # go to GitHub for jsDelivr. The PNGs stay local for viewer/map.html.
 maps_features/**/*.png
+
+# Python bytecode cache
+__pycache__/
+*.pyc
+
+# Temp work dirs from the feature extraction pipeline
+temp_features_extract/
+temp_features_extract_map/
+*.sd7

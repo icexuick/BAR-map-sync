@@ -1,0 +1,2769 @@
+{
+  "features": [
+    {
+      "name": "ad0_aleppo2_dense_dark_l",
+      "glb": "ad0_aleppo2_dense_dark_l/model.glb",
+      "size": 57464
+    },
+    {
+      "name": "ad0_aleppo2_dense_dark_m",
+      "glb": "ad0_aleppo2_dense_dark_m/model.glb",
+      "size": 57472
+    },
+    {
+      "name": "ad0_aleppo2_dense_dark_s",
+      "glb": "ad0_aleppo2_dense_dark_s/model.glb",
+      "size": 57464
+    },
+    {
+      "name": "ad0_aleppo2_dense_dark_xl",
+      "glb": "ad0_aleppo2_dense_dark_xl/model.glb",
+      "size": 57464
+    },
+    {
+      "name": "ad0_aleppo2_dense_dead_l",
+      "glb": "ad0_aleppo2_dense_dead_l/model.glb",
+      "size": 57464
+    },
+    {
+      "name": "ad0_aleppo2_dense_dead_m",
+      "glb": "ad0_aleppo2_dense_dead_m/model.glb",
+      "size": 57472
+    },
+    {
+      "name": "ad0_aleppo2_dense_dead_s",
+      "glb": "ad0_aleppo2_dense_dead_s/model.glb",
+      "size": 57472
+    },
+    {
+      "name": "ad0_aleppo2_dense_dead_xl",
+      "glb": "ad0_aleppo2_dense_dead_xl/model.glb",
+      "size": 57464
+    },
+    {
+      "name": "ad0_aleppo2_dense_light_l",
+      "glb": "ad0_aleppo2_dense_light_l/model.glb",
+      "size": 57472
+    },
+    {
+      "name": "ad0_aleppo2_dense_light_m",
+      "glb": "ad0_aleppo2_dense_light_m/model.glb",
+      "size": 57472
+    },
+    {
+      "name": "ad0_aleppo2_dense_light_s",
+      "glb": "ad0_aleppo2_dense_light_s/model.glb",
+      "size": 57476
+    },
+    {
+      "name": "ad0_aleppo2_dense_light_xl",
+      "glb": "ad0_aleppo2_dense_light_xl/model.glb",
+      "size": 57464
+    },
+    {
+      "name": "ad0_aleppo2_dense_med_l",
+      "glb": "ad0_aleppo2_dense_med_l/model.glb",
+      "size": 57460
+    },
+    {
+      "name": "ad0_aleppo2_dense_med_m",
+      "glb": "ad0_aleppo2_dense_med_m/model.glb",
+      "size": 57472
+    },
+    {
+      "name": "ad0_aleppo2_dense_med_s",
+      "glb": "ad0_aleppo2_dense_med_s/model.glb",
+      "size": 57472
+    },
+    {
+      "name": "ad0_aleppo2_dense_med_xl",
+      "glb": "ad0_aleppo2_dense_med_xl/model.glb",
+      "size": 57464
+    },
+    {
+      "name": "ad0_aleppo2_double_dark_l",
+      "glb": "ad0_aleppo2_double_dark_l/model.glb",
+      "size": 60388
+    },
+    {
+      "name": "ad0_aleppo2_double_dark_m",
+      "glb": "ad0_aleppo2_double_dark_m/model.glb",
+      "size": 60400
+    },
+    {
+      "name": "ad0_aleppo2_double_dark_s",
+      "glb": "ad0_aleppo2_double_dark_s/model.glb",
+      "size": 60404
+    },
+    {
+      "name": "ad0_aleppo2_double_dark_xl",
+      "glb": "ad0_aleppo2_double_dark_xl/model.glb",
+      "size": 60392
+    },
+    {
+      "name": "ad0_aleppo2_double_dead_l",
+      "glb": "ad0_aleppo2_double_dead_l/model.glb",
+      "size": 60388
+    },
+    {
+      "name": "ad0_aleppo2_double_dead_m",
+      "glb": "ad0_aleppo2_double_dead_m/model.glb",
+      "size": 60400
+    },
+    {
+      "name": "ad0_aleppo2_double_dead_s",
+      "glb": "ad0_aleppo2_double_dead_s/model.glb",
+      "size": 60404
+    },
+    {
+      "name": "ad0_aleppo2_double_dead_xl",
+      "glb": "ad0_aleppo2_double_dead_xl/model.glb",
+      "size": 60392
+    },
+    {
+      "name": "ad0_aleppo2_double_light_l",
+      "glb": "ad0_aleppo2_double_light_l/model.glb",
+      "size": 60400
+    },
+    {
+      "name": "ad0_aleppo2_double_light_m",
+      "glb": "ad0_aleppo2_double_light_m/model.glb",
+      "size": 60400
+    },
+    {
+      "name": "ad0_aleppo2_double_light_s",
+      "glb": "ad0_aleppo2_double_light_s/model.glb",
+      "size": 60404
+    },
+    {
+      "name": "ad0_aleppo2_double_light_xl",
+      "glb": "ad0_aleppo2_double_light_xl/model.glb",
+      "size": 60392
+    },
+    {
+      "name": "ad0_aleppo2_double_med_l",
+      "glb": "ad0_aleppo2_double_med_l/model.glb",
+      "size": 60396
+    },
+    {
+      "name": "ad0_aleppo2_double_med_m",
+      "glb": "ad0_aleppo2_double_med_m/model.glb",
+      "size": 60400
+    },
+    {
+      "name": "ad0_aleppo2_double_med_s",
+      "glb": "ad0_aleppo2_double_med_s/model.glb",
+      "size": 60400
+    },
+    {
+      "name": "ad0_aleppo2_double_med_xl",
+      "glb": "ad0_aleppo2_double_med_xl/model.glb",
+      "size": 60392
+    },
+    {
+      "name": "ad0_aleppo2_sparse_dark_l",
+      "glb": "ad0_aleppo2_sparse_dark_l/model.glb",
+      "size": 31060
+    },
+    {
+      "name": "ad0_aleppo2_sparse_dark_m",
+      "glb": "ad0_aleppo2_sparse_dark_m/model.glb",
+      "size": 31068
+    },
+    {
+      "name": "ad0_aleppo2_sparse_dark_s",
+      "glb": "ad0_aleppo2_sparse_dark_s/model.glb",
+      "size": 31068
+    },
+    {
+      "name": "ad0_aleppo2_sparse_dark_xl",
+      "glb": "ad0_aleppo2_sparse_dark_xl/model.glb",
+      "size": 31060
+    },
+    {
+      "name": "ad0_aleppo2_sparse_dead_l",
+      "glb": "ad0_aleppo2_sparse_dead_l/model.glb",
+      "size": 31060
+    },
+    {
+      "name": "ad0_aleppo2_sparse_dead_m",
+      "glb": "ad0_aleppo2_sparse_dead_m/model.glb",
+      "size": 31068
+    },
+    {
+      "name": "ad0_aleppo2_sparse_dead_s",
+      "glb": "ad0_aleppo2_sparse_dead_s/model.glb",
+      "size": 31068
+    },
+    {
+      "name": "ad0_aleppo2_sparse_dead_xl",
+      "glb": "ad0_aleppo2_sparse_dead_xl/model.glb",
+      "size": 31060
+    },
+    {
+      "name": "ad0_aleppo2_sparse_light_l",
+      "glb": "ad0_aleppo2_sparse_light_l/model.glb",
+      "size": 31068
+    },
+    {
+      "name": "ad0_aleppo2_sparse_light_m",
+      "glb": "ad0_aleppo2_sparse_light_m/model.glb",
+      "size": 31072
+    },
+    {
+      "name": "ad0_aleppo2_sparse_light_s",
+      "glb": "ad0_aleppo2_sparse_light_s/model.glb",
+      "size": 31072
+    },
+    {
+      "name": "ad0_aleppo2_sparse_light_xl",
+      "glb": "ad0_aleppo2_sparse_light_xl/model.glb",
+      "size": 31060
+    },
+    {
+      "name": "ad0_aleppo2_sparse_med_l",
+      "glb": "ad0_aleppo2_sparse_med_l/model.glb",
+      "size": 31068
+    },
+    {
+      "name": "ad0_aleppo2_sparse_med_m",
+      "glb": "ad0_aleppo2_sparse_med_m/model.glb",
+      "size": 31068
+    },
+    {
+      "name": "ad0_aleppo2_sparse_med_s",
+      "glb": "ad0_aleppo2_sparse_med_s/model.glb",
+      "size": 31068
+    },
+    {
+      "name": "ad0_aleppo2_sparse_med_xl",
+      "glb": "ad0_aleppo2_sparse_med_xl/model.glb",
+      "size": 31056
+    },
+    {
+      "name": "ad0_banyan_2",
+      "glb": "ad0_banyan_2/model.glb",
+      "size": 30728
+    },
+    {
+      "name": "ad0_banyan_5",
+      "glb": "ad0_banyan_5/model.glb",
+      "size": 26144
+    },
+    {
+      "name": "ad0_banyan_6",
+      "glb": "ad0_banyan_6/model.glb",
+      "size": 30620
+    },
+    {
+      "name": "ad0_senegal_1",
+      "glb": "ad0_senegal_1/model.glb",
+      "size": 31384
+    },
+    {
+      "name": "ad0_senegal_1_large",
+      "glb": "ad0_senegal_1_large/model.glb",
+      "size": 31352
+    },
+    {
+      "name": "ad0_senegal_2",
+      "glb": "ad0_senegal_2/model.glb",
+      "size": 52916
+    },
+    {
+      "name": "ad0_senegal_2_large",
+      "glb": "ad0_senegal_2_large/model.glb",
+      "size": 52884
+    },
+    {
+      "name": "ad0_senegal_3",
+      "glb": "ad0_senegal_3/model.glb",
+      "size": 48860
+    },
+    {
+      "name": "ad0_senegal_3_large",
+      "glb": "ad0_senegal_3_large/model.glb",
+      "size": 48864
+    },
+    {
+      "name": "ad0_senegal_4",
+      "glb": "ad0_senegal_4/model.glb",
+      "size": 25732
+    },
+    {
+      "name": "ad0_senegal_4_large",
+      "glb": "ad0_senegal_4_large/model.glb",
+      "size": 25736
+    },
+    {
+      "name": "ad0_senegal_5",
+      "glb": "ad0_senegal_5/model.glb",
+      "size": 28852
+    },
+    {
+      "name": "ad0_senegal_5_large",
+      "glb": "ad0_senegal_5_large/model.glb",
+      "size": 28856
+    },
+    {
+      "name": "ad0_senegal_6",
+      "glb": "ad0_senegal_6/model.glb",
+      "size": 28852
+    },
+    {
+      "name": "ad0_senegal_6_large",
+      "glb": "ad0_senegal_6_large/model.glb",
+      "size": 28856
+    },
+    {
+      "name": "ad0_senegal_7",
+      "glb": "ad0_senegal_7/model.glb",
+      "size": 31344
+    },
+    {
+      "name": "ad0_senegal_7_large",
+      "glb": "ad0_senegal_7_large/model.glb",
+      "size": 31348
+    },
+    {
+      "name": "agorm_rock1",
+      "glb": "agorm_rock1/model.glb",
+      "size": 76024
+    },
+    {
+      "name": "agorm_rock2",
+      "glb": "agorm_rock2/model.glb",
+      "size": 76024
+    },
+    {
+      "name": "agorm_rock3",
+      "glb": "agorm_rock3/model.glb",
+      "size": 76024
+    },
+    {
+      "name": "agorm_rock4",
+      "glb": "agorm_rock4/model.glb",
+      "size": 80412
+    },
+    {
+      "name": "agorm_rock5",
+      "glb": "agorm_rock5/model.glb",
+      "size": 92512
+    },
+    {
+      "name": "allpinesb_ad0_brown_a_l",
+      "glb": "allpinesb_ad0_brown_a_l/model.glb",
+      "size": 29888
+    },
+    {
+      "name": "allpinesb_ad0_brown_a_m",
+      "glb": "allpinesb_ad0_brown_a_m/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_brown_a_s",
+      "glb": "allpinesb_ad0_brown_a_s/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_brown_a_xl",
+      "glb": "allpinesb_ad0_brown_a_xl/model.glb",
+      "size": 29940
+    },
+    {
+      "name": "allpinesb_ad0_brown_a_xs",
+      "glb": "allpinesb_ad0_brown_a_xs/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_brown_a_xxl",
+      "glb": "allpinesb_ad0_brown_a_xxl/model.glb",
+      "size": 29972
+    },
+    {
+      "name": "allpinesb_ad0_brown_b_l",
+      "glb": "allpinesb_ad0_brown_b_l/model.glb",
+      "size": 29888
+    },
+    {
+      "name": "allpinesb_ad0_brown_b_m",
+      "glb": "allpinesb_ad0_brown_b_m/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_brown_b_s",
+      "glb": "allpinesb_ad0_brown_b_s/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_brown_b_xl",
+      "glb": "allpinesb_ad0_brown_b_xl/model.glb",
+      "size": 29892
+    },
+    {
+      "name": "allpinesb_ad0_brown_b_xs",
+      "glb": "allpinesb_ad0_brown_b_xs/model.glb",
+      "size": 23924
+    },
+    {
+      "name": "allpinesb_ad0_brown_b_xxl",
+      "glb": "allpinesb_ad0_brown_b_xxl/model.glb",
+      "size": 29928
+    },
+    {
+      "name": "allpinesb_ad0_brown_c_l",
+      "glb": "allpinesb_ad0_brown_c_l/model.glb",
+      "size": 30416
+    },
+    {
+      "name": "allpinesb_ad0_brown_c_m",
+      "glb": "allpinesb_ad0_brown_c_m/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_brown_c_s",
+      "glb": "allpinesb_ad0_brown_c_s/model.glb",
+      "size": 23888
+    },
+    {
+      "name": "allpinesb_ad0_brown_c_xl",
+      "glb": "allpinesb_ad0_brown_c_xl/model.glb",
+      "size": 30444
+    },
+    {
+      "name": "allpinesb_ad0_brown_c_xs",
+      "glb": "allpinesb_ad0_brown_c_xs/model.glb",
+      "size": 23876
+    },
+    {
+      "name": "allpinesb_ad0_brown_c_xxl",
+      "glb": "allpinesb_ad0_brown_c_xxl/model.glb",
+      "size": 30420
+    },
+    {
+      "name": "allpinesb_ad0_green_a_l",
+      "glb": "allpinesb_ad0_green_a_l/model.glb",
+      "size": 29936
+    },
+    {
+      "name": "allpinesb_ad0_green_a_m",
+      "glb": "allpinesb_ad0_green_a_m/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_green_a_s",
+      "glb": "allpinesb_ad0_green_a_s/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_green_a_xl",
+      "glb": "allpinesb_ad0_green_a_xl/model.glb",
+      "size": 29928
+    },
+    {
+      "name": "allpinesb_ad0_green_a_xs",
+      "glb": "allpinesb_ad0_green_a_xs/model.glb",
+      "size": 23876
+    },
+    {
+      "name": "allpinesb_ad0_green_a_xxl",
+      "glb": "allpinesb_ad0_green_a_xxl/model.glb",
+      "size": 29972
+    },
+    {
+      "name": "allpinesb_ad0_green_b_l",
+      "glb": "allpinesb_ad0_green_b_l/model.glb",
+      "size": 29888
+    },
+    {
+      "name": "allpinesb_ad0_green_b_m",
+      "glb": "allpinesb_ad0_green_b_m/model.glb",
+      "size": 23888
+    },
+    {
+      "name": "allpinesb_ad0_green_b_s",
+      "glb": "allpinesb_ad0_green_b_s/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_green_b_xl",
+      "glb": "allpinesb_ad0_green_b_xl/model.glb",
+      "size": 29888
+    },
+    {
+      "name": "allpinesb_ad0_green_b_xs",
+      "glb": "allpinesb_ad0_green_b_xs/model.glb",
+      "size": 23876
+    },
+    {
+      "name": "allpinesb_ad0_green_b_xxl",
+      "glb": "allpinesb_ad0_green_b_xxl/model.glb",
+      "size": 29888
+    },
+    {
+      "name": "allpinesb_ad0_green_c_l",
+      "glb": "allpinesb_ad0_green_c_l/model.glb",
+      "size": 30416
+    },
+    {
+      "name": "allpinesb_ad0_green_c_m",
+      "glb": "allpinesb_ad0_green_c_m/model.glb",
+      "size": 23836
+    },
+    {
+      "name": "allpinesb_ad0_green_c_s",
+      "glb": "allpinesb_ad0_green_c_s/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_green_c_xl",
+      "glb": "allpinesb_ad0_green_c_xl/model.glb",
+      "size": 30420
+    },
+    {
+      "name": "allpinesb_ad0_green_c_xs",
+      "glb": "allpinesb_ad0_green_c_xs/model.glb",
+      "size": 23924
+    },
+    {
+      "name": "allpinesb_ad0_green_c_xxl",
+      "glb": "allpinesb_ad0_green_c_xxl/model.glb",
+      "size": 30456
+    },
+    {
+      "name": "allpinesb_ad0_snow_a_l",
+      "glb": "allpinesb_ad0_snow_a_l/model.glb",
+      "size": 29884
+    },
+    {
+      "name": "allpinesb_ad0_snow_a_m",
+      "glb": "allpinesb_ad0_snow_a_m/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_snow_a_s",
+      "glb": "allpinesb_ad0_snow_a_s/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_snow_a_xl",
+      "glb": "allpinesb_ad0_snow_a_xl/model.glb",
+      "size": 29936
+    },
+    {
+      "name": "allpinesb_ad0_snow_a_xs",
+      "glb": "allpinesb_ad0_snow_a_xs/model.glb",
+      "size": 23836
+    },
+    {
+      "name": "allpinesb_ad0_snow_a_xxl",
+      "glb": "allpinesb_ad0_snow_a_xxl/model.glb",
+      "size": 29888
+    },
+    {
+      "name": "allpinesb_ad0_snow_b_l",
+      "glb": "allpinesb_ad0_snow_b_l/model.glb",
+      "size": 29884
+    },
+    {
+      "name": "allpinesb_ad0_snow_b_m",
+      "glb": "allpinesb_ad0_snow_b_m/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_snow_b_s",
+      "glb": "allpinesb_ad0_snow_b_s/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_snow_b_xl",
+      "glb": "allpinesb_ad0_snow_b_xl/model.glb",
+      "size": 29888
+    },
+    {
+      "name": "allpinesb_ad0_snow_b_xs",
+      "glb": "allpinesb_ad0_snow_b_xs/model.glb",
+      "size": 23836
+    },
+    {
+      "name": "allpinesb_ad0_snow_b_xxl",
+      "glb": "allpinesb_ad0_snow_b_xxl/model.glb",
+      "size": 29884
+    },
+    {
+      "name": "allpinesb_ad0_snow_c_l",
+      "glb": "allpinesb_ad0_snow_c_l/model.glb",
+      "size": 30412
+    },
+    {
+      "name": "allpinesb_ad0_snow_c_m",
+      "glb": "allpinesb_ad0_snow_c_m/model.glb",
+      "size": 23888
+    },
+    {
+      "name": "allpinesb_ad0_snow_c_s",
+      "glb": "allpinesb_ad0_snow_c_s/model.glb",
+      "size": 23840
+    },
+    {
+      "name": "allpinesb_ad0_snow_c_xl",
+      "glb": "allpinesb_ad0_snow_c_xl/model.glb",
+      "size": 30416
+    },
+    {
+      "name": "allpinesb_ad0_snow_c_xs",
+      "glb": "allpinesb_ad0_snow_c_xs/model.glb",
+      "size": 23888
+    },
+    {
+      "name": "allpinesb_ad0_snow_c_xxl",
+      "glb": "allpinesb_ad0_snow_c_xxl/model.glb",
+      "size": 30416
+    },
+    {
+      "name": "allpinesb_ad0_snowgreen_b_s",
+      "glb": "allpinesb_ad0_snowgreen_b_s/model.glb",
+      "size": 23848
+    },
+    {
+      "name": "anemone1",
+      "glb": "anemone1/model.glb",
+      "size": 194304
+    },
+    {
+      "name": "anemone2",
+      "glb": "anemone2/model.glb",
+      "size": 201136
+    },
+    {
+      "name": "anemone3",
+      "glb": "anemone3/model.glb",
+      "size": 207460
+    },
+    {
+      "name": "anemone4",
+      "glb": "anemone4/model.glb",
+      "size": 214672
+    },
+    {
+      "name": "anemone5",
+      "glb": "anemone5/model.glb",
+      "size": 215584
+    },
+    {
+      "name": "anemone6",
+      "glb": "anemone6/model.glb",
+      "size": 216204
+    },
+    {
+      "name": "berry_bush_01__berry_bush_01",
+      "glb": "berry_bush_01__berry_bush_01/model.glb",
+      "size": 27316
+    },
+    {
+      "name": "berry_bush_01__berry_bush_02",
+      "glb": "berry_bush_01__berry_bush_02/model.glb",
+      "size": 27316
+    },
+    {
+      "name": "berry_bush_02__berry_bush_01",
+      "glb": "berry_bush_02__berry_bush_01/model.glb",
+      "size": 34732
+    },
+    {
+      "name": "bush_dese_a_1__bush_dese_a",
+      "glb": "bush_dese_a_1__bush_dese_a/model.glb",
+      "size": 2304
+    },
+    {
+      "name": "bush_dese_a_1__bush_dese_dry_b",
+      "glb": "bush_dese_a_1__bush_dese_dry_b/model.glb",
+      "size": 2308
+    },
+    {
+      "name": "bush_dese_a_2__bush_dese_dry_b",
+      "glb": "bush_dese_a_2__bush_dese_dry_b/model.glb",
+      "size": 2016
+    },
+    {
+      "name": "bush_dese_dry2_a",
+      "glb": "bush_dese_dry2_a/model.glb",
+      "size": 2008
+    },
+    {
+      "name": "bush_dese_dry2_b",
+      "glb": "bush_dese_dry2_b/model.glb",
+      "size": 2012
+    },
+    {
+      "name": "bush_dese_dry2_c",
+      "glb": "bush_dese_dry2_c/model.glb",
+      "size": 2004
+    },
+    {
+      "name": "bush_dese_dry_a",
+      "glb": "bush_dese_dry_a/model.glb",
+      "size": 2304
+    },
+    {
+      "name": "bush_dese_dry_b",
+      "glb": "bush_dese_dry_b/model.glb",
+      "size": 2308
+    },
+    {
+      "name": "bush_dese_dry_c",
+      "glb": "bush_dese_dry_c/model.glb",
+      "size": 2300
+    },
+    {
+      "name": "bush_grapes_prop__trunk_deciduous_b",
+      "glb": "bush_grapes_prop__trunk_deciduous_b/model.glb",
+      "size": 4772
+    },
+    {
+      "name": "cedar_atlas_1__cedar_atlas_1",
+      "glb": "cedar_atlas_1__cedar_atlas_1/model.glb",
+      "size": 34356
+    },
+    {
+      "name": "cedar_atlas_1__cedar_atlas_2",
+      "glb": "cedar_atlas_1__cedar_atlas_2/model.glb",
+      "size": 34352
+    },
+    {
+      "name": "cedar_atlas_1__cedar_atlas_dead",
+      "glb": "cedar_atlas_1__cedar_atlas_dead/model.glb",
+      "size": 34356
+    },
+    {
+      "name": "cedar_atlas_2__cedar_atlas_1",
+      "glb": "cedar_atlas_2__cedar_atlas_1/model.glb",
+      "size": 31380
+    },
+    {
+      "name": "cedar_atlas_2__cedar_atlas_2",
+      "glb": "cedar_atlas_2__cedar_atlas_2/model.glb",
+      "size": 31380
+    },
+    {
+      "name": "cedar_atlas_2__cedar_atlas_dead",
+      "glb": "cedar_atlas_2__cedar_atlas_dead/model.glb",
+      "size": 31384
+    },
+    {
+      "name": "cedar_atlas_3__cedar_atlas_1",
+      "glb": "cedar_atlas_3__cedar_atlas_1/model.glb",
+      "size": 29796
+    },
+    {
+      "name": "cedar_atlas_3__cedar_atlas_2",
+      "glb": "cedar_atlas_3__cedar_atlas_2/model.glb",
+      "size": 29796
+    },
+    {
+      "name": "cedar_atlas_3__cedar_atlas_dead",
+      "glb": "cedar_atlas_3__cedar_atlas_dead/model.glb",
+      "size": 29800
+    },
+    {
+      "name": "cedar_atlas_sapling_1__cedar_atlas_2",
+      "glb": "cedar_atlas_sapling_1__cedar_atlas_2/model.glb",
+      "size": 9496
+    },
+    {
+      "name": "cedar_atlas_young_1__cedar_atlas_1",
+      "glb": "cedar_atlas_young_1__cedar_atlas_1/model.glb",
+      "size": 28024
+    },
+    {
+      "name": "cedar_atlas_young_1__cedar_atlas_2",
+      "glb": "cedar_atlas_young_1__cedar_atlas_2/model.glb",
+      "size": 28028
+    },
+    {
+      "name": "cedar_atlas_young_2__cedar_atlas_1",
+      "glb": "cedar_atlas_young_2__cedar_atlas_1/model.glb",
+      "size": 22096
+    },
+    {
+      "name": "cedar_atlas_young_2__cedar_atlas_2",
+      "glb": "cedar_atlas_young_2__cedar_atlas_2/model.glb",
+      "size": 22096
+    },
+    {
+      "name": "cedar_atlas_young_3__cedar_atlas_1",
+      "glb": "cedar_atlas_young_3__cedar_atlas_1/model.glb",
+      "size": 25532
+    },
+    {
+      "name": "cedar_atlas_young_3__cedar_atlas_2",
+      "glb": "cedar_atlas_young_3__cedar_atlas_2/model.glb",
+      "size": 25532
+    },
+    {
+      "name": "cycas1",
+      "glb": "cycas1/model.glb",
+      "size": 56616
+    },
+    {
+      "name": "cycas2",
+      "glb": "cycas2/model.glb",
+      "size": 16992
+    },
+    {
+      "name": "cycas3",
+      "glb": "cycas3/model.glb",
+      "size": 27412
+    },
+    {
+      "name": "cycas4",
+      "glb": "cycas4/model.glb",
+      "size": 40372
+    },
+    {
+      "name": "cycas5",
+      "glb": "cycas5/model.glb",
+      "size": 30340
+    },
+    {
+      "name": "cycas6",
+      "glb": "cycas6/model.glb",
+      "size": 19024
+    },
+    {
+      "name": "cycas7",
+      "glb": "cycas7/model.glb",
+      "size": 29668
+    },
+    {
+      "name": "cycas8",
+      "glb": "cycas8/model.glb",
+      "size": 42356
+    },
+    {
+      "name": "dead_tree_trunk",
+      "glb": "dead_tree_trunk/model.glb",
+      "size": 16172
+    },
+    {
+      "name": "euro_birch_tree_01_1",
+      "glb": "euro_birch_tree_01_1/model.glb",
+      "size": 45868
+    },
+    {
+      "name": "euro_birch_tree_01_2",
+      "glb": "euro_birch_tree_01_2/model.glb",
+      "size": 45868
+    },
+    {
+      "name": "euro_birch_tree_01_3",
+      "glb": "euro_birch_tree_01_3/model.glb",
+      "size": 45868
+    },
+    {
+      "name": "euro_birch_tree_01_4",
+      "glb": "euro_birch_tree_01_4/model.glb",
+      "size": 45868
+    },
+    {
+      "name": "euro_birch_tree_02_1",
+      "glb": "euro_birch_tree_02_1/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_02_2",
+      "glb": "euro_birch_tree_02_2/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_02_3",
+      "glb": "euro_birch_tree_02_3/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_02_4",
+      "glb": "euro_birch_tree_02_4/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_03_1",
+      "glb": "euro_birch_tree_03_1/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_03_2",
+      "glb": "euro_birch_tree_03_2/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_03_3",
+      "glb": "euro_birch_tree_03_3/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_03_4",
+      "glb": "euro_birch_tree_03_4/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_04_1",
+      "glb": "euro_birch_tree_04_1/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_04_2",
+      "glb": "euro_birch_tree_04_2/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_04_3",
+      "glb": "euro_birch_tree_04_3/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_04_4",
+      "glb": "euro_birch_tree_04_4/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_05_1",
+      "glb": "euro_birch_tree_05_1/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_05_2",
+      "glb": "euro_birch_tree_05_2/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_05_3",
+      "glb": "euro_birch_tree_05_3/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_05_4",
+      "glb": "euro_birch_tree_05_4/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_06_1",
+      "glb": "euro_birch_tree_06_1/model.glb",
+      "size": 45868
+    },
+    {
+      "name": "euro_birch_tree_06_2",
+      "glb": "euro_birch_tree_06_2/model.glb",
+      "size": 45868
+    },
+    {
+      "name": "euro_birch_tree_06_3",
+      "glb": "euro_birch_tree_06_3/model.glb",
+      "size": 45868
+    },
+    {
+      "name": "euro_birch_tree_06_4",
+      "glb": "euro_birch_tree_06_4/model.glb",
+      "size": 45868
+    },
+    {
+      "name": "euro_birch_tree_07_1",
+      "glb": "euro_birch_tree_07_1/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_07_2",
+      "glb": "euro_birch_tree_07_2/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_07_3",
+      "glb": "euro_birch_tree_07_3/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_07_4",
+      "glb": "euro_birch_tree_07_4/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_08_1",
+      "glb": "euro_birch_tree_08_1/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_08_2",
+      "glb": "euro_birch_tree_08_2/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_08_3",
+      "glb": "euro_birch_tree_08_3/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "euro_birch_tree_08_4",
+      "glb": "euro_birch_tree_08_4/model.glb",
+      "size": 45864
+    },
+    {
+      "name": "fir_sapling_1__cedar_atlas_2",
+      "glb": "fir_sapling_1__cedar_atlas_2/model.glb",
+      "size": 6116
+    },
+    {
+      "name": "fir_sapling_2__cedar_atlas_2",
+      "glb": "fir_sapling_2__cedar_atlas_2/model.glb",
+      "size": 5972
+    },
+    {
+      "name": "fir_tree_small_1__tree_fir_tall_1",
+      "glb": "fir_tree_small_1__tree_fir_tall_1/model.glb",
+      "size": 30840
+    },
+    {
+      "name": "fir_tree_small_1__tree_fir_tall_2",
+      "glb": "fir_tree_small_1__tree_fir_tall_2/model.glb",
+      "size": 30840
+    },
+    {
+      "name": "fir_tree_small_1__tree_fir_tall_3",
+      "glb": "fir_tree_small_1__tree_fir_tall_3/model.glb",
+      "size": 30856
+    },
+    {
+      "name": "fir_tree_small_1__tree_fir_tall_4",
+      "glb": "fir_tree_small_1__tree_fir_tall_4/model.glb",
+      "size": 30856
+    },
+    {
+      "name": "fir_tree_small_1__tree_fir_tall_5",
+      "glb": "fir_tree_small_1__tree_fir_tall_5/model.glb",
+      "size": 30840
+    },
+    {
+      "name": "fir_tree_small_2__tree_fir_tall_1",
+      "glb": "fir_tree_small_2__tree_fir_tall_1/model.glb",
+      "size": 29068
+    },
+    {
+      "name": "fir_tree_small_2__tree_fir_tall_2",
+      "glb": "fir_tree_small_2__tree_fir_tall_2/model.glb",
+      "size": 29068
+    },
+    {
+      "name": "fir_tree_small_2__tree_fir_tall_3",
+      "glb": "fir_tree_small_2__tree_fir_tall_3/model.glb",
+      "size": 29080
+    },
+    {
+      "name": "fir_tree_small_2__tree_fir_tall_4",
+      "glb": "fir_tree_small_2__tree_fir_tall_4/model.glb",
+      "size": 29080
+    },
+    {
+      "name": "fir_tree_small_2__tree_fir_tall_5",
+      "glb": "fir_tree_small_2__tree_fir_tall_5/model.glb",
+      "size": 29068
+    },
+    {
+      "name": "fir_tree_small_3__tree_fir_tall_1",
+      "glb": "fir_tree_small_3__tree_fir_tall_1/model.glb",
+      "size": 33964
+    },
+    {
+      "name": "fir_tree_small_3__tree_fir_tall_2",
+      "glb": "fir_tree_small_3__tree_fir_tall_2/model.glb",
+      "size": 33964
+    },
+    {
+      "name": "fir_tree_small_3__tree_fir_tall_3",
+      "glb": "fir_tree_small_3__tree_fir_tall_3/model.glb",
+      "size": 33976
+    },
+    {
+      "name": "fir_tree_small_3__tree_fir_tall_4",
+      "glb": "fir_tree_small_3__tree_fir_tall_4/model.glb",
+      "size": 33976
+    },
+    {
+      "name": "fir_tree_small_3__tree_fir_tall_5",
+      "glb": "fir_tree_small_3__tree_fir_tall_5/model.glb",
+      "size": 33964
+    },
+    {
+      "name": "fir_tree_tall_1__tree_fir_tall_1",
+      "glb": "fir_tree_tall_1__tree_fir_tall_1/model.glb",
+      "size": 30840
+    },
+    {
+      "name": "fir_tree_tall_1__tree_fir_tall_2",
+      "glb": "fir_tree_tall_1__tree_fir_tall_2/model.glb",
+      "size": 30840
+    },
+    {
+      "name": "fir_tree_tall_1__tree_fir_tall_3",
+      "glb": "fir_tree_tall_1__tree_fir_tall_3/model.glb",
+      "size": 30856
+    },
+    {
+      "name": "fir_tree_tall_1__tree_fir_tall_4",
+      "glb": "fir_tree_tall_1__tree_fir_tall_4/model.glb",
+      "size": 30856
+    },
+    {
+      "name": "fir_tree_tall_1__tree_fir_tall_5",
+      "glb": "fir_tree_tall_1__tree_fir_tall_5/model.glb",
+      "size": 30840
+    },
+    {
+      "name": "fir_tree_tall_2__tree_fir_tall_1",
+      "glb": "fir_tree_tall_2__tree_fir_tall_1/model.glb",
+      "size": 30844
+    },
+    {
+      "name": "fir_tree_tall_2__tree_fir_tall_2",
+      "glb": "fir_tree_tall_2__tree_fir_tall_2/model.glb",
+      "size": 30844
+    },
+    {
+      "name": "fir_tree_tall_2__tree_fir_tall_3",
+      "glb": "fir_tree_tall_2__tree_fir_tall_3/model.glb",
+      "size": 30856
+    },
+    {
+      "name": "fir_tree_tall_2__tree_fir_tall_4",
+      "glb": "fir_tree_tall_2__tree_fir_tall_4/model.glb",
+      "size": 30856
+    },
+    {
+      "name": "fir_tree_tall_2__tree_fir_tall_5",
+      "glb": "fir_tree_tall_2__tree_fir_tall_5/model.glb",
+      "size": 30844
+    },
+    {
+      "name": "fir_tree_tall_3__tree_fir_tall_1",
+      "glb": "fir_tree_tall_3__tree_fir_tall_1/model.glb",
+      "size": 35064
+    },
+    {
+      "name": "fir_tree_tall_3__tree_fir_tall_2",
+      "glb": "fir_tree_tall_3__tree_fir_tall_2/model.glb",
+      "size": 35064
+    },
+    {
+      "name": "fir_tree_tall_3__tree_fir_tall_3",
+      "glb": "fir_tree_tall_3__tree_fir_tall_3/model.glb",
+      "size": 35080
+    },
+    {
+      "name": "fir_tree_tall_3__tree_fir_tall_4",
+      "glb": "fir_tree_tall_3__tree_fir_tall_4/model.glb",
+      "size": 35080
+    },
+    {
+      "name": "fir_tree_tall_3__tree_fir_tall_5",
+      "glb": "fir_tree_tall_3__tree_fir_tall_5/model.glb",
+      "size": 35064
+    },
+    {
+      "name": "fir_tree_tall_4__tree_fir_tall_1",
+      "glb": "fir_tree_tall_4__tree_fir_tall_1/model.glb",
+      "size": 29064
+    },
+    {
+      "name": "fir_tree_tall_4__tree_fir_tall_2",
+      "glb": "fir_tree_tall_4__tree_fir_tall_2/model.glb",
+      "size": 29064
+    },
+    {
+      "name": "fir_tree_tall_4__tree_fir_tall_3",
+      "glb": "fir_tree_tall_4__tree_fir_tall_3/model.glb",
+      "size": 29080
+    },
+    {
+      "name": "fir_tree_tall_4__tree_fir_tall_4",
+      "glb": "fir_tree_tall_4__tree_fir_tall_4/model.glb",
+      "size": 29080
+    },
+    {
+      "name": "fir_tree_tall_4__tree_fir_tall_5",
+      "glb": "fir_tree_tall_4__tree_fir_tall_5/model.glb",
+      "size": 29064
+    },
+    {
+      "name": "fir_tree_tall_5__tree_fir_tall_1",
+      "glb": "fir_tree_tall_5__tree_fir_tall_1/model.glb",
+      "size": 33960
+    },
+    {
+      "name": "fir_tree_tall_5__tree_fir_tall_2",
+      "glb": "fir_tree_tall_5__tree_fir_tall_2/model.glb",
+      "size": 33960
+    },
+    {
+      "name": "fir_tree_tall_5__tree_fir_tall_3",
+      "glb": "fir_tree_tall_5__tree_fir_tall_3/model.glb",
+      "size": 33976
+    },
+    {
+      "name": "fir_tree_tall_5__tree_fir_tall_4",
+      "glb": "fir_tree_tall_5__tree_fir_tall_4/model.glb",
+      "size": 33976
+    },
+    {
+      "name": "fir_tree_tall_5__tree_fir_tall_5",
+      "glb": "fir_tree_tall_5__tree_fir_tall_5/model.glb",
+      "size": 33960
+    },
+    {
+      "name": "fir_tree_tall_6__tree_fir_tall_1",
+      "glb": "fir_tree_tall_6__tree_fir_tall_1/model.glb",
+      "size": 34152
+    },
+    {
+      "name": "fir_tree_tall_6__tree_fir_tall_2",
+      "glb": "fir_tree_tall_6__tree_fir_tall_2/model.glb",
+      "size": 34152
+    },
+    {
+      "name": "fir_tree_tall_6__tree_fir_tall_3",
+      "glb": "fir_tree_tall_6__tree_fir_tall_3/model.glb",
+      "size": 34164
+    },
+    {
+      "name": "fir_tree_tall_6__tree_fir_tall_4",
+      "glb": "fir_tree_tall_6__tree_fir_tall_4/model.glb",
+      "size": 34164
+    },
+    {
+      "name": "fir_tree_tall_6__tree_fir_tall_5",
+      "glb": "fir_tree_tall_6__tree_fir_tall_5/model.glb",
+      "size": 34152
+    },
+    {
+      "name": "fir_tree_tall_7__tree_fir_tall_1",
+      "glb": "fir_tree_tall_7__tree_fir_tall_1/model.glb",
+      "size": 35064
+    },
+    {
+      "name": "fir_tree_tall_7__tree_fir_tall_2",
+      "glb": "fir_tree_tall_7__tree_fir_tall_2/model.glb",
+      "size": 35064
+    },
+    {
+      "name": "fir_tree_tall_7__tree_fir_tall_3",
+      "glb": "fir_tree_tall_7__tree_fir_tall_3/model.glb",
+      "size": 35080
+    },
+    {
+      "name": "fir_tree_tall_7__tree_fir_tall_4",
+      "glb": "fir_tree_tall_7__tree_fir_tall_4/model.glb",
+      "size": 35080
+    },
+    {
+      "name": "fir_tree_tall_7__tree_fir_tall_5",
+      "glb": "fir_tree_tall_7__tree_fir_tall_5/model.glb",
+      "size": 35064
+    },
+    {
+      "name": "fir_tree_tall_8__tree_fir_tall_1",
+      "glb": "fir_tree_tall_8__tree_fir_tall_1/model.glb",
+      "size": 35064
+    },
+    {
+      "name": "fir_tree_tall_8__tree_fir_tall_2",
+      "glb": "fir_tree_tall_8__tree_fir_tall_2/model.glb",
+      "size": 35064
+    },
+    {
+      "name": "fir_tree_tall_8__tree_fir_tall_3",
+      "glb": "fir_tree_tall_8__tree_fir_tall_3/model.glb",
+      "size": 35076
+    },
+    {
+      "name": "fir_tree_tall_8__tree_fir_tall_4",
+      "glb": "fir_tree_tall_8__tree_fir_tall_4/model.glb",
+      "size": 35076
+    },
+    {
+      "name": "fir_tree_tall_8__tree_fir_tall_5",
+      "glb": "fir_tree_tall_8__tree_fir_tall_5/model.glb",
+      "size": 35064
+    },
+    {
+      "name": "gasbag_tree1",
+      "glb": "gasbag_tree1/model.glb",
+      "size": 129896
+    },
+    {
+      "name": "gasbag_tree2",
+      "glb": "gasbag_tree2/model.glb",
+      "size": 154392
+    },
+    {
+      "name": "gasbag_tree3",
+      "glb": "gasbag_tree3/model.glb",
+      "size": 128172
+    },
+    {
+      "name": "gasbag_tree4",
+      "glb": "gasbag_tree4/model.glb",
+      "size": 151656
+    },
+    {
+      "name": "gasbag_tree5",
+      "glb": "gasbag_tree5/model.glb",
+      "size": 132540
+    },
+    {
+      "name": "gasbag_tree6",
+      "glb": "gasbag_tree6/model.glb",
+      "size": 130124
+    },
+    {
+      "name": "kapok1",
+      "glb": "kapok1/model.glb",
+      "size": 103736
+    },
+    {
+      "name": "kapok2",
+      "glb": "kapok2/model.glb",
+      "size": 103732
+    },
+    {
+      "name": "kapok3",
+      "glb": "kapok3/model.glb",
+      "size": 92752
+    },
+    {
+      "name": "kapok4",
+      "glb": "kapok4/model.glb",
+      "size": 92752
+    },
+    {
+      "name": "meow",
+      "glb": "meow/model.glb",
+      "size": 364448
+    },
+    {
+      "name": "mushroom01",
+      "glb": "mushroom01/model.glb",
+      "size": 5076
+    },
+    {
+      "name": "mushroom02",
+      "glb": "mushroom02/model.glb",
+      "size": 8384
+    },
+    {
+      "name": "mushroom03",
+      "glb": "mushroom03/model.glb",
+      "size": 8384
+    },
+    {
+      "name": "mushroom04",
+      "glb": "mushroom04/model.glb",
+      "size": 8420
+    },
+    {
+      "name": "mushroom05",
+      "glb": "mushroom05/model.glb",
+      "size": 14984
+    },
+    {
+      "name": "mushroom06",
+      "glb": "mushroom06/model.glb",
+      "size": 18284
+    },
+    {
+      "name": "mushroom07",
+      "glb": "mushroom07/model.glb",
+      "size": 18284
+    },
+    {
+      "name": "mushroom08",
+      "glb": "mushroom08/model.glb",
+      "size": 21584
+    },
+    {
+      "name": "mushroom09",
+      "glb": "mushroom09/model.glb",
+      "size": 24892
+    },
+    {
+      "name": "mushroom11",
+      "glb": "mushroom11/model.glb",
+      "size": 5036
+    },
+    {
+      "name": "mushroom12",
+      "glb": "mushroom12/model.glb",
+      "size": 8348
+    },
+    {
+      "name": "mushroom13",
+      "glb": "mushroom13/model.glb",
+      "size": 8344
+    },
+    {
+      "name": "mushroom14",
+      "glb": "mushroom14/model.glb",
+      "size": 8384
+    },
+    {
+      "name": "mushroom15",
+      "glb": "mushroom15/model.glb",
+      "size": 14948
+    },
+    {
+      "name": "mushroom16",
+      "glb": "mushroom16/model.glb",
+      "size": 18244
+    },
+    {
+      "name": "mushroom17",
+      "glb": "mushroom17/model.glb",
+      "size": 18248
+    },
+    {
+      "name": "mushroom18",
+      "glb": "mushroom18/model.glb",
+      "size": 21548
+    },
+    {
+      "name": "mushroom19",
+      "glb": "mushroom19/model.glb",
+      "size": 24856
+    },
+    {
+      "name": "mushroom21",
+      "glb": "mushroom21/model.glb",
+      "size": 5036
+    },
+    {
+      "name": "mushroom22",
+      "glb": "mushroom22/model.glb",
+      "size": 8344
+    },
+    {
+      "name": "mushroom23",
+      "glb": "mushroom23/model.glb",
+      "size": 8344
+    },
+    {
+      "name": "mushroom24",
+      "glb": "mushroom24/model.glb",
+      "size": 8380
+    },
+    {
+      "name": "mushroom25",
+      "glb": "mushroom25/model.glb",
+      "size": 14944
+    },
+    {
+      "name": "mushroom26",
+      "glb": "mushroom26/model.glb",
+      "size": 18244
+    },
+    {
+      "name": "mushroom27",
+      "glb": "mushroom27/model.glb",
+      "size": 18244
+    },
+    {
+      "name": "mushroom28",
+      "glb": "mushroom28/model.glb",
+      "size": 21544
+    },
+    {
+      "name": "mushroom29",
+      "glb": "mushroom29/model.glb",
+      "size": 24852
+    },
+    {
+      "name": "oak_holly_a1",
+      "glb": "oak_holly_a1/model.glb",
+      "size": 14356
+    },
+    {
+      "name": "oak_holly_a2",
+      "glb": "oak_holly_a2/model.glb",
+      "size": 14356
+    },
+    {
+      "name": "oak_holly_a3",
+      "glb": "oak_holly_a3/model.glb",
+      "size": 14356
+    },
+    {
+      "name": "oak_holly_b1",
+      "glb": "oak_holly_b1/model.glb",
+      "size": 28472
+    },
+    {
+      "name": "oak_holly_b2",
+      "glb": "oak_holly_b2/model.glb",
+      "size": 28472
+    },
+    {
+      "name": "oak_holly_b3",
+      "glb": "oak_holly_b3/model.glb",
+      "size": 28476
+    },
+    {
+      "name": "oak_holly_c1",
+      "glb": "oak_holly_c1/model.glb",
+      "size": 29768
+    },
+    {
+      "name": "oak_holly_c2",
+      "glb": "oak_holly_c2/model.glb",
+      "size": 29768
+    },
+    {
+      "name": "oak_holly_c3",
+      "glb": "oak_holly_c3/model.glb",
+      "size": 29768
+    },
+    {
+      "name": "oak_holly_c4",
+      "glb": "oak_holly_c4/model.glb",
+      "size": 17840
+    },
+    {
+      "name": "oak_holly_c5",
+      "glb": "oak_holly_c5/model.glb",
+      "size": 17840
+    },
+    {
+      "name": "oak_holly_c6",
+      "glb": "oak_holly_c6/model.glb",
+      "size": 17840
+    },
+    {
+      "name": "pdrock1",
+      "glb": "pdrock1/model.glb",
+      "size": 6512
+    },
+    {
+      "name": "pdrock2",
+      "glb": "pdrock2/model.glb",
+      "size": 13784
+    },
+    {
+      "name": "pdrock3",
+      "glb": "pdrock3/model.glb",
+      "size": 28800
+    },
+    {
+      "name": "pdrock4",
+      "glb": "pdrock4/model.glb",
+      "size": 101580
+    },
+    {
+      "name": "pdrock5",
+      "glb": "pdrock5/model.glb",
+      "size": 21308
+    },
+    {
+      "name": "pdrock6",
+      "glb": "pdrock6/model.glb",
+      "size": 37968
+    },
+    {
+      "name": "pdrock7",
+      "glb": "pdrock7/model.glb",
+      "size": 55920
+    },
+    {
+      "name": "pdrock8",
+      "glb": "pdrock8/model.glb",
+      "size": 50832
+    },
+    {
+      "name": "pedro1",
+      "glb": "pedro1/model.glb",
+      "size": 12484
+    },
+    {
+      "name": "pedro2",
+      "glb": "pedro2/model.glb",
+      "size": 11332
+    },
+    {
+      "name": "pedro3",
+      "glb": "pedro3/model.glb",
+      "size": 41436
+    },
+    {
+      "name": "pedro4",
+      "glb": "pedro4/model.glb",
+      "size": 40284
+    },
+    {
+      "name": "pedro5",
+      "glb": "pedro5/model.glb",
+      "size": 80040
+    },
+    {
+      "name": "pedro6",
+      "glb": "pedro6/model.glb",
+      "size": 78884
+    },
+    {
+      "name": "peyote1",
+      "glb": "peyote1/model.glb",
+      "size": 9908
+    },
+    {
+      "name": "peyote2",
+      "glb": "peyote2/model.glb",
+      "size": 9492
+    },
+    {
+      "name": "peyote3",
+      "glb": "peyote3/model.glb",
+      "size": 26040
+    },
+    {
+      "name": "peyote4",
+      "glb": "peyote4/model.glb",
+      "size": 58716
+    },
+    {
+      "name": "pilha_crystal1",
+      "glb": "pilha_crystal1/model.glb",
+      "size": 26852
+    },
+    {
+      "name": "pilha_crystal2",
+      "glb": "pilha_crystal2/model.glb",
+      "size": 92092
+    },
+    {
+      "name": "pilha_crystal3",
+      "glb": "pilha_crystal3/model.glb",
+      "size": 106848
+    },
+    {
+      "name": "pilha_crystal_blue1",
+      "glb": "pilha_crystal_blue1/model.glb",
+      "size": 26856
+    },
+    {
+      "name": "pilha_crystal_blue2",
+      "glb": "pilha_crystal_blue2/model.glb",
+      "size": 92092
+    },
+    {
+      "name": "pilha_crystal_blue3",
+      "glb": "pilha_crystal_blue3/model.glb",
+      "size": 106852
+    },
+    {
+      "name": "pilha_crystal_green1",
+      "glb": "pilha_crystal_green1/model.glb",
+      "size": 26856
+    },
+    {
+      "name": "pilha_crystal_green2",
+      "glb": "pilha_crystal_green2/model.glb",
+      "size": 92096
+    },
+    {
+      "name": "pilha_crystal_green3",
+      "glb": "pilha_crystal_green3/model.glb",
+      "size": 106852
+    },
+    {
+      "name": "pilha_crystal_lime1",
+      "glb": "pilha_crystal_lime1/model.glb",
+      "size": 26856
+    },
+    {
+      "name": "pilha_crystal_lime2",
+      "glb": "pilha_crystal_lime2/model.glb",
+      "size": 92092
+    },
+    {
+      "name": "pilha_crystal_obsidian1",
+      "glb": "pilha_crystal_obsidian1/model.glb",
+      "size": 26576
+    },
+    {
+      "name": "pilha_crystal_obsidian2",
+      "glb": "pilha_crystal_obsidian2/model.glb",
+      "size": 92100
+    },
+    {
+      "name": "pilha_crystal_obsidian3",
+      "glb": "pilha_crystal_obsidian3/model.glb",
+      "size": 106860
+    },
+    {
+      "name": "pilha_crystal_orange1",
+      "glb": "pilha_crystal_orange1/model.glb",
+      "size": 26860
+    },
+    {
+      "name": "pilha_crystal_orange2",
+      "glb": "pilha_crystal_orange2/model.glb",
+      "size": 92096
+    },
+    {
+      "name": "pilha_crystal_orange3",
+      "glb": "pilha_crystal_orange3/model.glb",
+      "size": 106856
+    },
+    {
+      "name": "pilha_crystal_quartz1",
+      "glb": "pilha_crystal_quartz1/model.glb",
+      "size": 26572
+    },
+    {
+      "name": "pilha_crystal_quartz2",
+      "glb": "pilha_crystal_quartz2/model.glb",
+      "size": 92096
+    },
+    {
+      "name": "pilha_crystal_quartz3",
+      "glb": "pilha_crystal_quartz3/model.glb",
+      "size": 106856
+    },
+    {
+      "name": "pilha_crystal_teal1",
+      "glb": "pilha_crystal_teal1/model.glb",
+      "size": 26856
+    },
+    {
+      "name": "pilha_crystal_teal2",
+      "glb": "pilha_crystal_teal2/model.glb",
+      "size": 92092
+    },
+    {
+      "name": "pilha_crystal_teal3",
+      "glb": "pilha_crystal_teal3/model.glb",
+      "size": 106852
+    },
+    {
+      "name": "pilha_crystal_violet1",
+      "glb": "pilha_crystal_violet1/model.glb",
+      "size": 26860
+    },
+    {
+      "name": "pilha_crystal_violet2",
+      "glb": "pilha_crystal_violet2/model.glb",
+      "size": 92096
+    },
+    {
+      "name": "pilha_crystal_violet3",
+      "glb": "pilha_crystal_violet3/model.glb",
+      "size": 106856
+    },
+    {
+      "name": "plant_desert_01__bush_desert_a",
+      "glb": "plant_desert_01__bush_desert_a/model.glb",
+      "size": 3468
+    },
+    {
+      "name": "plant_desert_01__bush_desert_d",
+      "glb": "plant_desert_01__bush_desert_d/model.glb",
+      "size": 3468
+    },
+    {
+      "name": "plant_desert_02__bush_desert_a",
+      "glb": "plant_desert_02__bush_desert_a/model.glb",
+      "size": 3468
+    },
+    {
+      "name": "plant_desert_02__bush_desert_d",
+      "glb": "plant_desert_02__bush_desert_d/model.glb",
+      "size": 3468
+    },
+    {
+      "name": "poplar_dead_01",
+      "glb": "poplar_dead_01/model.glb",
+      "size": 37788
+    },
+    {
+      "name": "poplar_dead_02",
+      "glb": "poplar_dead_02/model.glb",
+      "size": 38248
+    },
+    {
+      "name": "redplanetplant1",
+      "glb": "redplanetplant1/model.glb",
+      "size": 101136
+    },
+    {
+      "name": "redplanetplant2",
+      "glb": "redplanetplant2/model.glb",
+      "size": 104028
+    },
+    {
+      "name": "redplanetplant3",
+      "glb": "redplanetplant3/model.glb",
+      "size": 103404
+    },
+    {
+      "name": "redplanetplant4",
+      "glb": "redplanetplant4/model.glb",
+      "size": 92028
+    },
+    {
+      "name": "redplanetplant5",
+      "glb": "redplanetplant5/model.glb",
+      "size": 115392
+    },
+    {
+      "name": "redplanetplant6",
+      "glb": "redplanetplant6/model.glb",
+      "size": 101040
+    },
+    {
+      "name": "rocks30_def_01",
+      "glb": "rocks30_def_01/model.glb",
+      "size": 13748
+    },
+    {
+      "name": "rocks30_def_02",
+      "glb": "rocks30_def_02/model.glb",
+      "size": 11008
+    },
+    {
+      "name": "rocks30_def_03",
+      "glb": "rocks30_def_03/model.glb",
+      "size": 9952
+    },
+    {
+      "name": "rocks30_def_04",
+      "glb": "rocks30_def_04/model.glb",
+      "size": 12304
+    },
+    {
+      "name": "rocks30_def_05",
+      "glb": "rocks30_def_05/model.glb",
+      "size": 10864
+    },
+    {
+      "name": "rocks30_def_06",
+      "glb": "rocks30_def_06/model.glb",
+      "size": 12596
+    },
+    {
+      "name": "rocks30_def_07",
+      "glb": "rocks30_def_07/model.glb",
+      "size": 11108
+    },
+    {
+      "name": "rocks30_def_08",
+      "glb": "rocks30_def_08/model.glb",
+      "size": 13508
+    },
+    {
+      "name": "rocks30_def_09",
+      "glb": "rocks30_def_09/model.glb",
+      "size": 14180
+    },
+    {
+      "name": "rocks30_def_10",
+      "glb": "rocks30_def_10/model.glb",
+      "size": 13700
+    },
+    {
+      "name": "rocks30_def_11",
+      "glb": "rocks30_def_11/model.glb",
+      "size": 17348
+    },
+    {
+      "name": "rocks30_def_12",
+      "glb": "rocks30_def_12/model.glb",
+      "size": 12260
+    },
+    {
+      "name": "rocks30_def_13",
+      "glb": "rocks30_def_13/model.glb",
+      "size": 16532
+    },
+    {
+      "name": "rocks30_def_14",
+      "glb": "rocks30_def_14/model.glb",
+      "size": 16388
+    },
+    {
+      "name": "rocks30_def_15",
+      "glb": "rocks30_def_15/model.glb",
+      "size": 14756
+    },
+    {
+      "name": "rocks30_def_16",
+      "glb": "rocks30_def_16/model.glb",
+      "size": 15572
+    },
+    {
+      "name": "rocks30_def_17",
+      "glb": "rocks30_def_17/model.glb",
+      "size": 18644
+    },
+    {
+      "name": "rocks30_def_18",
+      "glb": "rocks30_def_18/model.glb",
+      "size": 11012
+    },
+    {
+      "name": "rocks30_def_19",
+      "glb": "rocks30_def_19/model.glb",
+      "size": 10672
+    },
+    {
+      "name": "rocks30_def_20",
+      "glb": "rocks30_def_20/model.glb",
+      "size": 17060
+    },
+    {
+      "name": "rocks30_def_21",
+      "glb": "rocks30_def_21/model.glb",
+      "size": 16964
+    },
+    {
+      "name": "rocks30_def_22",
+      "glb": "rocks30_def_22/model.glb",
+      "size": 17492
+    },
+    {
+      "name": "rocks30_def_23",
+      "glb": "rocks30_def_23/model.glb",
+      "size": 17108
+    },
+    {
+      "name": "rocks30_def_24",
+      "glb": "rocks30_def_24/model.glb",
+      "size": 17680
+    },
+    {
+      "name": "rocks30_def_25",
+      "glb": "rocks30_def_25/model.glb",
+      "size": 17592
+    },
+    {
+      "name": "rocks30_def_26",
+      "glb": "rocks30_def_26/model.glb",
+      "size": 18356
+    },
+    {
+      "name": "rocks30_def_27",
+      "glb": "rocks30_def_27/model.glb",
+      "size": 17824
+    },
+    {
+      "name": "rocks30_def_28",
+      "glb": "rocks30_def_28/model.glb",
+      "size": 17200
+    },
+    {
+      "name": "rocks30_def_29",
+      "glb": "rocks30_def_29/model.glb",
+      "size": 17012
+    },
+    {
+      "name": "rocks30_def_30",
+      "glb": "rocks30_def_30/model.glb",
+      "size": 16960
+    },
+    {
+      "name": "rocks30_desert_01",
+      "glb": "rocks30_desert_01/model.glb",
+      "size": 13756
+    },
+    {
+      "name": "rocks30_desert_02",
+      "glb": "rocks30_desert_02/model.glb",
+      "size": 11016
+    },
+    {
+      "name": "rocks30_desert_03",
+      "glb": "rocks30_desert_03/model.glb",
+      "size": 9960
+    },
+    {
+      "name": "rocks30_desert_04",
+      "glb": "rocks30_desert_04/model.glb",
+      "size": 12316
+    },
+    {
+      "name": "rocks30_desert_05",
+      "glb": "rocks30_desert_05/model.glb",
+      "size": 10872
+    },
+    {
+      "name": "rocks30_desert_06",
+      "glb": "rocks30_desert_06/model.glb",
+      "size": 12604
+    },
+    {
+      "name": "rocks30_desert_07",
+      "glb": "rocks30_desert_07/model.glb",
+      "size": 11116
+    },
+    {
+      "name": "rocks30_desert_08",
+      "glb": "rocks30_desert_08/model.glb",
+      "size": 13516
+    },
+    {
+      "name": "rocks30_desert_09",
+      "glb": "rocks30_desert_09/model.glb",
+      "size": 14192
+    },
+    {
+      "name": "rocks30_desert_10",
+      "glb": "rocks30_desert_10/model.glb",
+      "size": 13708
+    },
+    {
+      "name": "rocks30_desert_11",
+      "glb": "rocks30_desert_11/model.glb",
+      "size": 17360
+    },
+    {
+      "name": "rocks30_desert_12",
+      "glb": "rocks30_desert_12/model.glb",
+      "size": 12268
+    },
+    {
+      "name": "rocks30_desert_13",
+      "glb": "rocks30_desert_13/model.glb",
+      "size": 16540
+    },
+    {
+      "name": "rocks30_desert_14",
+      "glb": "rocks30_desert_14/model.glb",
+      "size": 16400
+    },
+    {
+      "name": "rocks30_desert_15",
+      "glb": "rocks30_desert_15/model.glb",
+      "size": 14764
+    },
+    {
+      "name": "rocks30_desert_16",
+      "glb": "rocks30_desert_16/model.glb",
+      "size": 15584
+    },
+    {
+      "name": "rocks30_desert_17",
+      "glb": "rocks30_desert_17/model.glb",
+      "size": 18656
+    },
+    {
+      "name": "rocks30_desert_18",
+      "glb": "rocks30_desert_18/model.glb",
+      "size": 11020
+    },
+    {
+      "name": "rocks30_desert_19",
+      "glb": "rocks30_desert_19/model.glb",
+      "size": 10684
+    },
+    {
+      "name": "rocks30_desert_20",
+      "glb": "rocks30_desert_20/model.glb",
+      "size": 17068
+    },
+    {
+      "name": "rocks30_desert_21",
+      "glb": "rocks30_desert_21/model.glb",
+      "size": 16972
+    },
+    {
+      "name": "rocks30_desert_22",
+      "glb": "rocks30_desert_22/model.glb",
+      "size": 17500
+    },
+    {
+      "name": "rocks30_desert_23",
+      "glb": "rocks30_desert_23/model.glb",
+      "size": 17120
+    },
+    {
+      "name": "rocks30_desert_24",
+      "glb": "rocks30_desert_24/model.glb",
+      "size": 17692
+    },
+    {
+      "name": "rocks30_desert_25",
+      "glb": "rocks30_desert_25/model.glb",
+      "size": 17600
+    },
+    {
+      "name": "rocks30_desert_26",
+      "glb": "rocks30_desert_26/model.glb",
+      "size": 18368
+    },
+    {
+      "name": "rocks30_desert_27",
+      "glb": "rocks30_desert_27/model.glb",
+      "size": 17836
+    },
+    {
+      "name": "rocks30_desert_28",
+      "glb": "rocks30_desert_28/model.glb",
+      "size": 17212
+    },
+    {
+      "name": "rocks30_desert_29",
+      "glb": "rocks30_desert_29/model.glb",
+      "size": 17020
+    },
+    {
+      "name": "rocks30_desert_30",
+      "glb": "rocks30_desert_30/model.glb",
+      "size": 16972
+    },
+    {
+      "name": "rocks30_map_01",
+      "glb": "rocks30_map_01/model.glb",
+      "size": 13752
+    },
+    {
+      "name": "rocks30_map_02",
+      "glb": "rocks30_map_02/model.glb",
+      "size": 11012
+    },
+    {
+      "name": "rocks30_map_03",
+      "glb": "rocks30_map_03/model.glb",
+      "size": 9956
+    },
+    {
+      "name": "rocks30_map_04",
+      "glb": "rocks30_map_04/model.glb",
+      "size": 12308
+    },
+    {
+      "name": "rocks30_map_05",
+      "glb": "rocks30_map_05/model.glb",
+      "size": 10864
+    },
+    {
+      "name": "rocks30_map_06",
+      "glb": "rocks30_map_06/model.glb",
+      "size": 12600
+    },
+    {
+      "name": "rocks30_map_07",
+      "glb": "rocks30_map_07/model.glb",
+      "size": 11112
+    },
+    {
+      "name": "rocks30_map_08",
+      "glb": "rocks30_map_08/model.glb",
+      "size": 13512
+    },
+    {
+      "name": "rocks30_map_09",
+      "glb": "rocks30_map_09/model.glb",
+      "size": 14184
+    },
+    {
+      "name": "rocks30_map_10",
+      "glb": "rocks30_map_10/model.glb",
+      "size": 13704
+    },
+    {
+      "name": "rocks30_map_11",
+      "glb": "rocks30_map_11/model.glb",
+      "size": 17352
+    },
+    {
+      "name": "rocks30_map_12",
+      "glb": "rocks30_map_12/model.glb",
+      "size": 12264
+    },
+    {
+      "name": "rocks30_map_13",
+      "glb": "rocks30_map_13/model.glb",
+      "size": 16536
+    },
+    {
+      "name": "rocks30_map_14",
+      "glb": "rocks30_map_14/model.glb",
+      "size": 16392
+    },
+    {
+      "name": "rocks30_map_15",
+      "glb": "rocks30_map_15/model.glb",
+      "size": 14760
+    },
+    {
+      "name": "rocks30_map_16",
+      "glb": "rocks30_map_16/model.glb",
+      "size": 15576
+    },
+    {
+      "name": "rocks30_map_17",
+      "glb": "rocks30_map_17/model.glb",
+      "size": 18648
+    },
+    {
+      "name": "rocks30_map_18",
+      "glb": "rocks30_map_18/model.glb",
+      "size": 11012
+    },
+    {
+      "name": "rocks30_map_19",
+      "glb": "rocks30_map_19/model.glb",
+      "size": 10676
+    },
+    {
+      "name": "rocks30_map_20",
+      "glb": "rocks30_map_20/model.glb",
+      "size": 17064
+    },
+    {
+      "name": "rocks30_map_21",
+      "glb": "rocks30_map_21/model.glb",
+      "size": 16968
+    },
+    {
+      "name": "rocks30_map_22",
+      "glb": "rocks30_map_22/model.glb",
+      "size": 17496
+    },
+    {
+      "name": "rocks30_map_23",
+      "glb": "rocks30_map_23/model.glb",
+      "size": 17112
+    },
+    {
+      "name": "rocks30_map_24",
+      "glb": "rocks30_map_24/model.glb",
+      "size": 17684
+    },
+    {
+      "name": "rocks30_map_25",
+      "glb": "rocks30_map_25/model.glb",
+      "size": 17592
+    },
+    {
+      "name": "rocks30_map_26",
+      "glb": "rocks30_map_26/model.glb",
+      "size": 18360
+    },
+    {
+      "name": "rocks30_map_27",
+      "glb": "rocks30_map_27/model.glb",
+      "size": 17828
+    },
+    {
+      "name": "rocks30_map_28",
+      "glb": "rocks30_map_28/model.glb",
+      "size": 17204
+    },
+    {
+      "name": "rocks30_map_29",
+      "glb": "rocks30_map_29/model.glb",
+      "size": 17012
+    },
+    {
+      "name": "rocks30_map_30",
+      "glb": "rocks30_map_30/model.glb",
+      "size": 16964
+    },
+    {
+      "name": "rocks30_moss_01",
+      "glb": "rocks30_moss_01/model.glb",
+      "size": 13752
+    },
+    {
+      "name": "rocks30_moss_02",
+      "glb": "rocks30_moss_02/model.glb",
+      "size": 11012
+    },
+    {
+      "name": "rocks30_moss_03",
+      "glb": "rocks30_moss_03/model.glb",
+      "size": 9956
+    },
+    {
+      "name": "rocks30_moss_04",
+      "glb": "rocks30_moss_04/model.glb",
+      "size": 12308
+    },
+    {
+      "name": "rocks30_moss_05",
+      "glb": "rocks30_moss_05/model.glb",
+      "size": 10864
+    },
+    {
+      "name": "rocks30_moss_06",
+      "glb": "rocks30_moss_06/model.glb",
+      "size": 12600
+    },
+    {
+      "name": "rocks30_moss_07",
+      "glb": "rocks30_moss_07/model.glb",
+      "size": 11112
+    },
+    {
+      "name": "rocks30_moss_08",
+      "glb": "rocks30_moss_08/model.glb",
+      "size": 13512
+    },
+    {
+      "name": "rocks30_moss_09",
+      "glb": "rocks30_moss_09/model.glb",
+      "size": 14184
+    },
+    {
+      "name": "rocks30_moss_10",
+      "glb": "rocks30_moss_10/model.glb",
+      "size": 13704
+    },
+    {
+      "name": "rocks30_moss_11",
+      "glb": "rocks30_moss_11/model.glb",
+      "size": 17352
+    },
+    {
+      "name": "rocks30_moss_12",
+      "glb": "rocks30_moss_12/model.glb",
+      "size": 12264
+    },
+    {
+      "name": "rocks30_moss_13",
+      "glb": "rocks30_moss_13/model.glb",
+      "size": 16536
+    },
+    {
+      "name": "rocks30_moss_14",
+      "glb": "rocks30_moss_14/model.glb",
+      "size": 16392
+    },
+    {
+      "name": "rocks30_moss_15",
+      "glb": "rocks30_moss_15/model.glb",
+      "size": 14760
+    },
+    {
+      "name": "rocks30_moss_16",
+      "glb": "rocks30_moss_16/model.glb",
+      "size": 15576
+    },
+    {
+      "name": "rocks30_moss_17",
+      "glb": "rocks30_moss_17/model.glb",
+      "size": 18648
+    },
+    {
+      "name": "rocks30_moss_18",
+      "glb": "rocks30_moss_18/model.glb",
+      "size": 11012
+    },
+    {
+      "name": "rocks30_moss_19",
+      "glb": "rocks30_moss_19/model.glb",
+      "size": 10676
+    },
+    {
+      "name": "rocks30_moss_20",
+      "glb": "rocks30_moss_20/model.glb",
+      "size": 17064
+    },
+    {
+      "name": "rocks30_moss_21",
+      "glb": "rocks30_moss_21/model.glb",
+      "size": 16968
+    },
+    {
+      "name": "rocks30_moss_22",
+      "glb": "rocks30_moss_22/model.glb",
+      "size": 17496
+    },
+    {
+      "name": "rocks30_moss_23",
+      "glb": "rocks30_moss_23/model.glb",
+      "size": 17112
+    },
+    {
+      "name": "rocks30_moss_24",
+      "glb": "rocks30_moss_24/model.glb",
+      "size": 17684
+    },
+    {
+      "name": "rocks30_moss_25",
+      "glb": "rocks30_moss_25/model.glb",
+      "size": 17592
+    },
+    {
+      "name": "rocks30_moss_26",
+      "glb": "rocks30_moss_26/model.glb",
+      "size": 18360
+    },
+    {
+      "name": "rocks30_moss_27",
+      "glb": "rocks30_moss_27/model.glb",
+      "size": 17828
+    },
+    {
+      "name": "rocks30_moss_28",
+      "glb": "rocks30_moss_28/model.glb",
+      "size": 17204
+    },
+    {
+      "name": "rocks30_moss_29",
+      "glb": "rocks30_moss_29/model.glb",
+      "size": 17012
+    },
+    {
+      "name": "rocks30_moss_30",
+      "glb": "rocks30_moss_30/model.glb",
+      "size": 16964
+    },
+    {
+      "name": "rocks30_snow_01",
+      "glb": "rocks30_snow_01/model.glb",
+      "size": 13752
+    },
+    {
+      "name": "rocks30_snow_02",
+      "glb": "rocks30_snow_02/model.glb",
+      "size": 11012
+    },
+    {
+      "name": "rocks30_snow_03",
+      "glb": "rocks30_snow_03/model.glb",
+      "size": 9956
+    },
+    {
+      "name": "rocks30_snow_04",
+      "glb": "rocks30_snow_04/model.glb",
+      "size": 12308
+    },
+    {
+      "name": "rocks30_snow_05",
+      "glb": "rocks30_snow_05/model.glb",
+      "size": 10864
+    },
+    {
+      "name": "rocks30_snow_06",
+      "glb": "rocks30_snow_06/model.glb",
+      "size": 12600
+    },
+    {
+      "name": "rocks30_snow_07",
+      "glb": "rocks30_snow_07/model.glb",
+      "size": 11112
+    },
+    {
+      "name": "rocks30_snow_08",
+      "glb": "rocks30_snow_08/model.glb",
+      "size": 13512
+    },
+    {
+      "name": "rocks30_snow_09",
+      "glb": "rocks30_snow_09/model.glb",
+      "size": 14184
+    },
+    {
+      "name": "rocks30_snow_10",
+      "glb": "rocks30_snow_10/model.glb",
+      "size": 13704
+    },
+    {
+      "name": "rocks30_snow_11",
+      "glb": "rocks30_snow_11/model.glb",
+      "size": 17352
+    },
+    {
+      "name": "rocks30_snow_12",
+      "glb": "rocks30_snow_12/model.glb",
+      "size": 12264
+    },
+    {
+      "name": "rocks30_snow_13",
+      "glb": "rocks30_snow_13/model.glb",
+      "size": 16536
+    },
+    {
+      "name": "rocks30_snow_14",
+      "glb": "rocks30_snow_14/model.glb",
+      "size": 16392
+    },
+    {
+      "name": "rocks30_snow_15",
+      "glb": "rocks30_snow_15/model.glb",
+      "size": 14760
+    },
+    {
+      "name": "rocks30_snow_16",
+      "glb": "rocks30_snow_16/model.glb",
+      "size": 15576
+    },
+    {
+      "name": "rocks30_snow_17",
+      "glb": "rocks30_snow_17/model.glb",
+      "size": 18648
+    },
+    {
+      "name": "rocks30_snow_18",
+      "glb": "rocks30_snow_18/model.glb",
+      "size": 11012
+    },
+    {
+      "name": "rocks30_snow_19",
+      "glb": "rocks30_snow_19/model.glb",
+      "size": 10676
+    },
+    {
+      "name": "rocks30_snow_20",
+      "glb": "rocks30_snow_20/model.glb",
+      "size": 17064
+    },
+    {
+      "name": "rocks30_snow_21",
+      "glb": "rocks30_snow_21/model.glb",
+      "size": 16968
+    },
+    {
+      "name": "rocks30_snow_22",
+      "glb": "rocks30_snow_22/model.glb",
+      "size": 17496
+    },
+    {
+      "name": "rocks30_snow_23",
+      "glb": "rocks30_snow_23/model.glb",
+      "size": 17112
+    },
+    {
+      "name": "rocks30_snow_24",
+      "glb": "rocks30_snow_24/model.glb",
+      "size": 17684
+    },
+    {
+      "name": "rocks30_snow_25",
+      "glb": "rocks30_snow_25/model.glb",
+      "size": 17592
+    },
+    {
+      "name": "rocks30_snow_26",
+      "glb": "rocks30_snow_26/model.glb",
+      "size": 18360
+    },
+    {
+      "name": "rocks30_snow_27",
+      "glb": "rocks30_snow_27/model.glb",
+      "size": 17828
+    },
+    {
+      "name": "rocks30_snow_28",
+      "glb": "rocks30_snow_28/model.glb",
+      "size": 17204
+    },
+    {
+      "name": "rocks30_snow_29",
+      "glb": "rocks30_snow_29/model.glb",
+      "size": 17012
+    },
+    {
+      "name": "rocks30_snow_30",
+      "glb": "rocks30_snow_30/model.glb",
+      "size": 16964
+    },
+    {
+      "name": "temp_bush_01__temperate_bush_01",
+      "glb": "temp_bush_01__temperate_bush_01/model.glb",
+      "size": 13512
+    },
+    {
+      "name": "temp_bush_01__temperate_bush_02",
+      "glb": "temp_bush_01__temperate_bush_02/model.glb",
+      "size": 13512
+    },
+    {
+      "name": "temp_bush_02__temperate_bush_01",
+      "glb": "temp_bush_02__temperate_bush_01/model.glb",
+      "size": 13508
+    },
+    {
+      "name": "temp_bush_02__temperate_bush_02",
+      "glb": "temp_bush_02__temperate_bush_02/model.glb",
+      "size": 13508
+    },
+    {
+      "name": "temp_bush_03__temperate_bush_01",
+      "glb": "temp_bush_03__temperate_bush_01/model.glb",
+      "size": 13320
+    },
+    {
+      "name": "temp_bush_03__temperate_bush_02",
+      "glb": "temp_bush_03__temperate_bush_02/model.glb",
+      "size": 13320
+    },
+    {
+      "name": "temp_bush_04__temperate_bush_01",
+      "glb": "temp_bush_04__temperate_bush_01/model.glb",
+      "size": 17976
+    },
+    {
+      "name": "temp_bush_04__temperate_bush_02",
+      "glb": "temp_bush_04__temperate_bush_02/model.glb",
+      "size": 17976
+    },
+    {
+      "name": "tentacleplant1",
+      "glb": "tentacleplant1/model.glb",
+      "size": 69968
+    },
+    {
+      "name": "tentacleplant2",
+      "glb": "tentacleplant2/model.glb",
+      "size": 56832
+    },
+    {
+      "name": "tentacleplant3",
+      "glb": "tentacleplant3/model.glb",
+      "size": 113360
+    },
+    {
+      "name": "tentacleplant4",
+      "glb": "tentacleplant4/model.glb",
+      "size": 129944
+    },
+    {
+      "name": "tentacleplant5",
+      "glb": "tentacleplant5/model.glb",
+      "size": 83768
+    },
+    {
+      "name": "tentacleplant6",
+      "glb": "tentacleplant6/model.glb",
+      "size": 66220
+    },
+    {
+      "name": "tree_acacia_dead_a",
+      "glb": "tree_acacia_dead_a/model.glb",
+      "size": 30052
+    },
+    {
+      "name": "tree_acacia_dead_b",
+      "glb": "tree_acacia_dead_b/model.glb",
+      "size": 68408
+    },
+    {
+      "name": "tree_acacia_dead_c",
+      "glb": "tree_acacia_dead_c/model.glb",
+      "size": 29260
+    },
+    {
+      "name": "tree_acacia_dead_d",
+      "glb": "tree_acacia_dead_d/model.glb",
+      "size": 50996
+    },
+    {
+      "name": "tree_acacia_dead_e",
+      "glb": "tree_acacia_dead_e/model.glb",
+      "size": 21024
+    },
+    {
+      "name": "tree_dead_fallen_d",
+      "glb": "tree_dead_fallen_d/model.glb",
+      "size": 29892
+    },
+    {
+      "name": "tree_dead_fallen_e",
+      "glb": "tree_dead_fallen_e/model.glb",
+      "size": 27092
+    },
+    {
+      "name": "tree_elm_dead_02",
+      "glb": "tree_elm_dead_02/model.glb",
+      "size": 20164
+    },
+    {
+      "name": "tree_elm_dead_03",
+      "glb": "tree_elm_dead_03/model.glb",
+      "size": 18724
+    },
+    {
+      "name": "tree_elm_dead_04",
+      "glb": "tree_elm_dead_04/model.glb",
+      "size": 26728
+    },
+    {
+      "name": "volc_rock_10_large",
+      "glb": "volc_rock_10_large/model.glb",
+      "size": 22376
+    },
+    {
+      "name": "volc_rock_11_large",
+      "glb": "volc_rock_11_large/model.glb",
+      "size": 13540
+    },
+    {
+      "name": "volc_rock_12_large",
+      "glb": "volc_rock_12_large/model.glb",
+      "size": 13540
+    },
+    {
+      "name": "volc_rock_1_large",
+      "glb": "volc_rock_1_large/model.glb",
+      "size": 21992
+    },
+    {
+      "name": "volc_rock_2_large",
+      "glb": "volc_rock_2_large/model.glb",
+      "size": 15220
+    },
+    {
+      "name": "volc_rock_3",
+      "glb": "volc_rock_3/model.glb",
+      "size": 18380
+    },
+    {
+      "name": "volc_rock_3_large",
+      "glb": "volc_rock_3_large/model.glb",
+      "size": 18380
+    },
+    {
+      "name": "volc_rock_4_large",
+      "glb": "volc_rock_4_large/model.glb",
+      "size": 26884
+    },
+    {
+      "name": "volc_rock_5_large",
+      "glb": "volc_rock_5_large/model.glb",
+      "size": 14140
+    },
+    {
+      "name": "volc_rock_6",
+      "glb": "volc_rock_6/model.glb",
+      "size": 9740
+    },
+    {
+      "name": "volc_rock_6_large",
+      "glb": "volc_rock_6_large/model.glb",
+      "size": 10320
+    },
+    {
+      "name": "volc_rock_7_large",
+      "glb": "volc_rock_7_large/model.glb",
+      "size": 11040
+    },
+    {
+      "name": "volc_rock_8_large",
+      "glb": "volc_rock_8_large/model.glb",
+      "size": 19064
+    },
+    {
+      "name": "volc_rock_9",
+      "glb": "volc_rock_9/model.glb",
+      "size": 14012
+    },
+    {
+      "name": "volc_rock_9_large",
+      "glb": "volc_rock_9_large/model.glb",
+      "size": 14016
+    }
+  ]
+}

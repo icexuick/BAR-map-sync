@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>BAR Map Viewer</title>
+<style>
+  :root {
+    --bg: #1a1b1f;
+    --panel: #24262c;
+    --panel-alt: #2b2e36;
+    --panel-border: #3a3d45;
+    --text: #e8e8ec;
+    --muted: #8a8d96;
+    --accent: #6cbaff;
+  }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+    font-size: 13px;
+    height: 100vh;
+    overflow: hidden;
+  }
+  #viewport {
+    position: absolute; inset: 0;
+  }
+  #viewport canvas {
+    width: 100% !important; height: 100% !important;
+    display: block;
+  }
+  header {
+    position: absolute; top: 0; left: 0; right: 0;
+    padding: 10px 16px;
+    background: rgba(36, 38, 44, 0.92);
+    border-bottom: 1px solid var(--panel-border);
+    display: flex; align-items: center; gap: 16px;
+    z-index: 10;
+  }
+  header .title { font-weight: 600; font-size: 14px; flex: 1; }
+  header .meta { color: var(--muted); font-size: 11px; font-family: monospace; }
+  header label { color: var(--muted); display: flex; align-items: center; gap: 6px; font-size: 12px; }
+  header select {
+    background: #15161a; border: 1px solid var(--panel-border);
+    color: var(--text); padding: 5px 8px; border-radius: 4px; font-size: 12px;
+  }
+  #status {
+    position: absolute; bottom: 12px; left: 12px;
+    background: rgba(0,0,0,0.6); color: var(--muted);
+    padding: 6px 12px; border-radius: 4px; font-size: 11px;
+    font-family: monospace;
+    pointer-events: none;
+    max-width: 60vw;
+  }
+  #status.err { color: #ff9090; }
+  .hint {
+    position: absolute; bottom: 12px; right: 12px;
+    background: rgba(0,0,0,0.6); color: var(--muted);
+    padding: 6px 12px; border-radius: 4px; font-size: 11px;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title" id="title">Loading…</div>
+  <div class="meta" id="meta"></div>
+  <label>
+    <input type="checkbox" id="wire" /> terrain wireframe
+  </label>
+  <label>
+    <input type="checkbox" id="showFeatures" checked /> features
+  </label>
+</header>
+
+<div id="viewport"><canvas id="canvas"></canvas></div>
+<div id="status">loading map…</div>
+<div class="hint">drag to orbit · right-drag to pan · scroll to zoom</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const titleEl = document.getElementById('title');
+const metaEl = document.getElementById('meta');
+const statusEl = document.getElementById('status');
+const wireEl = document.getElementById('wire');
+const showFeaturesEl = document.getElementById('showFeatures');
+const canvasEl = document.getElementById('canvas');
+
+function setStatus(text, isErr = false) {
+  statusEl.textContent = text || '';
+  statusEl.classList.toggle('err', !!isErr);
+}
+
+// -- Three.js setup --------------------------------------------------------
+const renderer = new THREE.WebGLRenderer({ canvas: canvasEl, antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0e0f13);
+scene.fog = new THREE.Fog(0x0e0f13, 3000, 10000);
+
+const pmrem = new THREE.PMREMGenerator(renderer);
+pmrem.compileEquirectangularShader();
+scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+
+const sun = new THREE.DirectionalLight(0xffffff, 2.0);
+sun.position.set(2000, 3000, 1500);
+scene.add(sun);
+scene.add(new THREE.AmbientLight(0xffffff, 0.2));
+
+const camera = new THREE.PerspectiveCamera(45, 1, 1, 50000);
+camera.position.set(3000, 2500, 3000);
+
+const controls = new OrbitControls(camera, canvasEl);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.screenSpacePanning = false;
+
+// -- Heightmap decoding ----------------------------------------------------
+// Reads the 2-channel-packed heightmap PNG and returns
+//   { width, height, getHeight(ix, iz) → real world Y }
+// where ix/iz are heightmap-grid indices (not world coords).
+async function loadHeightmap(url, minH, maxH) {
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  await new Promise((ok, fail) => {
+    img.onload = ok;
+    img.onerror = () => fail(new Error('heightmap load failed: ' + url));
+    img.src = url;
+  });
+  const c = document.createElement('canvas');
+  c.width = img.width;
+  c.height = img.height;
+  const ctx = c.getContext('2d');
+  ctx.drawImage(img, 0, 0);
+  const data = ctx.getImageData(0, 0, img.width, img.height).data;
+  const range = maxH - minH;
+  return {
+    width: img.width,
+    height: img.height,
+    // Array of world-Y values — ix in [0..w-1], iz in [0..h-1]
+    heights: (() => {
+      const n = img.width * img.height;
+      const out = new Float32Array(n);
+      for (let i = 0; i < n; i++) {
+        const hi = data[i * 4];
+        const lo = data[i * 4 + 1];
+        const u16 = (hi << 8) | lo;
+        out[i] = minH + (u16 / 65535) * range;
+      }
+      return out;
+    })(),
+  };
+}
+
+// Bilinear sample of the heightmap at world (x, z).
+function sampleWorld(hm, x, z, worldW, worldH) {
+  let gx = (x / worldW) * (hm.width - 1);
+  let gz = (z / worldH) * (hm.height - 1);
+  if (gx < 0) gx = 0; else if (gx > hm.width - 1.0001) gx = hm.width - 1.0001;
+  if (gz < 0) gz = 0; else if (gz > hm.height - 1.0001) gz = hm.height - 1.0001;
+  const x0 = gx | 0, z0 = gz | 0;
+  const fx = gx - x0, fz = gz - z0;
+  const i00 = z0 * hm.width + x0;
+  const i10 = i00 + 1;
+  const i01 = i00 + hm.width;
+  const i11 = i01 + 1;
+  return (1 - fx) * (1 - fz) * hm.heights[i00]
+       +      fx  * (1 - fz) * hm.heights[i10]
+       + (1 - fx) *      fz  * hm.heights[i01]
+       +      fx  *      fz  * hm.heights[i11];
+}
+
+// -- Terrain mesh ----------------------------------------------------------
+// Build a PlaneGeometry at the heightmap's native (w × h) resolution and
+// displace each vertex by the sampled world Y. The plane spans the map's
+// full world rectangle, centered at (worldW/2, worldH/2).
+function buildTerrain(hm, worldW, worldH) {
+  // PlaneGeometry(width, height, widthSegs, heightSegs) — we want one quad
+  // per heightmap cell, so segs = cells = (w-1) × (h-1).
+  const geom = new THREE.PlaneGeometry(worldW, worldH, hm.width - 1, hm.height - 1);
+  // PlaneGeometry lies in XY by default; rotate to XZ so "up" is +Y.
+  geom.rotateX(-Math.PI / 2);
+  // It's centered at origin — move to map-space so (0,0,0) == map corner.
+  geom.translate(worldW / 2, 0, worldH / 2);
+
+  // Displace Y from the heightmap. PlaneGeometry vertex ordering is
+  // row-major starting at the top-left (max z after rotation), BUT
+  // because of the rotate+translate above the mapping simplifies to:
+  //   vertex[i] at grid (ix, iz) where ix = i % w, iz = (i / w) | 0
+  const pos = geom.attributes.position;
+  const w = hm.width;
+  for (let i = 0; i < pos.count; i++) {
+    const ix = i % w;
+    const iz = (i / w) | 0;
+    pos.setY(i, hm.heights[iz * w + ix]);
+  }
+  geom.computeVertexNormals();
+
+  const mat = new THREE.MeshStandardMaterial({
+    color: 0x4a5566,
+    roughness: 0.95,
+    metalness: 0.0,
+    flatShading: false,
+    wireframe: false,
+  });
+  const mesh = new THREE.Mesh(geom, mat);
+  mesh.name = 'terrain';
+  return mesh;
+}
+
+// -- Feature instancing ----------------------------------------------------
+// Streaming loader: each unique feature GLB is fetched once, cloned per
+// placement, and starts at scale 0 with a back-easing pop-in. Features
+// appear progressively as they finish downloading rather than all at the
+// end of a giant batched fetch.
+const loader = new GLTFLoader();
+const POP_IN_DURATION = 260;
+const POP_IN_STAGGER = 180;
+
+function easeOutBack(t) {
+  const c1 = 1.70158;
+  const c3 = c1 + 1;
+  return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+}
+
+const popIns = [];
+function tickPopIns(now) {
+  for (let i = popIns.length - 1; i >= 0; i--) {
+    const e = popIns[i];
+    const elapsed = now - e.startTime;
+    if (elapsed < 0) continue;
+    const t = elapsed / e.duration;
+    if (t >= 1) {
+      e.obj.scale.setScalar(1);
+      popIns.splice(i, 1);
+      continue;
+    }
+    e.obj.scale.setScalar(easeOutBack(t));
+  }
+}
+
+async function placeFeatures(scene3d, placements, featuresBase) {
+  const root = new THREE.Group();
+  root.name = 'features';
+  scene3d.add(root);
+
+  // Group placements by feature name so we can place the moment a
+  // prototype arrives. Geovents have no GLB — they're handled
+  // separately by buildGeoventSmoke.
+  const byName = new Map();
+  for (const p of placements) {
+    if (p.name === 'geovent') continue;
+    if (!byName.has(p.name)) byName.set(p.name, []);
+    byName.get(p.name).push(p);
+  }
+  const names = [...byName.keys()];
+
+  const total = placements.length;
+  const failed = [];
+  let placed = 0;
+  let modelsLoaded = 0;
+  let cursor = 0;
+  const CONCURRENCY = 16;
+
+  async function worker() {
+    while (true) {
+      const i = cursor++;
+      if (i >= names.length) return;
+      const name = names[i];
+      const url = `${featuresBase}/${name}/model.glb`;
+      try {
+        const gltf = await new Promise((res, rej) =>
+          loader.load(url, res, undefined, rej));
+        const proto = gltf.scene;
+        const instances = byName.get(name);
+        const now = performance.now();
+        for (const p of instances) {
+          const inst = proto.clone(true);
+          inst.position.set(p.x, p.y, p.z);
+          inst.rotation.y = p.rotY;
+          inst.scale.setScalar(0);
+          root.add(inst);
+          popIns.push({
+            obj: inst,
+            startTime: now + Math.random() * POP_IN_STAGGER,
+            duration: POP_IN_DURATION,
+          });
+          placed++;
+        }
+      } catch (e) {
+        failed.push(name);
+        console.warn('load failed', name, e);
+      }
+      modelsLoaded++;
+      setStatus(`placing features… ${placed}/${total}  (${modelsLoaded}/${names.length} models)`);
+    }
+  }
+
+  const workers = [];
+  for (let w = 0; w < Math.min(CONCURRENCY, names.length); w++) {
+    workers.push(worker());
+  }
+  await Promise.all(workers);
+
+  if (failed.length) console.warn('Failed to load prototypes:', failed);
+  return { root, placed, failedNames: failed };
+}
+
+// -- Geovent smoke ---------------------------------------------------------
+// Geovents have no model — they're invisible "geyser" markers that the
+// game spawns steam from. We render them as a single Points object with
+// PER_VENT particles per vent that respawn at the source when their
+// lifetime expires. One draw call regardless of vent count.
+const SMOKE_SPRITE_URL =
+  'https://cdn.prod.website-files.com/5c68622246b367adf6f3041d/69cbda83c9b8dff28c72325a_dirtbar.png';
+
+// Custom Points shader: PointsMaterial doesn't support per-particle UV
+// rotation, size scaling, or lifetime-driven fades, so we ship our own
+// minimal one.
+//   aSize     — per-particle size multiplier (~0.93..1.07), set on spawn
+//   aRotation — per-particle UV rotation in radians, updated on CPU each
+//               frame so each sprite slowly spins around its center.
+//   aLife     — current 0..1 lifetime for the particle, used to grow the
+//               sprite (1× → 2×) and fade it out after 50%.
+//   aTint     — per-particle brightness multiplier (~0.9..1.1) so the
+//               plume contains a mix of slightly lighter / darker puffs
+//               instead of a uniform shade.
+const SMOKE_VERT = `
+  attribute float aSize;
+  attribute float aRotation;
+  attribute float aLife;
+  attribute float aTint;
+  varying float vRotation;
+  varying float vLife;
+  varying float vTint;
+  uniform float uBaseSize;
+  void main() {
+    vRotation = aRotation;
+    vLife = aLife;
+    vTint = aTint;
+    vec4 mv = modelViewMatrix * vec4(position, 1.0);
+    gl_Position = projectionMatrix * mv;
+    // Grow from 1x to 2.4x over the particle's lifetime so each puff
+    // visually expands as it rises. Distance attenuation matches the
+    // old PointsMaterial behaviour (300 / -z).
+    float growth = 1.0 + 1.4 * aLife;
+    gl_PointSize = uBaseSize * aSize * growth * (300.0 / -mv.z);
+  }
+`;
+const SMOKE_FRAG = `
+  uniform sampler2D uMap;
+  uniform vec3 uColor;
+  uniform float uOpacity;
+  varying float vRotation;
+  varying float vLife;
+  varying float vTint;
+  void main() {
+    // gl_PointCoord is in [0..1]. Center, rotate, recenter.
+    vec2 uv = gl_PointCoord - 0.5;
+    float c = cos(vRotation);
+    float s = sin(vRotation);
+    uv = mat2(c, -s, s, c) * uv;
+    uv += 0.5;
+    if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) discard;
+    vec4 tex = texture2D(uMap, uv);
+    // Hold full opacity for the first half of the particle's life, then
+    // smoothly fade out to zero by the end.
+    float fade = 1.0 - smoothstep(0.5, 1.0, vLife);
+    // Per-particle brightness wobble — clamp so 1.1 doesn't blow past 1.0.
+    vec3 tinted = clamp(uColor * vTint, 0.0, 1.0);
+    gl_FragColor = vec4(tinted, tex.a * uOpacity * fade);
+  }
+`;
+
+function buildGeoventSmoke(geovents) {
+  if (!geovents.length) return null;
+
+  const PER_VENT = 60;
+  const total = geovents.length * PER_VENT;
+
+  // Cache each vent's source position (already in viewer world units = elmos)
+  const vents = geovents.map((p) => new THREE.Vector3(p.x, p.y, p.z));
+
+  const positions = new Float32Array(total * 3);
+  const lifetimes = new Float32Array(total);
+  const speeds = new Float32Array(total);
+  const horizontal = new Float32Array(total * 2);
+  const ventIdx = new Int32Array(total);
+  const sizes = new Float32Array(total);          // ±7% size variance per particle
+  const rotations = new Float32Array(total);      // current UV rotation, radians
+  const rotRates = new Float32Array(total);       // radians/sec, ±5% of a full turn
+  const tints = new Float32Array(total);          // ±10% brightness multiplier
+
+  for (let i = 0; i < total; i++) {
+    const vi = (i / PER_VENT) | 0;
+    ventIdx[i] = vi;
+    lifetimes[i] = Math.random();
+    speeds[i] = 0.25 + Math.random() * 0.35;
+    // Tiny lateral wobble — keeps the column from looking like a hard
+    // rod, but small enough that the plume reads as a vertical line
+    // instead of a cone.
+    horizontal[i * 2    ] = (Math.random() - 0.5) * 0.08;
+    horizontal[i * 2 + 1] = (Math.random() - 0.5) * 0.08;
+    sizes[i] = 1.0 + (Math.random() - 0.5) * 0.14;       // [0.93..1.07]
+    rotations[i] = Math.random() * Math.PI * 2.0;        // 360° random spawn
+    rotRates[i] = (Math.random() - 0.5) * 0.10 * Math.PI * 2.0; // ±5% of 2π per sec
+    tints[i] = 1.0 + (Math.random() - 0.5) * 0.20;       // [0.9..1.1]
+    const v = vents[vi];
+    positions[i * 3    ] = v.x;
+    positions[i * 3 + 1] = v.y;
+    positions[i * 3 + 2] = v.z;
+  }
+
+  const lifeBuf = new Float32Array(total);
+  for (let i = 0; i < total; i++) lifeBuf[i] = lifetimes[i];
+
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geom.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
+  geom.setAttribute('aRotation', new THREE.BufferAttribute(rotations, 1));
+  geom.setAttribute('aLife', new THREE.BufferAttribute(lifeBuf, 1));
+  geom.setAttribute('aTint', new THREE.BufferAttribute(tints, 1));
+
+  const tex = new THREE.TextureLoader().load(SMOKE_SPRITE_URL, (t) => {
+    t.colorSpace = THREE.SRGBColorSpace;
+  });
+  tex.magFilter = THREE.LinearFilter;
+  tex.minFilter = THREE.LinearMipMapLinearFilter;
+
+  // uBaseSize is the screen size at the start of a particle's life; the
+  // shader expands this to ~2.4x over the lifetime so each puff grows
+  // as it rises. Per-particle aTint adds ±10% brightness wobble around
+  // uColor so the plume contains a mix of slightly lighter / darker puffs.
+  const mat = new THREE.ShaderMaterial({
+    uniforms: {
+      uMap:      { value: tex },
+      uColor:    { value: new THREE.Color(0x8a8a8a) },
+      uOpacity:  { value: 0.5 },
+      uBaseSize: { value: 80.0 },
+    },
+    vertexShader: SMOKE_VERT,
+    fragmentShader: SMOKE_FRAG,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.NormalBlending,
+  });
+
+  const points = new THREE.Points(geom, mat);
+  points.frustumCulled = false;
+  points.name = 'geovent-smoke';
+  points.userData = {
+    vents, lifetimes, speeds, horizontal, ventIdx,
+    sizes, rotations, rotRates, tints,
+  };
+  return points;
+}
+
+let lastSmokeFrame = performance.now();
+function tickSmoke(points, now) {
+  const dt = Math.min(0.05, (now - lastSmokeFrame) / 1000);
+  lastSmokeFrame = now;
+
+  const {
+    vents, lifetimes, speeds, horizontal, ventIdx,
+    sizes, rotations, rotRates, tints,
+  } = points.userData;
+  const posAttr = points.geometry.attributes.position;
+  const rotAttr = points.geometry.attributes.aRotation;
+  const sizeAttr = points.geometry.attributes.aSize;
+  const lifeAttr = points.geometry.attributes.aLife;
+  const tintAttr = points.geometry.attributes.aTint;
+  const arr = posAttr.array;
+
+  // Plume rises ~240 elmos. Particles spawn at vent y, drift slightly
+  // outward, fade up over their lifetime, then respawn.
+  const plumeHeight = 240;
+  const fadeInSec = 3.0;
+
+  for (let i = 0; i < lifetimes.length; i++) {
+    // Subtle continuous rotation (each particle's own rate)
+    rotations[i] += rotRates[i] * dt;
+    rotAttr.array[i] = rotations[i];
+
+    lifetimes[i] += dt / fadeInSec * speeds[i];
+    if (lifetimes[i] >= 1.0) {
+      lifetimes[i] = 0.0;
+      // Re-roll per-particle randomness each respawn so the column
+      // doesn't settle into a recognisable pattern.
+      sizes[i] = 1.0 + (Math.random() - 0.5) * 0.14;
+      rotations[i] = Math.random() * Math.PI * 2.0;
+      rotRates[i] = (Math.random() - 0.5) * 0.10 * Math.PI * 2.0;
+      tints[i] = 1.0 + (Math.random() - 0.5) * 0.20;
+      sizeAttr.array[i] = sizes[i];
+      rotAttr.array[i] = rotations[i];
+      tintAttr.array[i] = tints[i];
+      lifeAttr.array[i] = 0.0;
+      const v = vents[ventIdx[i]];
+      arr[i * 3    ] = v.x;
+      arr[i * 3 + 1] = v.y;
+      arr[i * 3 + 2] = v.z;
+      continue;
+    }
+    const t = lifetimes[i];
+    lifeAttr.array[i] = t;
+    const v = vents[ventIdx[i]];
+    arr[i * 3    ] = v.x + horizontal[i * 2    ] * plumeHeight * t;
+    arr[i * 3 + 1] = v.y + plumeHeight * t;
+    arr[i * 3 + 2] = v.z + horizontal[i * 2 + 1] * plumeHeight * t;
+  }
+  posAttr.needsUpdate = true;
+  rotAttr.needsUpdate = true;
+  sizeAttr.needsUpdate = true;
+  tintAttr.needsUpdate = true;
+  lifeAttr.needsUpdate = true;
+}
+
+// -- Boot ------------------------------------------------------------------
+function resize() {
+  const w = canvasEl.clientWidth;
+  const h = canvasEl.clientHeight;
+  if (canvasEl.width !== w || canvasEl.height !== h) {
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+}
+
+let geoventSmoke = null;
+function tick() {
+  resize();
+  controls.update();
+  const now = performance.now();
+  if (popIns.length) tickPopIns(now);
+  if (geoventSmoke) tickSmoke(geoventSmoke, now);
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+}
+
+async function boot() {
+  // Pick map slug from ?map=... query, default to altair_crossing
+  const params = new URLSearchParams(location.search);
+  const mapSlug = params.get('map') || 'altair-crossing';
+  const sceneUrl = `../maps_features/${mapSlug}/placements.json`;
+
+  let data;
+  try {
+    const r = await fetch(sceneUrl);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    data = await r.json();
+  } catch (e) {
+    setStatus(`failed to load ${sceneUrl}: ${e.message || e}`, true);
+    return;
+  }
+
+  titleEl.textContent = data.name || mapSlug;
+  metaEl.textContent =
+    `${data.worldWidth}×${data.worldHeight} elmos · ` +
+    `h ${data.minHeight}..${data.maxHeight} · ` +
+    `${data.features.length} placements`;
+
+  // Heightmap
+  setStatus('loading heightmap…');
+  let hm;
+  try {
+    hm = await loadHeightmap(
+      `../maps_features/${mapSlug}/${data.heightmap}`,
+      data.minHeight, data.maxHeight);
+  } catch (e) {
+    setStatus(`heightmap load failed: ${e.message || e}`, true);
+    return;
+  }
+
+  // Terrain
+  const terrain = buildTerrain(hm, data.worldWidth, data.worldHeight);
+  scene.add(terrain);
+  wireEl.addEventListener('change', () => {
+    terrain.material.wireframe = wireEl.checked;
+  });
+
+  // Frame the map from above
+  const diag = Math.hypot(data.worldWidth, data.worldHeight);
+  camera.position.set(data.worldWidth * 0.5, diag * 0.55, data.worldHeight * 1.1);
+  controls.target.set(data.worldWidth / 2, 0, data.worldHeight / 2);
+  controls.update();
+
+  // Geovent smoke — built immediately so the plumes appear before the
+  // GLB stream finishes. Independent of the feature loader.
+  const geovents = data.features.filter((p) => p.name === 'geovent');
+  if (geovents.length) {
+    geoventSmoke = buildGeoventSmoke(geovents);
+    if (geoventSmoke) scene.add(geoventSmoke);
+  }
+
+  // Features
+  const featuresBase = data.featuresBase || '../features';
+  const { root, placed, failedNames } = await placeFeatures(scene, data.features, featuresBase);
+  showFeaturesEl.addEventListener('change', () => {
+    root.visible = showFeaturesEl.checked;
+    if (geoventSmoke) geoventSmoke.visible = showFeaturesEl.checked;
+  });
+
+  const failMsg = failedNames.length ? `  ·  ${failedNames.length} failed` : '';
+  const ventMsg = geovents.length ? `  ·  ${geovents.length} geovents` : '';
+  setStatus(`loaded: ${placed}/${data.features.length - geovents.length} features${ventMsg}${failMsg}`);
+}
+
+requestAnimationFrame(tick);
+boot();
+</script>
+</body>
+</html>

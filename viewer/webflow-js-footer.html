@@ -1,0 +1,455 @@
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+      "lil-gui": "https://unpkg.com/lil-gui@0.19.1/dist/lil-gui.esm.min.js",
+      "detect-gpu": "https://unpkg.com/detect-gpu@5.0.38/dist/detect-gpu.esm.js"
+    }
+  }
+</script>
+
+<script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+    import { Water } from 'three/addons/objects/Water.js';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    import { GUI } from 'lil-gui';
+    import { getGPUTier } from 'detect-gpu';
+
+    // ... (Apparaat & Prestaties ongewijzigd) ...
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 800;
+    const MOBILE_PERF = { tessellation: 400, shadowSize: 512, shadowType: THREE.PCFShadowMap, reflectionRes: 256, pixelRatio: 1.5, skirtRes: 32, targetFPS: 90, shadowBias: -0.004 };
+    const DESKTOP_TIERS = {
+        0: { tessellation: 400, shadowSize: 512,  shadowType: THREE.PCFShadowMap, reflectionRes: 512, pixelRatio: 1.0, skirtRes: 64, targetFPS: 60, shadowBias: -0.003 },
+        1: { tessellation: 750, shadowSize: 1024, shadowType: THREE.PCFSoftShadowMap, reflectionRes: 1024, pixelRatio: 1.2, skirtRes: 96, targetFPS: null, shadowBias: -0.0015 },
+        2: { tessellation: 850, shadowSize: 2048, shadowType: THREE.PCFSoftShadowMap, reflectionRes: 1024, pixelRatio: 1.5, skirtRes: 128, targetFPS: null, shadowBias: -0.001 },
+        3: { tessellation: 1000, shadowSize: 4096, shadowType: THREE.PCFSoftShadowMap, reflectionRes: 1024, pixelRatio: 1.5, skirtRes: 256, targetFPS: null, shadowBias: -0.0009 }
+    };
+
+    const CONFIG = {
+        containerID:    'map-container',
+        settingVoidID:  'setting-void-water',
+        liquidColorID:  'setting-liquid-color',
+        forceEditorMode: false,
+        scaleFactor: 128.0, cameraZoomFactor: 0.85, screenOffsetY: 0.15, globalHeightMultiplier: 0.4,
+        terrainRoughness: 0.92, terrainNormalScale: 1.5, globalMetalness: 0.1,
+        defaultMinHeight: -25.0, defaultMaxHeight: 150.0, skirtOffset: 100.0,
+        rendererExposure: 1.2, envMapIntensity: 0.5,
+        sunColor: 0xffffff, sunIntensity: 2.7, sunAzimuth: 0.85, sunElevation: 0.45, ambientColor: 0xfffaed, ambientIntensity: 0.2, shadowNormalBias: 0.02,
+        autoRotateSpeed: 0.5, rotateSpeed: 0.8, dampingFactor: 0.035,
+
+        waterLevel: 0.0, waterColor: 0x10424c, waterSunColor: 0x333333,
+        waterOpacity: 0.6, waterScale: 30, waterSpeed: 0.0042,
+        waterSideOpacity: 0.9, waterSideScale: 6.0,
+
+        lavaSpeed: 0.01, lavaScale: 4.0,
+        lavaLowColor: 0x000000, lavaMidColor: 0xcf1010, lavaHighColor: 0xffaa00,
+
+        useSkybox: true,
+        defaultHdrUrl: 'https://raw.githubusercontent.com/icexuick/BAR-modelviewer/main/hdr/clarens_midday_1k.hdr',
+        defaultSkyboxUrl: 'https://cdn.prod.website-files.com/5c68622246b367adf6f3041d/6961225e370592dc30e22248_clarens_midday_1k.webp',
+        waterNormalsUrl: 'https://raw.githubusercontent.com/beyond-all-reason/map_blueprint/a7db394716730e102f84442ed35fe3f7644a01fc/maps/waterbump_4tiles.png',
+
+        cmsIds: { surface: 'setting-surface-color', base: 'setting-base-color', min: 'setting-min-color', absorb: 'setting-absorb-color' }
+    };
+
+    // ... (Helpers) ...
+    const isEditorEnabled = () => { const params = new URLSearchParams(window.location.search); const isLiveSite = window.location.href.includes("beyondallreason.info"); return params.has('editor') || CONFIG.forceEditorMode || !isLiveSite; };
+    const getCMSValue = (id, fallback) => { const el = document.getElementById(id); if(el && el.innerText.trim() !== "") { const v = parseFloat(el.innerText.replace(',', '.')); if(!isNaN(v)) return v; } return fallback; };
+    const getCMSColor = (id) => { const el = document.getElementById(id); return (el && el.innerText.trim() !== "") ? new THREE.Color(el.innerText.trim()) : null; };
+    const getSmartColor = (id, fallbackHex) => { const el = document.getElementById(id); if (!el) return new THREE.Color(fallbackHex); const text = el.innerText.trim(); if (text.startsWith('#') || text.startsWith('rgb')) return new THREE.Color(text); const style = window.getComputedStyle(el).backgroundColor; if (style && style !== 'rgba(0, 0, 0, 0)' && style !== 'transparent') return new THREE.Color(style); return new THREE.Color(fallbackHex); };
+    const getCMSBackgroundColor = (id) => { const el = document.getElementById(id); if (el) { const style = window.getComputedStyle(el).backgroundColor; if (style && style !== 'rgba(0, 0, 0, 0)' && style !== 'transparent') return new THREE.Color(style); } return null; };
+    const getLavaLevel = () => { return getCMSValue("setting-lavalevel", null) === CONFIG.defaultMinHeight ? null : getCMSValue("setting-lavalevel", null); };
+    const getVoidStatus = () => { const el = document.getElementById(CONFIG.settingVoidID); return el && !el.classList.contains('w-condition-invisible') && window.getComputedStyle(el).display !== 'none'; };
+    const getTextureUrlFromImg = (id) => { const img = document.getElementById(id); return (img && img.src && !img.src.endsWith('#')) ? img.src : null; };
+    const getSafeSkyboxUrl = (id, fallback) => { const img = document.getElementById(id); return (img && img.src && !img.src.includes('placeholder')) ? img.src : fallback; };
+    const getHeightData = (image, size) => { const c = document.createElement('canvas'); c.width = size; c.height = size; const ctx = c.getContext('2d'); ctx.drawImage(image, 0, 0, size, size); const d = ctx.getImageData(0, 0, size, size).data; const h = new Float32Array(size * size); for (let i = 0; i < size * size; i++) h[i] = d[i * 4] / 255.0; return h; };
+    const createInvertedTexture = (image) => { const c = document.createElement('canvas'); c.width = image.width; c.height = image.height; const ctx = c.getContext('2d'); ctx.drawImage(image, 0, 0); try { const d = ctx.getImageData(0,0,c.width,c.height); const data = d.data; for(let i=0; i<data.length; i+=4){ const v=255-data[i]; data[i]=v; data[i+1]=v; data[i+2]=v; } ctx.putImageData(d,0,0); const t = new THREE.CanvasTexture(c); t.flipY=true; return t; } catch(e) { return null; } };
+
+    // ✅ LAVA SHADER (MET POLYGON OFFSET FIX)
+    const createLavaMaterial = (noiseTexture, brightness = 1.0, scale, lowColor, midColor, highColor) => {
+        let uniforms = {
+            time: { value: 0 }, noiseMap: { value: noiseTexture }, scale: { value: scale },
+            lowColor: { value: new THREE.Color(lowColor) },
+            midColor: { value: new THREE.Color(midColor) },
+            highColor: { value: new THREE.Color(highColor) }
+        };
+        const fragmentShaderContent = `
+            uniform float time; uniform sampler2D noiseMap; uniform float scale;
+            uniform vec3 lowColor; uniform vec3 midColor; uniform vec3 highColor;
+            varying vec2 vUv;
+            void main() {
+                vec2 uv = vUv * scale;
+                float noise1 = texture2D(noiseMap, uv + vec2(time * 0.02, time * 0.01)).r;
+                float noise2 = texture2D(noiseMap, uv - vec2(time * 0.01, time * 0.03)).g;
+                float noise = (noise1 + noise2) * 0.5;
+                vec3 col = mix(lowColor, midColor, smoothstep(0.0, 0.5, noise));
+                col = mix(col, highColor, smoothstep(0.5, 1.0, noise));
+                if(noise > 0.7) { col += highColor * 4.0; } // Heat Boost
+                gl_FragColor = vec4(col * ${brightness.toFixed(2)}, 1.0);
+            }`;
+        return new THREE.ShaderMaterial({
+            uniforms: uniforms,
+            vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+            fragmentShader: fragmentShaderContent,
+            side: THREE.DoubleSide,
+            // ✅ Z-FIGHTING FIX: Lava naar achteren duwen (+1.0)
+            polygonOffset: true,
+            polygonOffsetFactor: 1.0,
+            polygonOffsetUnits: 1.0
+        });
+    };
+
+    const createWaterSideMaterial = (noiseTexture, color, opacity, scale, sunDir) => {
+        return new THREE.ShaderMaterial({ uniforms: { time: { value: 0 }, noiseMap: { value: noiseTexture }, scale: { value: scale }, color: { value: color }, opacity: { value: opacity }, sunDirection: { value: sunDir }, sunColor: { value: new THREE.Color(CONFIG.sunColor) } }, vertexShader: `varying vec2 vUv; varying vec3 vNormal; varying vec3 vWorldPosition; void main() { vUv = uv; vNormal = normalize(mat3(modelMatrix) * normal); vec4 worldPosition = modelMatrix * vec4(position, 1.0); vWorldPosition = worldPosition.xyz; gl_Position = projectionMatrix * viewMatrix * worldPosition; }`, fragmentShader: `uniform float time; uniform sampler2D noiseMap; uniform float scale; uniform vec3 color; uniform float opacity; uniform vec3 sunDirection; uniform vec3 sunColor; varying vec2 vUv; varying vec3 vNormal; void main() { vec2 uv = vUv * scale; float noise = texture2D(noiseMap, uv + vec2(0.0, time * 0.2)).r; vec3 finalColor = mix(color, color * 1.3, noise * 0.3); gl_FragColor = vec4(finalColor, opacity); }`, side: THREE.FrontSide, transparent: true, depthWrite: false });
+    };
+
+    const generateSkirts = (width, height, segments, heightData, minH, maxH) => { const skirtDepth = minH - CONFIG.skirtOffset; const gridX = segments + 1, gridY = segments + 1; const positions = [], uvs = [], indices = []; const addWall = (edgeIndices) => { const startIdx = positions.length / 3; for(let i=0; i<edgeIndices.length; i++) { const idx = edgeIndices[i], gx = idx % gridX, gy = Math.floor(idx / gridX); const x = (gx / segments) * width - (width/2), z = (gy / segments) * height - (height/2); const hVal = heightData[idx] || 0, y = minH + (maxH - minH) * hVal; positions.push(x, y, z); uvs.push(gx/segments, 1.0-(gy/segments)); positions.push(x, skirtDepth, z); uvs.push(gx/segments, 1.0-(gy/segments)); } for (let i = 0; i < edgeIndices.length - 1; i++) { const topA = startIdx + (i*2), botA = startIdx + (i*2) + 1, topB = startIdx + (i*2) + 2, botB = startIdx + (i*2) + 3; indices.push(topA, botA, topB, topB, botA, botB); } }; const north=[]; for(let x=0; x<gridX; x++) north.push(x); const south=[]; for(let x=0; x<gridX; x++) south.push((gridY-1)*gridX + x); const west=[]; for(let y=0; y<gridY; y++) west.push(y*gridX); const east=[]; for(let y=0; y<gridY; y++) east.push(y*gridX + (gridX-1)); addWall(north); addWall(east); addWall(south.reverse()); addWall(west.reverse()); const geometry = new THREE.BufferGeometry(); geometry.setIndex(indices); geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3)); geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2)); geometry.computeVertexNormals(); return geometry; };
+
+    const initTerrain = async () => {
+        if (window.terrainScriptActive) return; window.terrainScriptActive = true;
+        const EDITOR_MODE = isEditorEnabled();
+        if (EDITOR_MODE) console.log("🎛️ Editor mode ON");
+
+        const mainContainer = document.getElementById(CONFIG.containerID); if (!mainContainer) return;
+
+        let liquidMesh; let liquidGroup = null; let liquidSideMats = [];
+        let PERF = DESKTOP_TIERS[1];
+        if (isMobile) { PERF = MOBILE_PERF; } else { try { const gpuTier = await getGPUTier(); if (gpuTier.gpu) { const name = gpuTier.gpu.toLowerCase(); if (name.includes('rtx 50') || name.includes('rtx 40') || name.includes('rx 7900')) { gpuTier.tier = 3; } } if (gpuTier && gpuTier.tier !== undefined) { PERF = DESKTOP_TIERS[gpuTier.tier] || DESKTOP_TIERS[1]; } } catch (e) { console.warn("⚠️ GPU Detect failed", e); } }
+
+        const cmsMinHeight = getCMSValue('setting-min-height', CONFIG.defaultMinHeight);
+        const cmsMaxHeight = getCMSValue('setting-max-height', CONFIG.defaultMaxHeight);
+        const lavaLevelCMS = getLavaLevel();
+
+        const cmsMinColor = getSmartColor(CONFIG.cmsIds.min, CONFIG.lavaLowColor);
+        const cmsBaseColor = getSmartColor(CONFIG.cmsIds.base, CONFIG.lavaMidColor);
+        const cmsSurfaceColor = getSmartColor(CONFIG.cmsIds.surface, CONFIG.lavaHighColor);
+
+        CONFIG.waterColor = cmsBaseColor.getHex();
+        CONFIG.waterSunColor = cmsSurfaceColor.getHex();
+        CONFIG.lavaLowColor = cmsMinColor.getHex();
+        CONFIG.lavaMidColor = cmsBaseColor.getHex();
+        CONFIG.lavaHighColor = cmsSurfaceColor.getHex();
+
+        const isVoidMode = getVoidStatus();
+        const hasLava = (lavaLevelCMS !== null);
+        const rawWaterLevel = hasLava ? lavaLevelCMS : CONFIG.waterLevel;
+
+        const mapW = parseFloat(mainContainer.dataset.mapWidth) || 10; const mapH = parseFloat(mainContainer.dataset.mapHeight) || 10;
+        const scaledW = mapW * CONFIG.scaleFactor; const scaledH = mapH * CONFIG.scaleFactor;
+        let currentMinH = cmsMinHeight * CONFIG.globalHeightMultiplier; let currentMaxH = cmsMaxHeight * CONFIG.globalHeightMultiplier; let currentLiquidHeight = rawWaterLevel * CONFIG.globalHeightMultiplier;
+        const maxDim = Math.max(scaledW, scaledH, Math.abs(currentMaxH));
+
+        const textureLoader = new THREE.TextureLoader(); const rgbeLoader = new RGBELoader();
+        const loadTex = (url) => url ? textureLoader.loadAsync(url).catch(e => null) : Promise.resolve(null);
+        const uHeight = getTextureUrlFromImg('height-map-img'); const heightImage = new Image(); heightImage.crossOrigin = "Anonymous"; const heightImagePromise = new Promise(resolve => { heightImage.onload = () => resolve(heightImage); heightImage.onerror = () => resolve(null); heightImage.src = uHeight; });
+        const [diffMap, hMap, metMap, normMap, envMap, waterNorm, hImageLoaded] = await Promise.all([
+            loadTex(getTextureUrlFromImg('diffuse-map-img')), loadTex(uHeight),
+            loadTex(getTextureUrlFromImg('metal-map-img')), loadTex(getTextureUrlFromImg('normal-map-img')),
+            CONFIG.useSkybox ? loadTex(getSafeSkyboxUrl('skybox-img', CONFIG.defaultSkyboxUrl)) : rgbeLoader.loadAsync(mainContainer.dataset.envmapUrl || CONFIG.defaultHdrUrl),
+            !isVoidMode ? loadTex(CONFIG.waterNormalsUrl) : Promise.resolve(null),
+            heightImagePromise
+        ]);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance", preserveDrawingBuffer: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, PERF.pixelRatio));
+        renderer.setSize(mainContainer.offsetWidth, mainContainer.offsetHeight);
+        renderer.shadowMap.enabled = true; renderer.shadowMap.type = PERF.shadowType;
+        renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = CONFIG.rendererExposure; renderer.localClippingEnabled = true;
+        let canvasHost = document.getElementById('three-host'); if (!canvasHost) { canvasHost = document.createElement('div'); canvasHost.id = 'three-host'; canvasHost.style.position = 'absolute'; canvasHost.style.top = '0'; canvasHost.style.left = '0'; canvasHost.style.width = '100%'; canvasHost.style.height = '100%'; canvasHost.style.zIndex = '10'; mainContainer.appendChild(canvasHost); } while(canvasHost.firstChild) canvasHost.removeChild(canvasHost.firstChild); canvasHost.appendChild(renderer.domElement);
+        const scene = new THREE.Scene(); if (envMap) { envMap.mapping = THREE.EquirectangularReflectionMapping; envMap.colorSpace = THREE.SRGBColorSpace; scene.environment = envMap; scene.background = null; }
+        const camera = new THREE.PerspectiveCamera(45, mainContainer.offsetWidth / mainContainer.offsetHeight, 1, maxDim * 10);
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true; controls.dampingFactor = CONFIG.dampingFactor; controls.rotateSpeed = CONFIG.rotateSpeed; controls.target.set(0, (currentMinH + currentMaxH)/2, 0);
+        const mapDiagonal = Math.sqrt(Math.pow(scaledW, 2) + Math.pow(scaledH, 2)); let cameraDist = (mapDiagonal / 2) / Math.sin((camera.fov * Math.PI) / 180 / 2); const aspect = mainContainer.offsetWidth / mainContainer.offsetHeight; if (aspect < 1) cameraDist = cameraDist / aspect; cameraDist *= CONFIG.cameraZoomFactor; const angle = Math.PI / 4; camera.position.set(0, Math.sin(angle) * cameraDist, Math.cos(angle) * cameraDist); controls.update();
+        const onResize = () => { if (!mainContainer) return; const w = mainContainer.offsetWidth; const h = mainContainer.offsetHeight; let lastHeight = mainContainer.offsetHeight; if (isMobile && w === renderer.domElement.width && Math.abs(h - lastHeight) < 100) return; lastHeight = h; if (w === 0 || h === 0) return; camera.aspect = w / h; camera.setViewOffset(w, h, 0, h * CONFIG.screenOffsetY, w, h); camera.updateProjectionMatrix(); renderer.setSize(w, h); };
+        onResize(); window.addEventListener('resize', onResize); new ResizeObserver(() => onResize()).observe(mainContainer);
+        let isAltDown = false; window.addEventListener('keydown', (e) => { if (e.key === 'Alt') { e.preventDefault(); isAltDown = true; controls.enabled = false; document.body.style.cursor = 'crosshair'; } }); window.addEventListener('keyup', (e) => { if (e.key === 'Alt') { isAltDown = false; controls.enabled = true; document.body.style.cursor = 'default'; } });
+        controls.autoRotate = true; controls.autoRotateSpeed = CONFIG.autoRotateSpeed;
+        let userWantsRotation = true; const rotateBtn = document.getElementById('rotate-toggle-button'); if (rotateBtn) { rotateBtn.addEventListener('click', () => { userWantsRotation = !userWantsRotation; controls.autoRotate = userWantsRotation; }); }
+
+        // ==========================================
+        // ✅ EXPORT KNOP LOGICA (AANGEPAST)
+        // ==========================================
+        const exportBtn = document.getElementById('export-button');
+        if (exportBtn) {
+            exportBtn.addEventListener('click', () => {
+                const prevW = mainContainer.offsetWidth;
+                const prevH = mainContainer.offsetHeight;
+                const prevBg = scene.background;
+                const prevPixelRatio = renderer.getPixelRatio();
+
+                // 1. Sla de originele geometry op
+                const originalGeo = terrainMesh.geometry;
+
+                scene.background = null;
+                const targetW = 3840;
+                const targetH = targetW / camera.aspect;
+
+                renderer.setPixelRatio(1);
+                renderer.setSize(targetW, targetH);
+
+                // 2. Maak een High-Res geometry aan (4x Tessellation)
+                // We cappen dit op 2500 segmenten om WebGL crashes te voorkomen (2500*2500 vertices is al heel zwaar)
+                const highResSegments = Math.min(PERF.tessellation * 4, 2500);
+                const highResGeo = new THREE.PlaneGeometry(scaledW, scaledH, highResSegments, highResSegments);
+
+                // 3. Pas geometry toe
+                terrainMesh.geometry = highResGeo;
+
+                // 4. Render
+                renderer.render(scene, camera);
+
+                const link = document.createElement('a');
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                link.download = `Map-Export-${timestamp}.png`;
+                link.href = renderer.domElement.toDataURL('image/png');
+                link.click();
+
+                // 5. Herstel alles & Ruim op (MEMORY MANAGEMENT)
+                terrainMesh.geometry = originalGeo; // Zet oude terug
+                highResGeo.dispose(); // Verwijder de zware geometry direct uit geheugen!
+
+                scene.background = prevBg;
+                renderer.setPixelRatio(prevPixelRatio);
+                renderer.setSize(prevW, prevH);
+                renderer.render(scene, camera);
+            });
+        }
+
+        let rotateTimeout; controls.addEventListener('start', () => { controls.autoRotate = false; clearTimeout(rotateTimeout); }); controls.addEventListener('end', () => { if (userWantsRotation) { rotateTimeout = setTimeout(() => { controls.autoRotate = true; }, CONFIG.autoRotatePause); } });
+
+        const ambientLight = new THREE.AmbientLight(CONFIG.ambientColor, CONFIG.ambientIntensity); scene.add(ambientLight);
+        const dirLight = new THREE.DirectionalLight(CONFIG.sunColor, CONFIG.sunIntensity); dirLight.castShadow = true; dirLight.shadow.bias = (PERF.shadowBias !== undefined) ? PERF.shadowBias : CONFIG.shadowBias; dirLight.shadow.normalBias = CONFIG.shadowNormalBias; dirLight.shadow.mapSize.set(PERF.shadowSize, PERF.shadowSize); const dCam = mapDiagonal * 0.6; dirLight.shadow.camera.left = -dCam; dirLight.shadow.camera.right = dCam; dirLight.shadow.camera.top = dCam; dirLight.shadow.camera.bottom = -dCam; dirLight.shadow.camera.near = 10; dirLight.shadow.camera.far = maxDim * 5; scene.add(dirLight);
+        const updateSunPosition = () => { const phi = (1.0 - CONFIG.sunElevation) * (Math.PI / 2), theta = CONFIG.sunAzimuth * Math.PI * 2; dirLight.position.set(maxDim * 2 * Math.sin(phi) * Math.cos(theta), maxDim * 2 * Math.cos(phi), maxDim * 2 * Math.sin(phi) * Math.sin(theta)); dirLight.lookAt(0,0,0); if (liquidMesh && liquidMesh.material.uniforms) liquidMesh.material.uniforms.sunDirection.value.copy(dirLight.position).normalize(); if (liquidSideMats) { liquidSideMats.forEach(mat => { if (mat.uniforms.sunDirection) mat.uniforms.sunDirection.value.copy(dirLight.position).normalize(); }); } };
+        updateSunPosition(); window.addEventListener('mousemove', (e) => { if (isAltDown) { CONFIG.sunAzimuth -= e.movementX * 0.002; CONFIG.sunElevation = Math.max(0.01, Math.min(0.99, CONFIG.sunElevation - e.movementY * 0.002)); updateSunPosition(); } });
+
+        if(diffMap) { diffMap.colorSpace = THREE.SRGBColorSpace; diffMap.anisotropy = renderer.capabilities.getMaxAnisotropy(); }
+        if(waterNorm) { waterNorm.wrapS = waterNorm.wrapT = THREE.RepeatWrapping; }
+        if(normMap) { normMap.wrapS = normMap.wrapT = THREE.RepeatWrapping; normMap.repeat.y = -1; normMap.offset.y = 1; }
+
+        let roughMap = metMap ? createInvertedTexture(metMap.image) : null;
+        const gpuGeo = new THREE.PlaneGeometry(scaledW, scaledH, PERF.tessellation, PERF.tessellation);
+        let clipPlane = null; const terrainClippingPlanes = []; if (isVoidMode) { clipPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0); terrainClippingPlanes.push(clipPlane); }
+
+        const terrainMat = new THREE.MeshStandardMaterial({
+            map: diffMap, displacementMap: hMap, displacementScale: currentMaxH - currentMinH, displacementBias: currentMinH,
+            normalMap: normMap, normalScale: new THREE.Vector2(CONFIG.terrainNormalScale, CONFIG.terrainNormalScale),
+            metalnessMap: null, roughnessMap: null, metalness: CONFIG.globalMetalness, roughness: CONFIG.terrainRoughness,
+            side: THREE.DoubleSide, envMapIntensity: CONFIG.envMapIntensity, clippingPlanes: terrainClippingPlanes,
+            // ✅ Z-Fighting: Terrein naar voren (-1)
+            polygonOffset: true, polygonOffsetFactor: -1.0, polygonOffsetUnits: -1.0
+        });
+
+        const terrainMesh = new THREE.Mesh(gpuGeo, terrainMat); terrainMesh.rotation.x = -Math.PI / 2; terrainMesh.castShadow = true; terrainMesh.receiveShadow = true; terrainMesh.customDepthMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, displacementMap: hMap, displacementScale: currentMaxH - currentMinH, displacementBias: currentMinH, map: diffMap, clippingPlanes: terrainClippingPlanes }); scene.add(terrainMesh);
+
+        // ===== bar-features handshake (added) =====
+        // Expose the host context so the features embed (webflow-js-features.html)
+        // can attach to the same scene/camera and place feature instances on top
+        // of this terrain. Keys are a load-bearing contract — don't rename them.
+        //
+        // We also export THREE + GLTFLoader so the features embed can run as a
+        // plain (non-module) <script>. Firefox / iOS Safari don't deal well with
+        // two separate <script type="module"> blocks both importing the same
+        // three.js URL — they end up with two distinct THREE namespaces and
+        // instanceof checks break. Sharing the host's THREE avoids that.
+        window.barTerrain = {
+            THREE, GLTFLoader,
+            scene, camera, renderer, terrainMesh, dirLight, envMap,
+            CONFIG, scaledW, scaledH, container: mainContainer,
+        };
+        mainContainer.dispatchEvent(
+            new CustomEvent('barMapReady', { detail: window.barTerrain, bubbles: true })
+        );
+        // ===== end bar-features handshake =====
+
+        let skirtMesh, bottomMesh, heightData = null;
+        if (!isVoidMode && hImageLoaded) { heightData = getHeightData(hImageLoaded, PERF.skirtRes + 1); const skirtGeo = generateSkirts(scaledW, scaledH, PERF.skirtRes, heightData, currentMinH, currentMaxH); const skirtMat = terrainMat.clone(); skirtMat.displacementMap = null; skirtMat.displacementScale = 0; skirtMat.clippingPlanes = []; skirtMesh = new THREE.Mesh(skirtGeo, skirtMat); skirtMesh.receiveShadow = true; skirtMesh.castShadow = true; scene.add(skirtMesh); const bottomGeo = new THREE.PlaneGeometry(scaledW, scaledH, 1, 1); const bottomMat = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 1.0, metalness: 0.0, side: THREE.DoubleSide }); bottomMesh = new THREE.Mesh(bottomGeo, bottomMat); bottomMesh.rotation.x = -Math.PI / 2; bottomMesh.position.y = currentMinH - CONFIG.skirtOffset; scene.add(bottomMesh); }
+
+        if (true) {
+            const margin = 12.0;
+            const liquidW = Math.max(0.1, scaledW - margin);
+            const liquidH = Math.max(0.1, scaledH - margin);
+            const bottomY = currentMinH - CONFIG.skirtOffset;
+
+            const createLiquidBlock = (topMesh, sideMaterial, level) => {
+                const group = new THREE.Group();
+                const fixedSideHeight = 1.0;
+                topMesh.rotation.x = -Math.PI / 2; topMesh.position.y = level; group.add(topMesh);
+                const northGeo = new THREE.PlaneGeometry(liquidW, fixedSideHeight); const north = new THREE.Mesh(northGeo, sideMaterial); north.rotation.y = Math.PI; north.position.set(0, 0, -liquidH/2); group.add(north);
+                const southGeo = new THREE.PlaneGeometry(liquidW, fixedSideHeight); const south = new THREE.Mesh(southGeo, sideMaterial); south.rotation.y = 0; south.position.set(0, 0, liquidH/2); group.add(south);
+                const eastGeo = new THREE.PlaneGeometry(liquidH, fixedSideHeight); const east = new THREE.Mesh(eastGeo, sideMaterial); east.rotation.y = Math.PI / 2; east.position.set(liquidW/2, 0, 0); group.add(east);
+                const westGeo = new THREE.PlaneGeometry(liquidH, fixedSideHeight); const west = new THREE.Mesh(westGeo, sideMaterial); west.rotation.y = -Math.PI / 2; west.position.set(-liquidW/2, 0, 0); group.add(west);
+                group.children.forEach(c => c.frustumCulled = false); return group;
+            };
+
+            if (hasLava) {
+                // ✅ LAVA (Z-fighting handled in shader function)
+                const matTop = createLavaMaterial(waterNorm, 1.0, CONFIG.lavaScale, cmsMinColor, cmsBaseColor, cmsSurfaceColor);
+                liquidSideMats.push(matTop);
+                const matSide = createLavaMaterial(waterNorm, 0.6, CONFIG.lavaScale, cmsMinColor, cmsBaseColor, cmsSurfaceColor);
+                liquidSideMats.push(matSide);
+                matSide.side = THREE.FrontSide;
+                const wGeo = new THREE.PlaneGeometry(liquidW, liquidH);
+                const topMesh = new THREE.Mesh(wGeo, matTop);
+                liquidGroup = createLiquidBlock(topMesh, matSide, currentLiquidHeight);
+                scene.add(liquidGroup);
+            } else {
+                // WATER (Z-fighting handled below)
+                const activeWaterColor = cmsBaseColor || new THREE.Color(CONFIG.waterColor);
+                const activeSunColor = cmsSurfaceColor || new THREE.Color(CONFIG.waterSunColor);
+
+                if(waterNorm) { waterNorm.wrapS = waterNorm.wrapT = THREE.RepeatWrapping; }
+                const wGeo = new THREE.PlaneGeometry(liquidW, liquidH);
+
+                liquidMesh = new Water(wGeo, {
+                    textureWidth: PERF.reflectionRes, textureHeight: PERF.reflectionRes,
+                    waterNormals: waterNorm, sunDirection: dirLight.position.clone().normalize(),
+                    sunColor: activeSunColor,
+                    waterColor: activeWaterColor,
+                    distortionScale: CONFIG.waterScale, fog: scene.fog !== undefined,
+                    alpha: CONFIG.waterOpacity
+                });
+
+                liquidMesh.material.transparent = true;
+                liquidMesh.material.depthWrite = false;
+
+                // ✅ Z-FIGHTING: Water naar achteren (+1.0)
+                liquidMesh.material.polygonOffset = true;
+                liquidMesh.material.polygonOffsetFactor = -1.0;
+                liquidMesh.material.polygonOffsetUnits = -1.0;
+
+                const originalWaterRender = liquidMesh.onBeforeRender;
+                liquidMesh.onBeforeRender = function(renderer, scene, camera) {
+                    const savedBackground = scene.background;
+                    scene.background = envMap;
+                    if(originalWaterRender) originalWaterRender.call(this, renderer, scene, camera);
+                    scene.background = savedBackground;
+                };
+
+                const sideMat = createWaterSideMaterial(waterNorm, cmsBaseColor, CONFIG.waterSideOpacity, CONFIG.waterSideScale, dirLight.position.clone().normalize());
+                liquidSideMats.push(sideMat);
+
+                const startHeight = isVoidMode ? bottomY : currentLiquidHeight;
+                liquidGroup = createLiquidBlock(liquidMesh, sideMat, startHeight);
+                scene.add(liquidGroup);
+
+                liquidGroup.visible = !isVoidMode;
+            }
+
+            // ✅ SIDES SCHALEN (Initieel)
+            const startVal = isVoidMode ? bottomY : currentLiquidHeight;
+            const totalH = startVal - bottomY;
+            for (let i = 1; i < liquidGroup.children.length; i++) {
+                const side = liquidGroup.children[i];
+                side.scale.y = Math.max(0.01, totalH);
+                side.position.y = bottomY + (totalH / 2);
+            }
+        }
+
+        let isVisible = true; let lastFrameTime = 0; const fpsInterval = PERF.targetFPS ? 1000 / PERF.targetFPS : 0;
+        const animate = (time) => {
+            if (!isVisible) return; requestAnimationFrame(animate);
+            if (fpsInterval > 0) { const elapsed = time - lastFrameTime; if (elapsed < fpsInterval) return; lastFrameTime = time - (elapsed % fpsInterval); }
+            controls.update();
+            if (!hasLava && liquidMesh) { liquidMesh.material.uniforms['time'].value += CONFIG.waterSpeed; }
+            if (hasLava) { liquidSideMats.forEach(mat => { mat.uniforms.time.value += CONFIG.lavaSpeed; }); }
+            else if (liquidMesh) { liquidSideMats.forEach(mat => { mat.uniforms.time.value += CONFIG.waterSpeed; }); }
+            renderer.render(scene, camera);
+        };
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { isVisible = true; animate(performance.now()); } else { isVisible = false; } }); }, { threshold: 0.0 });
+        observer.observe(mainContainer);
+
+        const slider = document.getElementById('water-height-slider');
+        const sliderDisplay = document.getElementById('water-height-value');
+        const controlContainer = document.getElementById('water-controls');
+        const liquidLabel = document.getElementById('liquid-text');
+
+        if (liquidLabel) liquidLabel.innerText = hasLava ? "Lava" : "Water";
+
+        if (slider && controlContainer && liquidGroup) {
+            controlContainer.style.display = 'flex';
+            const bottomY = currentMinH - CONFIG.skirtOffset;
+
+            slider.min = Math.min(0, cmsMinHeight);
+            slider.max = cmsMaxHeight;
+
+            const startValGame = isVoidMode ? slider.min : rawWaterLevel;
+            slider.value = startValGame;
+
+            const formatVal = (v) => (v > 0 ? "+" : "") + parseFloat(v).toFixed(0);
+            if(sliderDisplay) sliderDisplay.innerText = formatVal(startValGame);
+
+            slider.addEventListener('input', (e) => {
+                const valGame = parseFloat(e.target.value);
+                if (sliderDisplay) sliderDisplay.innerText = formatVal(valGame);
+                const valThreeJS = valGame * CONFIG.globalHeightMultiplier;
+
+                liquidGroup.visible = true;
+                if (liquidGroup.children[0]) liquidGroup.children[0].position.y = valThreeJS;
+
+                const totalH = valThreeJS - bottomY;
+                for (let i = 1; i < liquidGroup.children.length; i++) {
+                    const side = liquidGroup.children[i];
+                    side.scale.y = Math.max(0.01, totalH);
+                    side.position.y = bottomY + (totalH / 2);
+                }
+            });
+        }
+
+        if (EDITOR_MODE) {
+            try {
+                const gui = new GUI({ title: 'Map Editor' });
+                gui.domElement.style.zIndex = '100000'; gui.domElement.style.position = 'fixed'; gui.domElement.style.top = '0'; gui.domElement.style.right = '0';
+
+                const fControls = gui.addFolder('🎮 Controls');
+                fControls.add(CONFIG, 'rotateSpeed', 0.1, 2.0).name('Rotate Speed').onChange(v => controls.rotateSpeed = v);
+                fControls.add(CONFIG, 'dampingFactor', 0.01, 0.2).name('Inertia/Damping').onChange(v => controls.dampingFactor = v);
+                fControls.add(CONFIG, 'autoRotateSpeed', 0.0, 5.0).name('Auto Speed').onChange(v => controls.autoRotateSpeed = v);
+
+                const fRender = gui.addFolder('☀️ Lighting & Atmosphere');
+                fRender.add(CONFIG, 'rendererExposure', 0.1, 4.0).name('Exposure').onChange(v => renderer.toneMappingExposure = v);
+                fRender.add(CONFIG, 'envMapIntensity', 0.0, 5.0).name('HDR Intensity').onChange(v => { terrainMat.envMapIntensity = v; if(skirtMesh) skirtMesh.material.envMapIntensity = v; });
+                fRender.addColor(CONFIG, 'ambientColor').name('Ambient Color').onChange(v => ambientLight.color.setHex(v));
+                fRender.add(CONFIG, 'ambientIntensity', 0.0, 2.0).name('Ambient Intensity').onChange(v => ambientLight.intensity = v);
+                fRender.addColor(CONFIG, 'sunColor').name('Sun Color').onChange(v => { dirLight.color.setHex(v); if(liquidMesh) liquidMesh.material.uniforms.sunColor.value.setHex(v); liquidSideMats.forEach(m => { if(m.uniforms.color) m.uniforms.color.value.setHex(v); }); });
+                fRender.add(dirLight, 'intensity', 0, 5).name('Sun Intensity');
+                fRender.add(CONFIG, 'sunAzimuth', 0.0, 1.0).listen().onChange(updateSunPosition);
+                fRender.add(CONFIG, 'sunElevation', 0.0, 1.0).listen().onChange(updateSunPosition);
+                fRender.add(dirLight.shadow, 'bias', -0.01, 0.01).name('Shadow Bias').listen();
+                fRender.add(CONFIG, 'shadowNormalBias', 0.0, 0.1).name('Normal Bias').onChange(v => dirLight.shadow.normalBias = v);
+
+                const fTerrain = gui.addFolder('⛰️ Terrain');
+                fTerrain.add(CONFIG, 'globalHeightMultiplier', 0.1, 2.0).name('Height Mult').onChange(v => { const min = cmsMinHeight * v, max = cmsMaxHeight * v; terrainMat.displacementScale = max - min; terrainMat.displacementBias = min; if(terrainMesh.customDepthMaterial) { terrainMesh.customDepthMaterial.displacementScale = max - min; terrainMesh.customDepthMaterial.displacementBias = min; } if(skirtMesh && heightData) { skirtMesh.geometry.dispose(); skirtMesh.geometry = generateSkirts(scaledW, scaledH, PERF.skirtRes, heightData, min, max); } if(bottomMesh) { bottomMesh.position.y = min - CONFIG.skirtOffset; } if(liquidGroup) { const newH = rawWaterLevel * v; liquidGroup.children[0].position.y = newH; } });
+                fTerrain.add(CONFIG, 'terrainNormalScale', 0.0, 5.0).onChange(v => terrainMat.normalScale.set(v,v));
+
+                if (hasLava) {
+                    const fLava = gui.addFolder('🔥 Lava');
+                    fLava.addColor(CONFIG, 'lavaLowColor').name('Crust (Low)').onChange(v => { liquidSideMats.forEach(m => m.uniforms.lowColor.value.setHex(v)); });
+                    fLava.addColor(CONFIG, 'lavaMidColor').name('Base (Mid)').onChange(v => { liquidSideMats.forEach(m => m.uniforms.midColor.value.setHex(v)); });
+                    fLava.addColor(CONFIG, 'lavaHighColor').name('Hot (High)').onChange(v => { liquidSideMats.forEach(m => m.uniforms.highColor.value.setHex(v)); });
+                    fLava.add(CONFIG, 'lavaSpeed', 0.0, 0.1).name('Speed');
+                    fLava.add(CONFIG, 'lavaScale', 1.0, 20.0).name('Scale').onChange(v => { liquidSideMats.forEach(m => m.uniforms.scale.value = v); });
+                } else if (!isVoidMode) {
+                    const fWater = gui.addFolder('💧 Water');
+                    fWater.addColor(CONFIG, 'waterColor').onChange(v => {
+                        if(liquidMesh) liquidMesh.material.uniforms.waterColor.value.setHex(v);
+                        liquidSideMats.forEach(m => { if(m.uniforms.color) m.uniforms.color.value.setHex(v); });
+                    });
+                    fWater.addColor(CONFIG, 'waterSunColor').onChange(v => { if(liquidMesh) liquidMesh.material.uniforms.sunColor.value.setHex(v); });
+                    fWater.add(CONFIG, 'waterOpacity', 0.0, 1.0).name('Top Opacity').onChange(v => { if(liquidMesh) { liquidMesh.material.opacity = v; liquidMesh.material.uniforms.alpha.value = v; } });
+                    fWater.add(CONFIG, 'waterScale', 0.1, 100.0).name('Distortion').onChange(v => { if(liquidMesh) liquidMesh.material.uniforms.distortionScale.value = v; });
+                    fWater.add(CONFIG, 'waterSpeed', 0.0, 0.1).name('Flow Speed');
+                    fWater.add(CONFIG, 'waterSideOpacity', 0.0, 1.0).name('Side Opacity').onChange(v => { liquidSideMats.forEach(m => { if(m.uniforms.opacity) m.uniforms.opacity.value = v; }); });
+                    fWater.add(CONFIG, 'waterSideScale', 0.1, 20.0).name('Side Scale').onChange(v => { liquidSideMats.forEach(m => { if(m.uniforms.scale) m.uniforms.scale.value = v; }); });
+                }
+            } catch (e) { console.warn("GUI Error", e); }
+        }
+    };
+
+    if (window.Webflow) window.Webflow.push(initTerrain);
+    else window.addEventListener('DOMContentLoaded', initTerrain);
+</script>
