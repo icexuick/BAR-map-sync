@@ -1,0 +1,75 @@
+{
+ "name": "Nuclear Winter",
+ "slug": "nuclear-winter",
+ "worldWidth": 10240,
+ "worldHeight": 5120,
+ "minHeight": -50.0,
+ "maxHeight": 100.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": [
+  {
+   "name": "armrock_dead",
+   "x": 5076.0,
+   "y": 26.269169146257724,
+   "z": 4390.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "corcrash_dead",
+   "x": 5143.0,
+   "y": 26.93036163881895,
+   "z": 4613.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "armham_dead",
+   "x": 5224.0,
+   "y": 25.669489585717557,
+   "z": 4528.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 7557.0,
+   "y": 61.19592584115358,
+   "z": 667.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 2581.0,
+   "y": 58.73283360036622,
+   "z": 732.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "corthud_dead",
+   "x": 5176.0,
+   "y": 25.682078278782328,
+   "z": 4445.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 4219.0,
+   "y": 74.06278610666055,
+   "z": 4979.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 6089.0,
+   "y": 72.57610437170977,
+   "z": 5034.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "armjeth_dead",
+   "x": 5291.0,
+   "y": 26.25944151979857,
+   "z": 4380.0,
+   "rotY": 0.0
+  }
+ ]
+}

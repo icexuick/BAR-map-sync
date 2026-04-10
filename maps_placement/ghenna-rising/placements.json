@@ -1,0 +1,68 @@
+{
+ "name": "Ghenna Rising",
+ "slug": "ghenna-rising",
+ "worldWidth": 8192,
+ "worldHeight": 8192,
+ "minHeight": -50.0,
+ "maxHeight": 100.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": [
+  {
+   "name": "geovent",
+   "x": 3108.0,
+   "y": 29.840924696726944,
+   "z": 1612.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 5108.0,
+   "y": 29.10391393911651,
+   "z": 1628.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 1524.0,
+   "y": 28.39093614099336,
+   "z": 2884.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 6676.0,
+   "y": 28.124284733348603,
+   "z": 2868.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 1532.0,
+   "y": 27.96177615014878,
+   "z": 5324.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 6676.0,
+   "y": 27.88738841840238,
+   "z": 5308.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 3180.0,
+   "y": 29.56740672922865,
+   "z": 6556.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 5052.0,
+   "y": 28.80407415884642,
+   "z": 6540.0,
+   "rotY": 0.0
+  }
+ ]
+}

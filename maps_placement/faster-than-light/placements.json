@@ -1,0 +1,26 @@
+{
+ "name": "Faster Than Light",
+ "slug": "faster-than-light",
+ "worldWidth": 6144,
+ "worldHeight": 6144,
+ "minHeight": -50.0,
+ "maxHeight": 950.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": [
+  {
+   "name": "geovent",
+   "x": 4192.0,
+   "y": 259.8191805905242,
+   "z": 1952.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 736.0,
+   "y": 259.8191805905242,
+   "z": 5408.0,
+   "rotY": 0.0
+  }
+ ]
+}

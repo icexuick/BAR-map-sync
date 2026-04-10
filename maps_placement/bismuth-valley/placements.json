@@ -1,0 +1,40 @@
+{
+ "name": "Bismuth Valley",
+ "slug": "bismuth-valley",
+ "worldWidth": 12288,
+ "worldHeight": 8192,
+ "minHeight": 100.0,
+ "maxHeight": 800.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": [
+  {
+   "name": "geovent",
+   "x": 8660.0,
+   "y": 137.44869153887237,
+   "z": 4800.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 3700.0,
+   "y": 135.99336232547495,
+   "z": 4900.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 7579.0,
+   "y": 338.7140459296559,
+   "z": 1732.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 4755.0,
+   "y": 338.200007629511,
+   "z": 1677.0,
+   "rotY": 0.0
+  }
+ ]
+}

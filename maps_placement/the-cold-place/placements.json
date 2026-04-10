@@ -1,0 +1,33 @@
+{
+ "name": "The Cold Place",
+ "slug": "the-cold-place",
+ "worldWidth": 10240,
+ "worldHeight": 8192,
+ "minHeight": -50.0,
+ "maxHeight": 100.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": [
+  {
+   "name": "geovent",
+   "x": 5284.0,
+   "y": 2.586690318150602,
+   "z": 1285.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 8798.0,
+   "y": 1.876001373311972,
+   "z": 5100.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 1400.0,
+   "y": 0.25749599450674765,
+   "z": 5350.0,
+   "rotY": 0.0
+  }
+ ]
+}

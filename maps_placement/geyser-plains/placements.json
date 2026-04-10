@@ -1,0 +1,54 @@
+{
+ "name": "Geyser Plains",
+ "slug": "geyser-plains",
+ "worldWidth": 4096,
+ "worldHeight": 4096,
+ "minHeight": -50.0,
+ "maxHeight": 100.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": [
+  {
+   "name": "geovent",
+   "x": 930.0,
+   "y": 0.21229114213778644,
+   "z": 1312.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 2200.0,
+   "y": 0.15449759670404717,
+   "z": 1060.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 1292.0,
+   "y": -0.13504234378576285,
+   "z": 2480.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 2872.0,
+   "y": -0.17624170290684305,
+   "z": 1840.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 616.0,
+   "y": -0.25864042114900343,
+   "z": 3656.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 2836.0,
+   "y": -0.21515220874341878,
+   "z": 3896.0,
+   "rotY": 0.0
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+{
+ "name": "Cloud9",
+ "slug": "cloud9",
+ "worldWidth": 9216,
+ "worldHeight": 9216,
+ "minHeight": -220.0,
+ "maxHeight": 780.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": []
+}

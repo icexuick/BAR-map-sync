@@ -1,0 +1,11 @@
+{
+ "name": "Iron Isle",
+ "slug": "iron-isle",
+ "worldWidth": 12288,
+ "worldHeight": 6144,
+ "minHeight": -100.0,
+ "maxHeight": 600.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": []
+}

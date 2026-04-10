@@ -1,0 +1,11 @@
+{
+ "name": "Full Metal Plate",
+ "slug": "full-metal-plate",
+ "worldWidth": 12288,
+ "worldHeight": 12288,
+ "minHeight": -0.0,
+ "maxHeight": 1280.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": []
+}

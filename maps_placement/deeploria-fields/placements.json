@@ -1,0 +1,11 @@
+{
+ "name": "Deeploria Fields",
+ "slug": "deeploria-fields",
+ "worldWidth": 10240,
+ "worldHeight": 10240,
+ "minHeight": -100.0,
+ "maxHeight": 500.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": []
+}

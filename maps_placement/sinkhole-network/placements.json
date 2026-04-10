@@ -1,0 +1,11 @@
+{
+ "name": "Sinkhole Network",
+ "slug": "sinkhole-network",
+ "worldWidth": 10240,
+ "worldHeight": 10240,
+ "minHeight": -50.0,
+ "maxHeight": 100.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": []
+}

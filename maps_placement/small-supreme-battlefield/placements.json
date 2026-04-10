@@ -1,0 +1,54 @@
+{
+ "name": "Small Supreme Battlefield",
+ "slug": "small-supreme-battlefield",
+ "worldWidth": 8192,
+ "worldHeight": 8192,
+ "minHeight": -95.0,
+ "maxHeight": 350.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": [
+  {
+   "name": "geovent",
+   "x": 7388.0,
+   "y": 94.91691462577248,
+   "z": 788.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 5708.0,
+   "y": 94.83543144884413,
+   "z": 2132.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 7300.0,
+   "y": 93.56225680933852,
+   "z": 2772.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 1100.0,
+   "y": 94.76752880140381,
+   "z": 5860.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 2212.0,
+   "y": 94.4449912260624,
+   "z": 6780.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 1524.0,
+   "y": 95.6468680857557,
+   "z": 7396.0,
+   "rotY": 0.0
+  }
+ ]
+}

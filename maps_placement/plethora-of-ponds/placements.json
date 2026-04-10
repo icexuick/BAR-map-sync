@@ -1,0 +1,47 @@
+{
+ "name": "Plethora of Ponds",
+ "slug": "plethora-of-ponds",
+ "worldWidth": 10240,
+ "worldHeight": 10240,
+ "minHeight": -50.0,
+ "maxHeight": 100.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": [
+  {
+   "name": "fir_tree_tall_5__tree_fir_tall_2",
+   "x": 218.0,
+   "y": -30.08697642481117,
+   "z": 280.0,
+   "rotY": 2.8837880074257627
+  },
+  {
+   "name": "geovent",
+   "x": 6079.0,
+   "y": -21.668574044403755,
+   "z": 6427.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 4562.0,
+   "y": -21.663996337834746,
+   "z": 4046.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 4639.0,
+   "y": -21.663996337834746,
+   "z": 781.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 5578.0,
+   "y": -21.663996337834746,
+   "z": 9248.0,
+   "rotY": 0.0
+  }
+ ]
+}

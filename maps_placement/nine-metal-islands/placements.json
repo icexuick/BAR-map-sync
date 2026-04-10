@@ -1,0 +1,11 @@
+{
+ "name": "Nine Metal Islands",
+ "slug": "nine-metal-islands",
+ "worldWidth": 16384,
+ "worldHeight": 16384,
+ "minHeight": -160.0,
+ "maxHeight": 840.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": []
+}

@@ -1,0 +1,33 @@
+{
+ "name": "Proving Grounds",
+ "slug": "proving-grounds",
+ "worldWidth": 14336,
+ "worldHeight": 14336,
+ "minHeight": -50.0,
+ "maxHeight": 100.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": [
+  {
+   "name": "geovent",
+   "x": 5897.0,
+   "y": 30.707756351567866,
+   "z": 9042.0,
+   "rotY": -2.57785471404182
+  },
+  {
+   "name": "geovent",
+   "x": 7168.0,
+   "y": 38.86472877088579,
+   "z": 7168.0,
+   "rotY": -3.0131217626043707
+  },
+  {
+   "name": "geovent",
+   "x": 8438.0,
+   "y": 30.963035019455248,
+   "z": 5294.0,
+   "rotY": 0.9085959954245139
+  }
+ ]
+}

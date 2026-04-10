@@ -1,0 +1,11 @@
+{
+ "name": "Prismatic Anomaly",
+ "slug": "prismatic-anomaly",
+ "worldWidth": 8192,
+ "worldHeight": 8192,
+ "minHeight": -50.0,
+ "maxHeight": 100.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": []
+}

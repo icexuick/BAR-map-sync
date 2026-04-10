@@ -1,0 +1,11 @@
+{
+ "name": "Oort Cloud",
+ "slug": "oort-cloud",
+ "worldWidth": 12288,
+ "worldHeight": 12288,
+ "minHeight": -220.0,
+ "maxHeight": 780.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": []
+}

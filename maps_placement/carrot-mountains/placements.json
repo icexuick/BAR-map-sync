@@ -1,0 +1,75 @@
+{
+ "name": "Carrot Mountains",
+ "slug": "carrot-mountains",
+ "worldWidth": 12288,
+ "worldHeight": 12288,
+ "minHeight": 200.0,
+ "maxHeight": 1000.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": [
+  {
+   "name": "geovent",
+   "x": 9064.0,
+   "y": 936.6659037155717,
+   "z": 3091.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 10164.0,
+   "y": 936.7330434119173,
+   "z": 5522.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 7260.0,
+   "y": 936.4629587243458,
+   "z": 10318.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 4570.0,
+   "y": 936.5438315403982,
+   "z": 10200.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 1859.0,
+   "y": 937.2014953841458,
+   "z": 5400.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 3060.0,
+   "y": 935.9639887083238,
+   "z": 2980.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 6200.0,
+   "y": 937.1816586556802,
+   "z": 5180.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 6953.0,
+   "y": 933.5606927595941,
+   "z": 6512.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 5420.0,
+   "y": 940.0350957503624,
+   "z": 6500.0,
+   "rotY": 0.0
+  }
+ ]
+}

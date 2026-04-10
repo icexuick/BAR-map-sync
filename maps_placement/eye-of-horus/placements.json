@@ -1,0 +1,40 @@
+{
+ "name": "Eye Of Horus",
+ "slug": "eye-of-horus",
+ "worldWidth": 6144,
+ "worldHeight": 7168,
+ "minHeight": -50.0,
+ "maxHeight": 100.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": [
+  {
+   "name": "geovent",
+   "x": 2116.0,
+   "y": -31.524090180819407,
+   "z": 109.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 6084.0,
+   "y": -39.02552071412222,
+   "z": 2558.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 68.0,
+   "y": -42.390707255664914,
+   "z": 4588.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 4012.0,
+   "y": -34.098191805905245,
+   "z": 7037.0,
+   "rotY": 0.0
+  }
+ ]
+}

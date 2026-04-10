@@ -1,0 +1,47 @@
+{
+ "name": "Hotstepper 5",
+ "slug": "hotstepper-5",
+ "worldWidth": 4096,
+ "worldHeight": 4096,
+ "minHeight": -50.0,
+ "maxHeight": 100.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": [
+  {
+   "name": "geovent",
+   "x": 1142.0,
+   "y": 52.75720988784619,
+   "z": 2201.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 1466.0,
+   "y": 54.01808194094758,
+   "z": 1125.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 2565.0,
+   "y": 55.53044174868391,
+   "z": 1128.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 2871.0,
+   "y": 55.36564431219958,
+   "z": 2213.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 2023.0,
+   "y": 52.914067864499884,
+   "z": 2829.0,
+   "rotY": 0.0
+  }
+ ]
+}

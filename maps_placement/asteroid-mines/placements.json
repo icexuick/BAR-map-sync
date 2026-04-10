@@ -1,0 +1,11 @@
+{
+ "name": "Asteroid Mines",
+ "slug": "asteroid-mines",
+ "worldWidth": 6144,
+ "worldHeight": 6144,
+ "minHeight": -50.0,
+ "maxHeight": 100.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": []
+}

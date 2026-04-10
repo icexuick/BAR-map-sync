@@ -1,0 +1,19 @@
+{
+ "name": "Great Divide",
+ "slug": "great-divide",
+ "worldWidth": 3072,
+ "worldHeight": 4096,
+ "minHeight": -50.0,
+ "maxHeight": 100.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": [
+  {
+   "name": "fir_tree_tall_5__tree_fir_tall_2",
+   "x": 218.0,
+   "y": -49.26184481574731,
+   "z": 280.0,
+   "rotY": 2.8837880074257627
+  }
+ ]
+}

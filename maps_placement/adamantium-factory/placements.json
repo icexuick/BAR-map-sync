@@ -1,0 +1,11 @@
+{
+ "name": "Adamantium Factory",
+ "slug": "adamantium-factory",
+ "worldWidth": 12288,
+ "worldHeight": 12288,
+ "minHeight": 200.0,
+ "maxHeight": 400.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": []
+}

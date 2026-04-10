@@ -1,0 +1,11 @@
+{
+ "name": "Sertaleina",
+ "slug": "sertaleina",
+ "worldWidth": 6144,
+ "worldHeight": 4096,
+ "minHeight": -50.0,
+ "maxHeight": 100.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": []
+}

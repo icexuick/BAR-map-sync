@@ -1,0 +1,11 @@
+{
+ "name": "Industrial Revolution",
+ "slug": "industrial-revolution",
+ "worldWidth": 10240,
+ "worldHeight": 7168,
+ "minHeight": -160.0,
+ "maxHeight": 1808.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": []
+}

@@ -1,0 +1,68 @@
+{
+ "name": "Valles Marineris",
+ "slug": "valles-marineris",
+ "worldWidth": 8192,
+ "worldHeight": 6144,
+ "minHeight": -50.0,
+ "maxHeight": 100.0,
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
+ "features": [
+  {
+   "name": "geovent",
+   "x": 607.0,
+   "y": 31.5465495536736,
+   "z": 1153.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 4082.0,
+   "y": -40.32873655298695,
+   "z": 126.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 7594.0,
+   "y": 31.64625772487983,
+   "z": 1167.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 1943.0,
+   "y": 82.55400263218127,
+   "z": 2571.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 6259.0,
+   "y": 80.40298123140306,
+   "z": 2583.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 624.0,
+   "y": 32.72030212863356,
+   "z": 4309.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 4094.0,
+   "y": 85.09040970473794,
+   "z": 3990.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 7548.0,
+   "y": 32.47768368047609,
+   "z": 4284.0,
+   "rotY": 0.0
+  }
+ ]
+}
