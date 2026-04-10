@@ -540,6 +540,61 @@ def slugify_map_name(name: str) -> str:
     return s.strip('-')
 
 
+def _clone_textures_for_map(feature_name: str, glb_path: str,
+                            map_slug: str, texture_cache) -> None:
+    """Clone textures from an existing GLB's material extras for a new map.
+
+    When a map references a feature whose s3o/featureDef can't be found
+    (the feature was bundled by the source map, not BAR.sdd), we read the
+    GLB's material.extras to find the featureGroup + texture stem, then
+    copy the first available map-specific texture with the new map slug.
+    """
+    import struct as _struct
+    try:
+        with open(glb_path, 'rb') as f:
+            _magic, _ver, _len = _struct.unpack('<III', f.read(12))
+            chunk_len, _chunk_type = _struct.unpack('<II', f.read(8))
+            gltf = json.loads(f.read(chunk_len))
+    except Exception:
+        return
+
+    for mat in gltf.get('materials', []):
+        extras = mat.get('extras', {})
+        fg = extras.get('featureGroup')
+        if not fg:
+            continue
+        fg_dir = os.path.join(TEXTURES_ROOT, fg)
+        if not os.path.isdir(fg_dir):
+            continue
+
+        for tex_key in ('colorTex', 'normalTex'):
+            src_filename = extras.get(tex_key)
+            if not src_filename:
+                continue
+            # Shared textures (no __slug suffix) don't need cloning
+            if '__' not in src_filename:
+                continue
+            # Derive new filename: replace __<old-slug> with __<new-slug>
+            stem, ext = os.path.splitext(src_filename)
+            base = stem.rsplit('__', 1)[0]
+            new_filename = f"{base}__{map_slug}{ext}"
+            new_path = os.path.join(fg_dir, new_filename)
+            if os.path.isfile(new_path):
+                continue  # already exists
+            # Find any existing map variant to copy from
+            src_path = os.path.join(fg_dir, src_filename)
+            if not os.path.isfile(src_path):
+                # Try any file matching the base pattern
+                import glob as _glob
+                candidates = _glob.glob(os.path.join(fg_dir, f"{base}__*{ext}"))
+                if candidates:
+                    src_path = candidates[0]
+                else:
+                    continue
+            shutil.copy2(src_path, new_path)
+            print(f"   [clone] {feature_name}: {new_filename}")
+
+
 def process_map(map_filter: str, force: bool = False):
     # 1. Look up map in Webflow
     print(f"\n[1/6] Looking up Webflow map matching \"{map_filter}\"...")
@@ -643,6 +698,7 @@ def process_map(map_filter: str, force: bool = False):
             'converted': 0,
             'skipped_existing': 0,
             'conversion_failed': 0,
+            'cloned': 0,
         }
         unresolved_names = []
 
@@ -670,24 +726,40 @@ def process_map(map_filter: str, force: bool = False):
 
             # Last-resort fallback: some maps reference a feature by name
             # without ever defining it in a .lua featureDef. Spring auto-
-            # creates a default FeatureDef for any .s3o present in the map's
-            # objects3d/. Mirror that here by synthesizing a minimal def
-            # pointing at <name>.s3o if we can find one.
-            if not fdef and resources['objects3d_root']:
-                synth_s3o = _find_file_by_basename(
-                    resources['objects3d_root'], f"{name}.s3o"
-                )
-                if synth_s3o:
-                    rel = os.path.relpath(
-                        synth_s3o, resources['objects3d_root']
-                    ).replace('\\', '/')
-                    fdef = {'object': rel}
-                    resolved_from = 'map'
-                    print(f"   [i] {name}: no featureDef, synthesized from {rel}")
+            # creates a default FeatureDef for any .s3o present in the
+            # objects3d/ tree. Mirror that here by synthesizing a minimal
+            # def pointing at <name>.s3o — first from the map, then BAR.sdd.
+            if not fdef:
+                for search_root, src_label in [
+                    (resources['objects3d_root'], 'map'),
+                    (BAR_OBJECTS_DIR, 'bar'),
+                ]:
+                    if not search_root:
+                        continue
+                    synth_s3o = _find_file_by_basename(
+                        search_root, f"{name}.s3o"
+                    )
+                    if synth_s3o:
+                        rel = os.path.relpath(
+                            synth_s3o, search_root
+                        ).replace('\\', '/')
+                        fdef = {'object': rel}
+                        resolved_from = src_label
+                        print(f"   [i] {name}: no featureDef, synthesized from {rel} ({src_label})")
+                        break
 
             if not fdef:
-                stats['unresolved'] += 1
-                unresolved_names.append(name)
+                # If we already have a GLB for this feature, clone the
+                # textures for this map (the source map's texture is
+                # identical — the s3o/textures live in a shared package).
+                out_dir = os.path.join(FEATURES_OUT_DIR, name)
+                out_glb = os.path.join(out_dir, 'model.glb')
+                if os.path.isfile(out_glb):
+                    _clone_textures_for_map(name, out_glb, map_slug, texture_cache)
+                    stats['cloned'] += 1
+                else:
+                    stats['unresolved'] += 1
+                    unresolved_names.append(name)
                 continue
 
             stats[f'resolved_{resolved_from}'] += 1
@@ -866,6 +938,7 @@ def process_map(map_filter: str, force: bool = False):
         print(f"  Unique features: {len(unique_names)}")
         print(f"  Resolved from map:  {stats['resolved_map']}")
         print(f"  Resolved from BAR:  {stats['resolved_bar']}")
+        print(f"  Cloned (from prev): {stats['cloned']}")
         print(f"  Unresolved:         {stats['unresolved']}")
         print(f"  New GLB written:    {stats['converted']}")
         print(f"  Skipped (existing): {stats['skipped_existing']}")

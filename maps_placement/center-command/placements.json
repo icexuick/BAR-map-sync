@@ -5,9 +5,8 @@
  "worldHeight": 4096,
  "minHeight": -50.0,
  "maxHeight": 100.0,
- "heightmap": "heightmap.png",
- "featuresBase": "../features",
- "texturesBase": "..",
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
  "features": [
   {
    "name": "rocks30_moss_30",

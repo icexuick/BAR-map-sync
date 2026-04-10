@@ -5,9 +5,8 @@
  "worldHeight": 12288,
  "minHeight": 150.0,
  "maxHeight": 550.0,
- "heightmap": "heightmap.png",
- "featuresBase": "../features",
- "texturesBase": "..",
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
  "features": [
   {
    "name": "euro_birch_tree_08_1",

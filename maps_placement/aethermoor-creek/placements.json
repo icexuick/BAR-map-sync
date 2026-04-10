@@ -5,9 +5,8 @@
  "worldHeight": 9216,
  "minHeight": -11.0,
  "maxHeight": 1121.0,
- "heightmap": "heightmap.png",
- "featuresBase": "../features",
- "texturesBase": "..",
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
  "features": [
   {
    "name": "fir_tree_tall_3__tree_fir_tall_1",

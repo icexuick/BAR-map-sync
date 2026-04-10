@@ -5,9 +5,8 @@
  "worldHeight": 8192,
  "minHeight": 30.0,
  "maxHeight": 550.0,
- "heightmap": "heightmap.png",
- "featuresBase": "../features",
- "texturesBase": "..",
+ "featuresBase": "../../features",
+ "texturesBase": "../../maps_features",
  "features": [
   {
    "name": "agorm_rock3",

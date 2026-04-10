@@ -56,8 +56,10 @@ def log(msg):
 
 def main():
     all_maps = fetch_all_map_names()
-    todo = [m for m in all_maps if not already_done(m)]
-    log(f"Total maps: {len(all_maps)}, already done: {len(all_maps) - len(todo)}, todo: {len(todo)}")
+    # Always re-run all maps so cloned textures get created for
+    # features that were unresolved in earlier runs.
+    todo = all_maps
+    log(f"Total maps: {len(all_maps)}, processing all")
 
     failed = []
     for i, name in enumerate(todo, 1):
@@ -66,7 +68,7 @@ def main():
         log(f"{'='*60}")
         try:
             result = subprocess.run(
-                [sys.executable, "extract_map_features.py", "--map", name],
+                [sys.executable, "extract_map_features.py", "--map", name, "--force"],
                 cwd=REPO_ROOT,
                 timeout=600,  # 10 min per map max
             )

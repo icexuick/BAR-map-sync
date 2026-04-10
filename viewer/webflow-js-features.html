@@ -734,6 +734,17 @@ async function init() {
     return promise;
   }
 
+  // Rewrite a texture filename for the current map.
+  // GLB extras store a filename that may contain __<original-slug> from
+  // whichever map first built the GLB. Shared textures (normals, rocks30)
+  // have no __slug suffix and are used as-is.
+  function rewriteTexForMap(filename) {
+    if (!filename) return filename;
+    const m = filename.match(/^(.+)__[a-z0-9-]+(\.\w+)$/);
+    if (!m) return filename;            // shared texture — no slug suffix
+    return `${m[1]}__${slug}${m[2]}`;   // replace slug with current map
+  }
+
   // Assign per-map textures to materials based on glTF extras.
   // GLBs are geometry-only; material.userData carries colorTex/normalTex
   // filenames + featureGroup from the builder.
@@ -746,7 +757,8 @@ async function init() {
       const { colorTex, normalTex, featureGroup } = mat.userData;
       if (!featureGroup) return;
       if (colorTex) {
-        promises.push(loadMapTex(featureGroup, colorTex, true).then(tex => {
+        const fn = rewriteTexForMap(colorTex);
+        promises.push(loadMapTex(featureGroup, fn, true).then(tex => {
           if (tex) { mat.map = tex; mat.needsUpdate = true; }
         }));
       }
