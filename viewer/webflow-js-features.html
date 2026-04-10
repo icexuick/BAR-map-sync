@@ -759,7 +759,16 @@ async function init() {
       if (colorTex) {
         const fn = rewriteTexForMap(colorTex);
         promises.push(loadMapTex(featureGroup, fn, true).then(tex => {
-          if (tex) { mat.map = tex; mat.needsUpdate = true; }
+          if (tex) {
+            mat.map = tex;
+            // BAR's tree/feature shaders apply PBROVERRIDE (emissiveness=0.2)
+            // and brightnessFactor=1.3, making features much brighter than a
+            // plain MeshStandardMaterial. Emulate this with emissiveMap + a
+            // tinted emissive color so features don't look almost black.
+            mat.emissiveMap = tex;
+            mat.emissive = new THREE.Color(0.25, 0.25, 0.25);
+            mat.needsUpdate = true;
+          }
         }));
       }
       if (normalTex) {
