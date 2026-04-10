@@ -146,45 +146,40 @@ function springToThree(px, pz, py, ctx) {
 // ---------------------------------------------------------------------------
 
 /**
- * Streaming loader: kicks off a fixed number of concurrent fetches and
- * calls `onLoaded(name, proto)` as soon as each individual GLB arrives,
- * rather than waiting for whole batches to finish. This lets the caller
- * place features into the scene immediately as they come in, instead of
- * staring at an empty terrain until every model has downloaded.
+ * Two-phase loader: downloads all GLB files in parallel via fetch()
+ * (network I/O doesn't block the main thread), then parses + places
+ * them one at a time with frame yields so the render loop stays smooth.
  *
- * jsDelivr serves over HTTP/2 so the browser muxes many concurrent
- * requests over a single TCP connection — 16 concurrent fetches is well
- * within what it can handle without head-of-line blocking.
+ * Phase 1 — download: fire off all fetches at once (HTTP/2 muxes them
+ * over a single TCP connection). Each resolves to an ArrayBuffer.
+ * The browser's HTTP cache handles repeat visits automatically.
+ *
+ * Phase 2 — parse & place: feed each ArrayBuffer into GLTFLoader.parse()
+ * one by one, with a requestAnimationFrame yield between each so the
+ * terrain keeps rendering smoothly while features pop in.
  */
-async function loadPrototypesStreaming(uniqueNames, onLoaded) {
-  const loader = new GLTFLoader();
+const _yieldFrame = () => new Promise(r => requestAnimationFrame(r));
+
+async function downloadAllGLBs(uniqueNames) {
+  const buffers = new Map(); // name → ArrayBuffer
   const failed = [];
-  const CONCURRENCY = 16;
-  let cursor = 0;
-
-  async function worker() {
-    while (true) {
-      const i = cursor++;
-      if (i >= uniqueNames.length) return;
-      const name = uniqueNames[i];
+  const results = await Promise.allSettled(
+    uniqueNames.map(async (name) => {
       const url = `${CDN_BASE}/features/${name}/model.glb`;
-      try {
-        const gltf = await loader.loadAsync(url);
-        onLoaded(name, gltf.scene);
-      } catch (e) {
-        warn(`load failed: ${name}`, e.message || e);
-        failed.push(name);
-        onLoaded(name, null);
-      }
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const buf = await r.arrayBuffer();
+      buffers.set(name, buf);
+    })
+  );
+  results.forEach((r, i) => {
+    if (r.status === 'rejected') {
+      warn(`download failed: ${uniqueNames[i]}`, r.reason?.message || r.reason);
+      failed.push(uniqueNames[i]);
     }
-  }
-
-  const workers = [];
-  for (let w = 0; w < Math.min(CONCURRENCY, uniqueNames.length); w++) {
-    workers.push(worker());
-  }
-  await Promise.all(workers);
-  return { failed };
+  });
+  log(`  downloaded ${buffers.size}/${uniqueNames.length} GLBs (${failed.length} failed)`);
+  return { buffers, failed };
 }
 
 /**
@@ -344,7 +339,18 @@ function prepareProto(protoScene, ctx) {
     const material = Array.isArray(o.material) ? o.material[0] : o.material;
     if (material) {
       if ('envMapIntensity' in material) material.envMapIntensity = ctx.CONFIG.envMapIntensity;
-      if (material.map) material.map.anisotropy = 8;
+      const texProps = ['map','normalMap','aoMap','roughnessMap','metalnessMap','emissiveMap','alphaMap'];
+      for (const tp of texProps) {
+        const tex = material[tp];
+        if (!tex) continue;
+        if (IS_MOBILE) {
+          tex.generateMipmaps = false;
+          tex.minFilter = THREE.LinearFilter;
+          tex.needsUpdate = true;
+        } else {
+          tex.anisotropy = 8;
+        }
+      }
     }
     const key = material || '__nomat__';
     let bucket = piecesByMaterial.get(key);
@@ -373,18 +379,7 @@ function prepareProto(protoScene, ctx) {
   return groups;
 }
 
-/**
- * Place every instance of one feature name as a single InstancedMesh —
- * one draw call regardless of placement count. For Eternal Consequences
- * this drops 474 individual mesh draws to 9 instanced draws (one per
- * unique feature type).
- *
- * Pop-in is simplified vs the per-instance scale animation: we fade the
- * whole InstancedMesh in via material opacity over POP_IN_DURATION ms.
- * No per-instance stagger, no per-frame matrix updates after init.
- */
 const FEATURE_SCALE = THREE_UNITS_PER_ELMO; // 0.25 — elmo → three world units
-const POP_IN_DURATION = 400; // ms — single global fade-in per feature batch
 
 // THREE math scratch objects — lazily created on first use because `THREE`
 // is filled in inside init() (we share the host's THREE namespace, so we
@@ -397,92 +392,6 @@ function ensureScratch() {
   _tmpPos = new THREE.Vector3();
   _tmpScale = new THREE.Vector3(FEATURE_SCALE, FEATURE_SCALE, FEATURE_SCALE);
   _yAxis = new THREE.Vector3(0, 1, 0);
-}
-
-function placeFeatureBatchInstanced(proto, placementsForName, group, ctx, fadeList, now) {
-  ensureScratch();
-  const groups = prepareProto(proto, ctx);
-  if (!groups) return;
-
-  // Precompute the per-instance placement matrices once and reuse them
-  // across all material groups. The piece-local transform is already
-  // baked into each merged geometry, so the instance matrix is purely
-  // the world placement (position + Y rotation + global elmo→units scale).
-  const placementMatrices = new Array(placementsForName.length);
-  for (let i = 0; i < placementsForName.length; i++) {
-    const p = placementsForName[i];
-    const { worldX, worldY, worldZ } = springToThree(p.x, p.z, p.y, ctx);
-    _tmpPos.set(worldX, worldY, worldZ);
-    _tmpQuat.setFromAxisAngle(_yAxis, p.rotY || 0);
-    const m = new THREE.Matrix4();
-    m.compose(_tmpPos, _tmpQuat, _tmpScale);
-    placementMatrices[i] = m;
-  }
-
-  // One InstancedMesh per material group. For a feature with all pieces
-  // sharing one material (the common case) that's 1 draw call per
-  // feature type, regardless of piece count.
-  for (const grp of groups) {
-    const { geometry, material } = grp;
-
-    // Clone the material so we can flip transparency on/off for fade-in
-    // without affecting any other batch's material.
-    const mat = material ? material.clone() : new THREE.MeshStandardMaterial();
-    mat.transparent = true;
-    mat.opacity = 0;
-    mat.depthWrite = false; // avoid sorting glitches during the fade
-
-    const inst = new THREE.InstancedMesh(geometry, mat, placementsForName.length);
-    inst.castShadow = true;
-    inst.receiveShadow = true;
-    inst.name = `bar-feature-${proto.name || 'unnamed'}`;
-    // InstancedMesh culls against the *prototype* geometry's bounding
-    // sphere, not against the spread of its instances. Since our
-    // prototype is centered at origin and instances live all over the
-    // terrain, three.js can decide the whole batch is off-screen and
-    // skip drawing it. Disabling frustum culling for the batch is the
-    // cheap fix — we'd otherwise have to compute a per-batch bounding
-    // box from all matrices.
-    inst.frustumCulled = false;
-
-    for (let i = 0; i < placementsForName.length; i++) {
-      inst.setMatrixAt(i, placementMatrices[i]);
-    }
-    inst.instanceMatrix.needsUpdate = true;
-    // Static after this point — tell three.js it doesn't need to
-    // re-upload the instance buffer every frame.
-    inst.instanceMatrix.setUsage(THREE.StaticDrawUsage);
-
-    group.add(inst);
-
-    fadeList.push({
-      mesh: inst,
-      material: mat,
-      startTime: now,
-      duration: POP_IN_DURATION,
-    });
-  }
-}
-
-/**
- * Tick all in-flight feature fade-ins. Each entry is one InstancedMesh
- * batch fading from opacity 0 → 1 over POP_IN_DURATION. When done, we
- * flip transparent off again so the meshes render through the regular
- * opaque path (cheaper, no sorting needed).
- */
-function tickFeatureFades(fadeList, now) {
-  for (let i = fadeList.length - 1; i >= 0; i--) {
-    const entry = fadeList[i];
-    const elapsed = now - entry.startTime;
-    const t = Math.min(1, elapsed / entry.duration);
-    entry.material.opacity = t;
-    if (t >= 1) {
-      entry.material.transparent = false;
-      entry.material.depthWrite = true;
-      entry.material.needsUpdate = true;
-      fadeList.splice(i, 1);
-    }
-  }
 }
 
 // ---------------------------------------------------------------------------
@@ -772,51 +681,136 @@ async function init() {
     if (smoke) scene.add(smoke);
   }
 
-  // Fade-in queue + shared animation loop. Each entry is one InstancedMesh
-  // batch fading from opacity 0 → 1 over POP_IN_DURATION. We tick smoke and
-  // fades from the same RAF callback so we don't fight with the host's own
-  // render loop.
-  const fadeList = [];
+  // Animation loop for geovent smoke. We tick from our own RAF callback so
+  // we don't fight with the host's render loop.
   let lastFrame = performance.now();
-  const tick = (now) => {
-    const dt = Math.min(0.05, (now - lastFrame) / 1000);
-    lastFrame = now;
-    if (smoke) tickSmoke(smoke, dt);
-    if (fadeList.length) tickFeatureFades(fadeList, now);
+  if (smoke) {
+    const tick = (now) => {
+      const dt = Math.min(0.05, (now - lastFrame) / 1000);
+      lastFrame = now;
+      tickSmoke(smoke, dt);
+      requestAnimationFrame(tick);
+    };
     requestAnimationFrame(tick);
-  };
-  requestAnimationFrame(tick);
-
-  // Mobile shortcut: skip GLB feature streaming entirely. Geovents already
-  // spawned above. Saves the placements.json fetch follow-up downloads
-  // (often 5–20 MB of GLBs + textures) and the per-frame cost of rendering
-  // hundreds of meshes — too heavy for phones even on dense maps.
-  if (IS_MOBILE) {
-    log(`mobile detected — skipping ${uniqueNames.length} GLB feature models, ` +
-        `${geovents.length} geovents still active`);
-    window.barFeatures = { group, smoke, sceneData };
-    return;
   }
 
-  // Streaming load: every prototype that arrives places its instances
-  // immediately and queues them for pop-in animation. The result is that
-  // the first trees appear within a few hundred ms of opening the page,
-  // not after every model has downloaded.
-  let placedSoFar = 0;
-  let modelsLoaded = 0;
-  const { failed } = await loadPrototypesStreaming(uniqueNames, (name, proto) => {
-    modelsLoaded++;
-    if (!proto) return;
-    const placementsForName = placementsByName.get(name);
-    placeFeatureBatchInstanced(proto, placementsForName, group, ctx, fadeList, performance.now());
-    placedSoFar += placementsForName.length;
-    if (modelsLoaded === uniqueNames.length || modelsLoaded % 5 === 0) {
-      log(`  models ${modelsLoaded}/${uniqueNames.length}, placed ${placedSoFar}/${sceneData.features.length - geovents.length}`);
-    }
+  // Mobile: features are now loaded the same way as desktop (streamed with
+  // frame yields). Previously skipped to save bandwidth/GPU, but the
+  // two-phase loader is light enough to handle it.
+
+  // Phase 1: download all GLBs in parallel. fetch() is non-blocking so
+  // the terrain keeps rendering smoothly while files come in.
+  const { buffers, failed } = await downloadAllGLBs(uniqueNames);
+  if (failed.length) warn(`${failed.length} models failed to download:`, failed);
+
+  // Phase 2: parse each GLB and place its instances, spreading the work
+  // across many frames. Each feature type gets 4 steps with a frame yield
+  // between each: (1) parse GLB, (2) load per-map textures, (3) prepare
+  // prototype geometry, (4) create InstancedMesh + upload matrices.
+  const loader = new GLTFLoader();
+  const parseGLB = (buf, url) => new Promise((resolve, reject) => {
+    loader.parse(buf, url.substring(0, url.lastIndexOf('/') + 1), resolve, reject);
   });
 
-  if (failed.length) warn(`${failed.length} models failed to load:`, failed);
-  log(`done — ${group.children.length} instances, ${geovents.length} geovents`);
+  // Per-map texture cache: URL → Promise<THREE.Texture>
+  const texCache = new Map();
+  const texBase = `${CDN_BASE}/maps_features`;
+  function loadMapTex(featureGroup, filename, sRGB) {
+    const url = `${texBase}/${featureGroup}/${filename}`;
+    if (texCache.has(url)) return texCache.get(url);
+    const promise = new THREE.TextureLoader().loadAsync(url).then(tex => {
+      if (sRGB) tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = IS_MOBILE ? 1 : 8;
+      if (IS_MOBILE) {
+        tex.generateMipmaps = false;
+        tex.minFilter = THREE.LinearFilter;
+      }
+      tex.wrapS = THREE.RepeatWrapping;
+      tex.wrapT = THREE.RepeatWrapping;
+      tex.needsUpdate = true;
+      return tex;
+    }).catch(e => { warn(`tex load failed: ${url}`, e); return null; });
+    texCache.set(url, promise);
+    return promise;
+  }
+
+  // Assign per-map textures to materials based on glTF extras.
+  // GLBs are geometry-only; material.userData carries colorTex/normalTex
+  // filenames + featureGroup from the builder.
+  async function assignMapTextures(scene) {
+    const promises = [];
+    scene.traverse(o => {
+      if (!o.isMesh) return;
+      const mat = Array.isArray(o.material) ? o.material[0] : o.material;
+      if (!mat || !mat.userData) return;
+      const { colorTex, normalTex, featureGroup } = mat.userData;
+      if (!featureGroup) return;
+      if (colorTex) {
+        promises.push(loadMapTex(featureGroup, colorTex, true).then(tex => {
+          if (tex) { mat.map = tex; mat.needsUpdate = true; }
+        }));
+      }
+      if (normalTex) {
+        promises.push(loadMapTex(featureGroup, normalTex, false).then(tex => {
+          if (tex) { mat.normalMap = tex; mat.needsUpdate = true; }
+        }));
+      }
+    });
+    if (promises.length) await Promise.all(promises);
+  }
+
+  log(`parsing & placing ${buffers.size} feature types...`);
+  let placedSoFar = 0;
+  let parsed = 0;
+  for (const [name, buf] of buffers) {
+    try {
+      const url = `${CDN_BASE}/features/${name}/model.glb`;
+      // Step 1: parse GLB → GLTF scene graph
+      const gltf = await parseGLB(buf, url);
+      await _yieldFrame();
+      // Step 2: load per-map textures into parsed materials
+      await assignMapTextures(gltf.scene);
+      await _yieldFrame();
+      // Step 3: prepare prototype (merge pieces, bake transforms)
+      ensureScratch();
+      const protoGroups = prepareProto(gltf.scene, ctx);
+      await _yieldFrame();
+      // Step 4: create InstancedMeshes + upload matrices
+      if (protoGroups) {
+        const placementsForName = placementsByName.get(name);
+        const placementMatrices = new Array(placementsForName.length);
+        for (let i = 0; i < placementsForName.length; i++) {
+          const p = placementsForName[i];
+          const { worldX, worldY, worldZ } = springToThree(p.x, p.z, p.y, ctx);
+          _tmpPos.set(worldX, worldY, worldZ);
+          _tmpQuat.setFromAxisAngle(_yAxis, p.rotY || 0);
+          const m = new THREE.Matrix4();
+          m.compose(_tmpPos, _tmpQuat, _tmpScale);
+          placementMatrices[i] = m;
+        }
+        for (const grp of protoGroups) {
+          const mat = grp.material ? grp.material.clone() : new THREE.MeshStandardMaterial();
+          const inst = new THREE.InstancedMesh(grp.geometry, mat, placementsForName.length);
+          inst.castShadow = !IS_MOBILE;
+          inst.receiveShadow = !IS_MOBILE;
+          inst.frustumCulled = false;
+          for (let i = 0; i < placementsForName.length; i++) inst.setMatrixAt(i, placementMatrices[i]);
+          inst.instanceMatrix.needsUpdate = true;
+          inst.instanceMatrix.setUsage(THREE.StaticDrawUsage);
+          group.add(inst);
+        }
+        placedSoFar += placementsForName.length;
+      }
+    } catch (e) {
+      warn(`parse failed: ${name}`, e.message || e);
+    }
+    parsed++;
+    if (parsed === buffers.size || parsed % 5 === 0) {
+      log(`  ${parsed}/${buffers.size} types, ${placedSoFar} instances placed`);
+    }
+    await _yieldFrame();
+  }
+  log(`done — ${group.children.length} draw calls, ${placedSoFar} instances, ${geovents.length} geovents`);
 
   window.barFeatures = { group, smoke, sceneData };
 }

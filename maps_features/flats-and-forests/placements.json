@@ -7,6 +7,7 @@
  "maxHeight": 550.0,
  "heightmap": "heightmap.png",
  "featuresBase": "../features",
+ "texturesBase": "..",
  "features": [
   {
    "name": "euro_birch_tree_08_1",

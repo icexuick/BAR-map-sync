@@ -7,6 +7,7 @@
  "maxHeight": 100.0,
  "heightmap": "heightmap.png",
  "featuresBase": "../features",
+ "texturesBase": "..",
  "features": [
   {
    "name": "allpinesb_ad0_brown_c_xl",

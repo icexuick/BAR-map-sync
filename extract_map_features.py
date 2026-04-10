@@ -40,7 +40,7 @@ from feature_defs import (
     get_normal_texture,
 )
 from set_lua_parser import parse_set_lua
-from glb_feature_builder import build_feature_glb, TextureCache
+from glb_feature_builder import build_feature_glb, register_feature_textures, TextureCache
 
 
 # -- CONFIG ----------------------------------------------------------------
@@ -65,11 +65,11 @@ BAR_UNITTEX_DIR = os.path.join(BAR_SDD_ROOT, "unittextures")
 # Repo-relative output
 REPO_ROOT = os.path.dirname(os.path.abspath(__file__))
 FEATURES_OUT_DIR = os.path.join(REPO_ROOT, "features")
-# Shared texture folder — all feature GLBs reference textures in here via
-# relative URIs (../_textures/<name>.webp). Deduped across the whole run.
-TEXTURES_OUT_DIR = os.path.join(FEATURES_OUT_DIR, "_textures")
 # Per-map scene data (placements + heightmap) used by the map viewer.
 MAPS_OUT_DIR = os.path.join(REPO_ROOT, "maps_features")
+# Per-map textures are stored in maps_features/<feature_group>/ with
+# an __<mapslug> suffix. The root is maps_features/ itself.
+TEXTURES_ROOT = MAPS_OUT_DIR
 
 TEMP_ARCHIVE = "temp_features_map.sd7"
 TEMP_EXTRACT = "temp_features_extract"
@@ -630,10 +630,9 @@ def process_map(map_filter: str, force: bool = False):
 
         os.makedirs(FEATURES_OUT_DIR, exist_ok=True)
 
-        # One shared texture cache for the whole run — every GLB references
-        # textures in FEATURES_OUT_DIR/_textures via a relative URI, so
-        # identical sources are written to disk exactly once.
-        texture_cache = TextureCache(TEXTURES_OUT_DIR, map_name=map_name)
+        # Per-map texture cache — writes textures into
+        # maps_features/<feature_group>/<stem>__<mapslug>.webp
+        texture_cache = TextureCache(TEXTURES_ROOT, map_slug=map_slug)
 
         stats = {
             'resolved_map': 0,
@@ -655,10 +654,7 @@ def process_map(map_filter: str, force: bool = False):
 
             out_dir = os.path.join(FEATURES_OUT_DIR, name)
             out_glb = os.path.join(out_dir, 'model.glb')
-
-            if os.path.isfile(out_glb) and not force:
-                stats['skipped_existing'] += 1
-                continue
+            glb_exists = os.path.isfile(out_glb)
 
             # Resolve FeatureDef
             fdef = map_defs.get(name)
@@ -747,31 +743,46 @@ def process_map(map_filter: str, force: bool = False):
                 bar_unittex=BAR_UNITTEX_DIR,
             ) if tex2 else None
 
-            # Build GLB — ensure the target directory exists *before* building,
-            # so the image URI can be computed relative to that directory.
-            os.makedirs(out_dir, exist_ok=True)
-            glb_bytes = build_feature_glb(
-                s3o_path, color_path, normal_path,
-                texture_cache=texture_cache,
-                glb_out_dir=out_dir,
-                extra_tex_path=extra_path,
+            # Derive feature_group from object path (parent dir of s3o).
+            # e.g. "ad0_fir/fir_tree_tall_1.s3o" → "ad0_fir"
+            # For flat paths like "pipe_large_2.s3o" → use the name itself.
+            obj_parent = os.path.dirname(object_rel.replace('\\', '/'))
+            feature_group = obj_parent if obj_parent else name
+
+            # Always register textures for this map (even if GLB exists)
+            tex_info = register_feature_textures(
+                color_path, normal_path, extra_path,
+                texture_cache, feature_group, name,
             )
-            if glb_bytes is None:
-                stats['conversion_failed'] += 1
-                continue
 
-            with open(out_glb, 'wb') as f:
-                f.write(glb_bytes)
+            # Build geometry-only GLB if needed
+            if glb_exists and not force:
+                stats['skipped_existing'] += 1
+            else:
+                os.makedirs(out_dir, exist_ok=True)
+                glb_bytes = build_feature_glb(
+                    s3o_path,
+                    color_tex_filename=tex_info['color_filename'],
+                    normal_tex_filename=tex_info['normal_filename'],
+                    has_mask=tex_info['has_mask'],
+                    feature_group=tex_info['feature_group'],
+                )
+                if glb_bytes is None:
+                    stats['conversion_failed'] += 1
+                    continue
 
-            size_kb = len(glb_bytes) / 1024
-            tex_info = []
-            if color_path:
-                tex_info.append(f"color={os.path.basename(color_path)}")
-            if normal_path:
-                tex_info.append(f"normal={os.path.basename(normal_path)}")
-            tex_str = f"  [{', '.join(tex_info)}]" if tex_info else ""
-            print(f"   [OK] {name}  ({resolved_from}, {size_kb:.0f} KB){tex_str}")
-            stats['converted'] += 1
+                with open(out_glb, 'wb') as f:
+                    f.write(glb_bytes)
+
+                size_kb = len(glb_bytes) / 1024
+                tex_parts = []
+                if color_path:
+                    tex_parts.append(f"color={os.path.basename(color_path)}")
+                if normal_path:
+                    tex_parts.append(f"normal={os.path.basename(normal_path)}")
+                tex_str = f"  [{', '.join(tex_parts)}]" if tex_parts else ""
+                print(f"   [OK] {name}  ({resolved_from}, {size_kb:.0f} KB){tex_str}")
+                stats['converted'] += 1
 
         # 6. Write per-map scene data: placements.json + heightmap.png
         # smf_info was already parsed in step 3 (so we could merge any
@@ -849,6 +860,7 @@ def process_map(map_filter: str, force: bool = False):
             'maxHeight': max_h,
             'heightmap': heightmap_rel,
             'featuresBase': '../features',
+            'texturesBase': '..',
             'features': enriched,
         }
         scene_path = os.path.join(map_out_dir, 'placements.json')
@@ -868,9 +880,7 @@ def process_map(map_filter: str, force: bool = False):
         tc = texture_cache.stats
         print(f"  Textures unique:    {tc['unique_files']}")
         print(f"  Textures reused:    {tc['reused_by_source']} (by source) + "
-              f"{tc['reused_by_content']} (by content) + "
-              f"{tc.get('reused_by_perceptual', 0)} (perceptual)")
-        print(f"  Texture variants:   {tc.get('variant_saved', 0)} (same name, different content)")
+              f"{tc['reused_by_content']} (by content)")
         print(f"  Texture total size: {tc['total_bytes']/1024:.0f} KB")
         if unresolved_names:
             print(f"\n  Unresolved names (first 20):")

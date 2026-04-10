@@ -7,6 +7,7 @@
  "maxHeight": 100.0,
  "heightmap": "heightmap.png",
  "featuresBase": "../features",
+ "texturesBase": "..",
  "features": [
   {
    "name": "pilha_crystal_green2",

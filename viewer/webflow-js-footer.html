@@ -22,10 +22,10 @@
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 800;
     const MOBILE_PERF = { tessellation: 400, shadowSize: 512, shadowType: THREE.PCFShadowMap, reflectionRes: 256, pixelRatio: 1.5, skirtRes: 32, targetFPS: 90, shadowBias: -0.004 };
     const DESKTOP_TIERS = {
-        0: { tessellation: 400, shadowSize: 512,  shadowType: THREE.PCFShadowMap, reflectionRes: 512, pixelRatio: 1.0, skirtRes: 64, targetFPS: 60, shadowBias: -0.003 },
-        1: { tessellation: 750, shadowSize: 512,  shadowType: THREE.PCFSoftShadowMap, reflectionRes: 512, pixelRatio: 1.2, skirtRes: 96, targetFPS: null, shadowBias: -0.002 },
-        2: { tessellation: 850, shadowSize: 1024, shadowType: THREE.PCFSoftShadowMap, reflectionRes: 512, pixelRatio: 1.5, skirtRes: 128, targetFPS: null, shadowBias: -0.0015 },
-        3: { tessellation: 1000, shadowSize: 2048, shadowType: THREE.PCFSoftShadowMap, reflectionRes: 512, pixelRatio: 1.5, skirtRes: 256, targetFPS: null, shadowBias: -0.001 }
+        0: { tessellation: 200, shadowSize: 512,  shadowType: THREE.PCFShadowMap, reflectionRes: 512, pixelRatio: 1.0, skirtRes: 64, targetFPS: 60, shadowBias: -0.003 },
+        1: { tessellation: 300, shadowSize: 512,  shadowType: THREE.PCFShadowMap, reflectionRes: 512, pixelRatio: 1.2, skirtRes: 96, targetFPS: null, shadowBias: -0.002 },
+        2: { tessellation: 400, shadowSize: 1024, shadowType: THREE.PCFShadowMap, reflectionRes: 512, pixelRatio: 1.5, skirtRes: 128, targetFPS: null, shadowBias: -0.0015 },
+        3: { tessellation: 450, shadowSize: 2048, shadowType: THREE.PCFShadowMap, reflectionRes: 512, pixelRatio: 1.5, skirtRes: 256, targetFPS: null, shadowBias: -0.001 }
     };
 
     const CONFIG = {
@@ -231,7 +231,7 @@
         let rotateTimeout; controls.addEventListener('start', () => { controls.autoRotate = false; clearTimeout(rotateTimeout); }); controls.addEventListener('end', () => { if (userWantsRotation) { rotateTimeout = setTimeout(() => { controls.autoRotate = true; }, CONFIG.autoRotatePause); } });
 
         const ambientLight = new THREE.AmbientLight(CONFIG.ambientColor, CONFIG.ambientIntensity); scene.add(ambientLight);
-        const dirLight = new THREE.DirectionalLight(CONFIG.sunColor, CONFIG.sunIntensity); dirLight.castShadow = true; dirLight.shadow.bias = (PERF.shadowBias !== undefined) ? PERF.shadowBias : CONFIG.shadowBias; dirLight.shadow.normalBias = CONFIG.shadowNormalBias; dirLight.shadow.mapSize.set(PERF.shadowSize, PERF.shadowSize); const dCam = mapDiagonal * 0.6; dirLight.shadow.camera.left = -dCam; dirLight.shadow.camera.right = dCam; dirLight.shadow.camera.top = dCam; dirLight.shadow.camera.bottom = -dCam; dirLight.shadow.camera.near = 10; dirLight.shadow.camera.far = maxDim * 5; scene.add(dirLight);
+        const dirLight = new THREE.DirectionalLight(CONFIG.sunColor, CONFIG.sunIntensity); dirLight.castShadow = true; dirLight.shadow.bias = (PERF.shadowBias !== undefined) ? PERF.shadowBias : CONFIG.shadowBias; dirLight.shadow.normalBias = CONFIG.shadowNormalBias; dirLight.shadow.mapSize.set(PERF.shadowSize, PERF.shadowSize); const dCam = mapDiagonal * 0.75; dirLight.shadow.camera.left = -dCam; dirLight.shadow.camera.right = dCam; dirLight.shadow.camera.top = dCam; dirLight.shadow.camera.bottom = -dCam; dirLight.shadow.camera.near = 1; dirLight.shadow.camera.far = maxDim * 6; scene.add(dirLight);
         const updateSunPosition = () => { const phi = (1.0 - CONFIG.sunElevation) * (Math.PI / 2), theta = CONFIG.sunAzimuth * Math.PI * 2; dirLight.position.set(maxDim * 2 * Math.sin(phi) * Math.cos(theta), maxDim * 2 * Math.cos(phi), maxDim * 2 * Math.sin(phi) * Math.sin(theta)); dirLight.lookAt(0,0,0); if (liquidMesh && liquidMesh.material.uniforms) liquidMesh.material.uniforms.sunDirection.value.copy(dirLight.position).normalize(); if (liquidSideMats) { liquidSideMats.forEach(mat => { if (mat.uniforms.sunDirection) mat.uniforms.sunDirection.value.copy(dirLight.position).normalize(); }); } };
         updateSunPosition(); window.addEventListener('mousemove', (e) => { if (isAltDown) { CONFIG.sunAzimuth -= e.movementX * 0.002; CONFIG.sunElevation = Math.max(0.01, Math.min(0.99, CONFIG.sunElevation - e.movementY * 0.002)); updateSunPosition(); } });
 
@@ -239,7 +239,13 @@
         if(waterNorm) { waterNorm.wrapS = waterNorm.wrapT = THREE.RepeatWrapping; }
         if(normMap) { normMap.wrapS = normMap.wrapT = THREE.RepeatWrapping; normMap.repeat.y = -1; normMap.offset.y = 1; }
 
-        const gpuGeo = new THREE.PlaneGeometry(scaledW, scaledH, PERF.tessellation, PERF.tessellation);
+        const LOD_MIN = isMobile ? 200 : 350;
+        const LOD_MAX = isMobile ? PERF.tessellation : 1000;
+        const LOD_STEP = 50;
+        const lodCache = new Map();
+        const getLodGeo = (segs) => { if (!lodCache.has(segs)) lodCache.set(segs, new THREE.PlaneGeometry(scaledW, scaledH, segs, segs)); return lodCache.get(segs); };
+        let currentLOD = LOD_MAX;
+        let gpuGeo = getLodGeo(currentLOD);
         let clipPlane = null; const terrainClippingPlanes = []; if (isVoidMode) { clipPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0); terrainClippingPlanes.push(clipPlane); }
 
         const terrainMat = new THREE.MeshStandardMaterial({
@@ -251,7 +257,7 @@
             polygonOffset: true, polygonOffsetFactor: -1.0, polygonOffsetUnits: -1.0
         });
 
-        const terrainMesh = new THREE.Mesh(gpuGeo, terrainMat); terrainMesh.rotation.x = -Math.PI / 2; terrainMesh.castShadow = true; terrainMesh.receiveShadow = true; terrainMesh.customDepthMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, displacementMap: hMap, displacementScale: currentMaxH - currentMinH, displacementBias: currentMinH, map: diffMap, clippingPlanes: terrainClippingPlanes }); scene.add(terrainMesh);
+        const terrainMesh = new THREE.Mesh(gpuGeo, terrainMat); terrainMesh.rotation.x = -Math.PI / 2; terrainMesh.castShadow = true; terrainMesh.receiveShadow = true; terrainMesh.customDepthMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, displacementMap: hMap, displacementScale: currentMaxH - currentMinH, displacementBias: currentMinH, map: diffMap, clippingPlanes: terrainClippingPlanes, polygonOffset: true, polygonOffsetFactor: 1.0, polygonOffsetUnits: 1.0 }); scene.add(terrainMesh);
 
         // ===== bar-features handshake (added) =====
         // Expose the host context so the features embed (webflow-js-features.html)
@@ -407,10 +413,12 @@
         }
 
         let isVisible = true; let lastFrameTime = 0; const fpsInterval = PERF.targetFPS ? 1000 / PERF.targetFPS : 0;
+        const lodForDist = (dist) => { const t = Math.max(0, Math.min(1, (dist - cameraDist * 0.15) / (cameraDist * 1.35))); return Math.round(LOD_MAX - t * (LOD_MAX - LOD_MIN)); };
         const animate = (time) => {
             if (!isVisible) return; requestAnimationFrame(animate);
             if (fpsInterval > 0) { const elapsed = time - lastFrameTime; if (elapsed < fpsInterval) return; lastFrameTime = time - (elapsed % fpsInterval); }
             controls.update();
+            { const dist = camera.position.distanceTo(controls.target); const want = lodForDist(dist); const snapped = Math.max(LOD_MIN, Math.min(LOD_MAX, Math.round(want / LOD_STEP) * LOD_STEP)); if (snapped !== currentLOD) { currentLOD = snapped; terrainMesh.geometry = getLodGeo(currentLOD); } }
             if (!hasLava && liquidMesh) { liquidMesh.material.uniforms['time'].value += CONFIG.waterSpeed; }
             if (hasLava) { liquidSideMats.forEach(mat => { mat.uniforms.time.value += CONFIG.lavaSpeed; }); }
             else if (liquidMesh) { liquidSideMats.forEach(mat => { mat.uniforms.time.value += CONFIG.waterSpeed; }); }

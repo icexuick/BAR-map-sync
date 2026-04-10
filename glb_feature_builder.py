@@ -1,29 +1,31 @@
 """
 GLB Feature Builder — converts a parsed S3OModel + texture files into a
-.glb referencing externally-stored, deduped WebP textures.
+geometry-only .glb plus per-map WebP textures stored separately.
 
 Output layout:
     features/
-      _textures/
-        ad0_fir_1.webp            # shared across every feature that uses it
-        ad0_fir_normal.webp
-        ...
       fir_tree_tall_5__tree_fir_tall_1/
-        model.glb                 # image.uri = "../_textures/ad0_fir_1.webp"
-      ...
+        model.glb                 # geometry-only, no images/textures
+                                  # material.extras has texture filenames
+    maps_features/
+      ad0_fir/                    # grouped by feature texture set
+        ad0_fir_1_masked__angel-crossing.webp
+        ad0_fir_1_masked__boreal-falls.webp
+        ad0_fir_normal__angel-crossing.webp
+        ad0_fir_normal__boreal-falls.webp
+      rocks30/
+        rocks30_1__folsom-dam.webp
+        rocks30_normal__folsom-dam.webp
 
 Key design points:
-  - TextureCache is constructed once per run and shared across all builds.
-    It dedupes by (source_basename, content hash) so identical sources yield
-    a single file on disk and every referring GLB points at that same URI.
-  - Naming is human-readable: the source basename (e.g. "ad0_fir_1.webp").
-    If two different source files share a basename but have different pixel
-    content, the second one is disambiguated with a short content-hash
-    suffix ("ad0_fir_1__a3f2c91b.webp").
-  - glTF image.uri is relative from the GLB file location, i.e. for a GLB
-    at features/<name>/model.glb the URI is "../_textures/<file>.webp".
-  - No EXT_texture_webp extension is declared — glTF 2.0 natively supports
-    image/webp when delivered via URI, and every modern loader handles it.
+  - GLBs are geometry-only (shared across all maps). Materials carry
+    texture filenames in glTF extras (colorTex, normalTex) so the viewer
+    can load per-map textures at runtime.
+  - TextureCache writes per-map textures into maps_features/<feature_group>/
+    with an __<mapslug> suffix on every file. This makes it easy to compare
+    texture variants across maps and optionally merge them by hand.
+  - Within a single map run, source-path and content-hash dedup still
+    apply (e.g. 55 fir variants sharing one atlas → one webp written).
   - Tangent vectors are generated for meshes whose material has a normal
     texture, eliminating the MESH_PRIMITIVE_GENERATED_TANGENT_SPACE warning.
 """
@@ -55,7 +57,7 @@ from s3o_to_glb import GLBBuilder  # noqa: E402
 MIN_TEXTURE_DIMENSION = 256
 
 # WebP quality for color textures (perceptual lossy is fine)
-COLOR_WEBP_QUALITY = 80
+COLOR_WEBP_QUALITY = 70
 
 
 def _load_raw_rgba(path: str) -> Optional[Image.Image]:
@@ -214,182 +216,61 @@ def _safe_basename(source_path: str) -> str:
 
 
 # ──────────────────────────────────────────────────────────────────────────
-# Perceptual texture comparison
-# ──────────────────────────────────────────────────────────────────────────
-
-# Thresholds for deciding whether two same-named textures are meaningfully
-# different. Both conditions must be met for a variant to be saved.
-#
-# Derived empirically from comparing greenest-fields source TGAs against
-# previously-cached textures of the same basename:
-#   - ad0_aleppo2_1:  8% pixel-diff but 0.8% mean color delta  → compression noise
-#   - shroomorange:  31% pixel-diff, 30% mean color delta      → clearly different
-#   - fernsa:        16% pixel-diff,  8-12% mean color delta   → clearly different
-TEXTURE_DIFF_PIXEL_FRAC = 0.05     # >5% of pixels must visibly differ
-TEXTURE_DIFF_MEAN_COLOR = 0.03     # AND mean color delta >3% (~7.65/255)
-# "Visibly differ" per pixel means any channel moved by more than this:
-TEXTURE_DIFF_PIXEL_DELTA = 12      # ~5% of 255
-
-
-def _compare_images_rgba(a: Image.Image, b: Image.Image) -> Tuple[float, float]:
-    """Compare two decoded images and return (pixel_frac, mean_color_delta).
-
-    pixel_frac:        fraction of pixels where any channel differs by more
-                       than TEXTURE_DIFF_PIXEL_DELTA (0..1)
-    mean_color_delta:  mean absolute per-channel delta, normalized to 0..1
-
-    Both images are resized to a common small footprint (128x128) before
-    comparison so that encoding-level size differences don't dominate. RGBA
-    with zero-alpha regions is kept as-is (we want to detect mask changes
-    too, since alpha is meaningful for features like leaves).
-    """
-    SIZE = (128, 128)
-    ai = a.convert('RGBA').resize(SIZE, Image.Resampling.LANCZOS)
-    bi = b.convert('RGBA').resize(SIZE, Image.Resampling.LANCZOS)
-    aa = np.asarray(ai, dtype=np.int16)
-    bb = np.asarray(bi, dtype=np.int16)
-    diff = np.abs(aa - bb)
-    # per-pixel max channel delta
-    max_chan = diff.max(axis=2)
-    pixel_frac = float((max_chan > TEXTURE_DIFF_PIXEL_DELTA).mean())
-    mean_color = float(diff.mean()) / 255.0
-    return pixel_frac, mean_color
-
-
-def _is_meaningfully_different(a: Image.Image, b: Image.Image) -> bool:
-    """True if two textures should be stored as separate variants."""
-    pixel_frac, mean_color = _compare_images_rgba(a, b)
-    return pixel_frac > TEXTURE_DIFF_PIXEL_FRAC and mean_color > TEXTURE_DIFF_MEAN_COLOR
-
-
-# ──────────────────────────────────────────────────────────────────────────
-# TextureCache: shared, deduped, human-readable texture store on disk
+# TextureCache: per-map textures grouped by feature, __mapslug suffix
 # ──────────────────────────────────────────────────────────────────────────
 
 class TextureCache:
-    """Writes WebP textures to a shared folder, deduped by content hash.
+    """Writes per-map WebP textures into maps_features/<feature_group>/
+    with an __<mapslug> suffix on every filename.
 
     Usage:
-        cache = TextureCache(textures_dir="features/_textures")
-        filename = cache.register(source_path="...tex1.dds", lossless=False)
-        # => "ad0_fir_1.webp"
+        cache = TextureCache(
+            textures_root="maps_features",
+            map_slug="angel-crossing",
+        )
+        filename = cache.register(
+            source_path="...tex1.dds", lossless=False,
+            feature_group="ad0_fir",
+        )
+        # => "ad0_fir_1__angel-crossing.webp"
+        # written to maps_features/ad0_fir/ad0_fir_1__angel-crossing.webp
 
-    Naming policy:
-      - Preferred name is the source basename with .webp extension.
-      - If that name is already taken by *different* content, a short
-        content-hash suffix is appended ("ad0_fir_1__a3f2c91b.webp").
-      - Two calls with identical encoded bytes always return the same
-        filename (pure content-hash dedup).
+    Within a single run, source-path dedup and content-hash dedup apply
+    (e.g. 55 fir variants sharing one atlas → one webp written).
+    No cross-map dedup — each map always gets its own copy.
 
     Not thread-safe. One instance per run.
     """
 
-    def __init__(self, textures_dir: str, map_name: Optional[str] = None):
-        self.textures_dir = textures_dir
-        self.map_name = map_name
-        os.makedirs(textures_dir, exist_ok=True)
+    def __init__(self, textures_root: str, map_slug: str):
+        self.textures_root = textures_root
+        self.map_slug = map_slug
 
-        # Maps: source_path (absolute, lowercased) -> filename
-        self._by_source: Dict[str, str] = {}
-        # Maps: content_sha1 -> filename (pure content dedup)
-        self._by_hash: Dict[str, str] = {}
-        # Names currently in use on disk (lowercased filenames) -> content_sha1
-        self._name_to_hash: Dict[str, str] = {}
-        # Stem (no extension) -> list of variant filenames that share this stem.
-        # Used to find candidates for perceptual comparison on collision.
-        # Example: 'shroomorange' -> ['shroomorange.webp', 'shroomorange__greenest_fields.webp']
-        self._variants_by_stem: Dict[str, list] = {}
-        # Lazy-decoded pixel cache: filename -> Pillow image (or None if unreadable)
-        self._decoded_by_filename: Dict[str, Optional[Image.Image]] = {}
+        # Maps: source_key -> (filename, feature_group)
+        self._by_source: Dict[str, Tuple[str, str]] = {}
+        # Maps: content_sha1 -> (filename, feature_group)
+        self._by_hash: Dict[str, Tuple[str, str]] = {}
 
         self.stats = {
             'unique_files': 0,
             'reused_by_source': 0,
             'reused_by_content': 0,
-            'reused_by_perceptual': 0,
-            'variant_saved': 0,
-            'name_collisions': 0,
             'total_bytes': 0,
         }
 
-        # Bootstrap from any files already on disk, so cross-map dedup works
-        # across independent cache instances (one per map run).
-        self._bootstrap_from_disk()
-
-    def _bootstrap_from_disk(self) -> None:
-        """Index every *.webp already in textures_dir so this run can dedupe
-        against textures written by earlier runs (e.g. previous maps).
-        """
-        if not os.path.isdir(self.textures_dir):
-            return
-        for name in os.listdir(self.textures_dir):
-            if not name.lower().endswith('.webp'):
-                continue
-            path = os.path.join(self.textures_dir, name)
-            if not os.path.isfile(path):
-                continue
-            try:
-                with open(path, 'rb') as f:
-                    data = f.read()
-            except OSError:
-                continue
-            content_hash = hashlib.sha1(data).hexdigest()
-            self._by_hash.setdefault(content_hash, name)
-            self._name_to_hash[name.lower()] = content_hash
-            stem = self._stem_of_variant(name)
-            self._variants_by_stem.setdefault(stem, []).append(name)
-
-    @staticmethod
-    def _stem_of_variant(filename: str) -> str:
-        """Extract the logical stem from a variant filename.
-        'shroomorange.webp'                    -> 'shroomorange'
-        'shroomorange__greenest_fields.webp'   -> 'shroomorange'
-        'ad0_fir_1_masked.webp'                -> 'ad0_fir_1_masked'
-        'ad0_fir_1__a3f2c91b.webp'             -> 'ad0_fir_1'
-        The '__' separator is the variant boundary; whatever comes after it
-        (mapname or content hash) is treated as a variant suffix.
-        """
-        base = os.path.splitext(filename)[0].lower()
-        idx = base.rfind('__')
-        if idx >= 0:
-            return base[:idx]
-        return base
-
-    def _get_decoded(self, filename: str) -> Optional[Image.Image]:
-        """Lazily decode and cache a webp from disk for perceptual comparison."""
-        if filename in self._decoded_by_filename:
-            return self._decoded_by_filename[filename]
-        path = os.path.join(self.textures_dir, filename)
-        img: Optional[Image.Image] = None
-        try:
-            im = Image.open(path)
-            im.load()
-            img = im
-        except Exception:
-            img = None
-        self._decoded_by_filename[filename] = img
-        return img
-
     def register(self, source_path: str, lossless: bool,
+                 feature_group: str,
                  match_size_of: Optional[str] = None,
                  keep_full_res: bool = False) -> Optional[str]:
         """Encode + store the texture, returning the filename (no dir prefix).
         Returns None if the source can't be loaded.
 
-        match_size_of: optional path to another image whose dimensions this
-            texture must be downscaled to match before encoding. Used to
-            keep a normal map at the same resolution as its paired color
-            texture so tangent-space lookups sample at the same per-UV-texel
-            rate — otherwise a high-res normal over a tiny UV region
-            produces "random dark blobs" that don't correspond to diffuse
-            detail (see rocks30, whose normal DDS is 2× the color DDS).
-            Only shrinks, never upscales.
+        feature_group: the feature texture set name (e.g. "ad0_fir",
+            "rocks30"). Used as the subdirectory under textures_root.
         """
         if not source_path:
             return None
         key = os.path.normcase(os.path.abspath(source_path))
-        # Include match-size target and full-res flag in the dedup key so
-        # the same source can coexist in halved and full-res variants.
         if match_size_of:
             key = key + '|match=' + os.path.normcase(os.path.abspath(match_size_of))
         if keep_full_res:
@@ -397,7 +278,7 @@ class TextureCache:
         cached = self._by_source.get(key)
         if cached:
             self.stats['reused_by_source'] += 1
-            return cached
+            return cached[0]
 
         img = _load_image_any(source_path)
         if img is None:
@@ -407,32 +288,25 @@ class TextureCache:
             partner = _load_image_any(match_size_of)
             if partner is not None and partner.size != img.size:
                 tw, th = partner.size
-                # Only shrink, never upscale.
                 if tw * th < img.width * img.height:
                     img = img.resize((tw, th), Image.Resampling.LANCZOS)
 
-        return self._store_image(img, source_path, lossless, key, keep_full_res=keep_full_res)
+        return self._store_image(img, source_path, lossless, key,
+                                  feature_group=feature_group,
+                                  keep_full_res=keep_full_res)
 
     def register_color_with_mask(self,
                                   color_path: str,
                                   mask_source_path: Optional[str],
+                                  feature_group: str,
                                   keep_full_res: bool = False) -> Tuple[Optional[str], bool]:
         """Register a color texture, optionally borrowing its alpha channel
         from another image (BAR's tex2/"Extra") when the color's own alpha
         is unusable.
 
-        BAR feature convention:
-          - tex1 (color): RGB=diffuse, A=often all-zero/unused
-          - tex2 (extra): RGB=specular/emit/team, A=alpha MASK for the model
-
-        Our material expects the alpha-mask inside the baseColorTexture
-        (glTF's alphaMode=MASK reads material.baseColorTexture.A). So when
-        tex1 has no useful alpha, we splice tex2's alpha onto tex1 here.
-
         Returns (filename, has_mask):
-          filename: the cached webp to reference from baseColorTexture
-          has_mask: True if an alpha mask (from tex1 OR tex2) is now present
-                    and the material should be marked alphaMode=MASK
+          filename: the webp filename (no directory prefix)
+          has_mask: True if an alpha mask is now present
         """
         if not color_path:
             return None, False
@@ -441,24 +315,14 @@ class TextureCache:
         if color_img is None:
             return None, False
 
-        # Does the color already carry a usable alpha channel? _load_image_any
-        # has already demoted all-zero-alpha RGBA to RGB, so 'A' in bands
-        # implies useful alpha.
         color_has_alpha = 'A' in color_img.getbands()
 
-        # Can we get a better mask from the extra/tex2 texture?
-        # BAR's tex2 "Extra" carries the feature mask in one of two shapes:
-        #   (a) In the alpha channel directly (some ad0_* trees, crystals)
-        #   (b) Encoded in the RGB itself — pixels where RGB==(0,0,0) are
-        #       the alpha-mask holes, non-zero pixels are opaque. BAR's
-        #       treeshader uses this layout (e.g. gasbag_tree, allpinesb).
         merged = False
         if not color_has_alpha and mask_source_path:
             raw = _load_raw_rgba(mask_source_path)
             if raw is not None:
                 mask = _derive_mask_from_extra(raw)
                 if mask is not None:
-                    # Resize to match color texture dimensions if needed
                     if mask.size != color_img.size:
                         mask = mask.resize(color_img.size, Image.Resampling.LANCZOS)
                     rgb = color_img.convert('RGB')
@@ -468,8 +332,6 @@ class TextureCache:
 
         has_mask = color_has_alpha or merged
 
-        # Build a deterministic source-key so repeat calls with the same
-        # (color, mask) pair dedupe via _by_source.
         key_parts = [os.path.normcase(os.path.abspath(color_path))]
         if merged:
             key_parts.append(os.path.normcase(os.path.abspath(mask_source_path)))
@@ -480,10 +342,11 @@ class TextureCache:
         cached = self._by_source.get(key)
         if cached:
             self.stats['reused_by_source'] += 1
-            return cached, has_mask
+            return cached[0], has_mask
 
         filename = self._store_image(
             color_img, color_path, lossless=False, source_key=key,
+            feature_group=feature_group,
             name_suffix='_masked' if merged else '',
             keep_full_res=keep_full_res,
         )
@@ -494,90 +357,32 @@ class TextureCache:
                       source_path_for_name: str,
                       lossless: bool,
                       source_key: str,
+                      feature_group: str,
                       name_suffix: str = '',
                       keep_full_res: bool = False) -> Optional[str]:
-        """Encode `img` to webp, dedup by content hash, write to disk, and
-        record both the source-key mapping and the content-hash mapping.
-        Returns the filename on disk (no directory prefix).
-
-        Collision policy (when a file with the preferred name already exists
-        on disk but its bytes differ):
-          1. Decode the existing file and run a perceptual comparison.
-          2. If the two images are visually close (compression noise only),
-             reuse the existing file — save nothing new.
-          3. If they're meaningfully different, save the new image under
-             '<stem>__<mapname>.webp' (or '<stem>__<hash8>.webp' as a
-             fallback when no map name is known).
-        """
+        """Encode to webp with __<mapslug> suffix, write to feature_group dir."""
         data = _encode_webp(img, lossless=lossless, keep_full_res=keep_full_res)
         content_hash = hashlib.sha1(data).hexdigest()
 
-        # Content-hash dedup: if we've already written these exact bytes, reuse.
+        # Content-hash dedup within this run
         existing = self._by_hash.get(content_hash)
         if existing:
             self._by_source[source_key] = existing
             self.stats['reused_by_content'] += 1
-            return existing
+            return existing[0]
 
-        # Pick a human-readable filename, disambiguating on collision.
         stem = _safe_basename(source_path_for_name) + name_suffix
-        preferred = stem + '.webp'
-        logical_stem = self._stem_of_variant(preferred)
+        filename = f"{stem}__{self.map_slug}.webp"
 
-        # Perceptual comparison against any existing variant(s) of this stem.
-        # This catches two cases:
-        #   (a) same-source re-encoded in a later run → compression noise only,
-        #       reuse the existing file instead of proliferating variants.
-        #   (b) a truly different texture with the same name → save a variant.
-        # We compare the post-encoding round-trip (decoded from `data`)
-        # against the on-disk decoded variant, so both sides have gone
-        # through WebP compression and neither has a size advantage.
-        existing_variants = self._variants_by_stem.get(logical_stem, [])
-        if existing_variants:
-            try:
-                new_decoded = Image.open(io.BytesIO(data))
-                new_decoded.load()
-            except Exception:
-                new_decoded = img  # fallback: use pre-encoding image
-            for variant_name in existing_variants:
-                decoded = self._get_decoded(variant_name)
-                if decoded is None:
-                    continue
-                if not _is_meaningfully_different(new_decoded, decoded):
-                    # Visually the same — point at the existing file.
-                    self._by_source[source_key] = variant_name
-                    # Also index the new content hash → existing filename so
-                    # future byte-identical encodes shortcut via _by_hash.
-                    self._by_hash[content_hash] = variant_name
-                    self.stats['reused_by_perceptual'] += 1
-                    return variant_name
-
-            # No variant matched — this is a genuinely different image.
-            # Pick a variant suffix: mapname if known, else short content hash.
-            if self.map_name:
-                suffix = _safe_basename(self.map_name)
-            else:
-                suffix = content_hash[:8]
-            filename = f"{stem}__{suffix}.webp"
-            # Defensive: if that variant name is somehow already taken by
-            # different content, fall back to a hash suffix.
-            if filename.lower() in self._name_to_hash and self._name_to_hash[filename.lower()] != content_hash:
-                filename = f"{stem}__{content_hash[:8]}.webp"
-            self.stats['variant_saved'] += 1
-            self.stats['name_collisions'] += 1
-        else:
-            filename = preferred
-
-        out_path = os.path.join(self.textures_dir, filename)
+        out_dir = os.path.join(self.textures_root, feature_group)
+        os.makedirs(out_dir, exist_ok=True)
+        out_path = os.path.join(out_dir, filename)
         with open(out_path, 'wb') as f:
             f.write(data)
 
-        self._by_source[source_key] = filename
-        self._by_hash[content_hash] = filename
-        self._name_to_hash[filename.lower()] = content_hash
-        self._variants_by_stem.setdefault(logical_stem, []).append(filename)
-        # Cache the decoded pixels for fast comparison on subsequent collisions.
-        self._decoded_by_filename[filename] = img
+        entry = (filename, feature_group)
+        self._by_source[source_key] = entry
+        self._by_hash[content_hash] = entry
         self.stats['unique_files'] += 1
         self.stats['total_bytes'] += len(data)
         return filename
@@ -588,24 +393,15 @@ class TextureCache:
 # ──────────────────────────────────────────────────────────────────────────
 
 class FeatureGLBBuilder(GLBBuilder):
-    """Extends GLBBuilder with URI-based WebP material support and
-    generated vertex tangents for normal-mapped meshes.
+    """Extends GLBBuilder with geometry-only GLB output.
+
+    Materials carry texture filenames in glTF extras (colorTex, normalTex)
+    so the viewer can load per-map textures at runtime. No images/textures/
+    samplers are emitted in the glTF JSON.
     """
 
-    def __init__(self, texture_cache: TextureCache, glb_dir: str):
-        """texture_cache: shared cache for this build run.
-        glb_dir:       absolute path to the directory where this GLB will
-                       live — used to compute the relative URI from GLB to
-                       the _textures/ folder.
-        """
+    def __init__(self):
         super().__init__()
-        self.images = []    # glTF images[]
-        self.textures = []  # glTF textures[]
-        self.samplers = []  # glTF samplers[]
-        self.texture_cache = texture_cache
-        self.glb_dir = glb_dir
-        # Per-builder dedup: same source path within one GLB -> same tex index
-        self._tex_idx_by_filename: Dict[str, int] = {}
         # Track which materials use a normal map (so add_piece_mesh knows
         # whether to emit tangents)
         self._materials_need_tangents: Dict[int, bool] = {}
@@ -725,75 +521,19 @@ class FeatureGLBBuilder(GLBBuilder):
         self.meshes.append(mesh)
         return idx
 
-    # -- Texture / material support ----------------------------------------
-
-    def _add_default_sampler(self) -> int:
-        if self.samplers:
-            return 0
-        self.samplers.append({
-            "magFilter": 9729,   # LINEAR
-            "minFilter": 9987,   # LINEAR_MIPMAP_LINEAR
-            "wrapS": 10497,      # REPEAT
-            "wrapT": 10497,      # REPEAT
-        })
-        return 0
-
-    def _add_uri_texture(self, source_path: str, lossless: bool,
-                         match_size_of: Optional[str] = None,
-                         keep_full_res: bool = False) -> Optional[int]:
-        """Register a source image with the cache and add a glTF texture
-        whose image.uri is relative to this GLB's directory.
-        Returns the texture index, or None if the source can't be loaded.
-        """
-        filename = self.texture_cache.register(
-            source_path, lossless=lossless,
-            match_size_of=match_size_of, keep_full_res=keep_full_res,
-        )
-        if not filename:
-            return None
-
-        # Per-builder dedup: same filename -> same texture index in this GLB
-        if filename in self._tex_idx_by_filename:
-            return self._tex_idx_by_filename[filename]
-
-        abs_tex_path = os.path.join(self.texture_cache.textures_dir, filename)
-        rel = os.path.relpath(abs_tex_path, self.glb_dir).replace('\\', '/')
-
-        img_idx = len(self.images)
-        self.images.append({
-            "uri": rel,
-            "mimeType": "image/webp",
-        })
-
-        sampler_idx = self._add_default_sampler()
-        tex_idx = len(self.textures)
-        self.textures.append({
-            "sampler": sampler_idx,
-            "source": img_idx,
-        })
-        self._tex_idx_by_filename[filename] = tex_idx
-        return tex_idx
+    # -- Material support (geometry-only — texture filenames in extras) ------
 
     def add_textured_material(self,
-                               color_path: Optional[str],
-                               normal_path: Optional[str],
-                               extra_path: Optional[str] = None,
+                               color_tex_filename: Optional[str] = None,
+                               normal_tex_filename: Optional[str] = None,
+                               has_mask: bool = False,
+                               feature_group: Optional[str] = None,
                                name: str = "FeatureMat") -> int:
-        """Create a PBR material for a feature model.
+        """Create a PBR material for a feature model (geometry-only GLB).
 
-        color_path : BAR tex1 — diffuse RGB
-        normal_path: normal map (RGB = normal, alpha ignored)
-        extra_path : BAR tex2 — spec/emit/team RGB, and an alpha channel that
-                     is the actual feature alpha-mask. When tex1's own alpha
-                     is unusable, we splice tex2's alpha onto tex1 so
-                     alphaMode=MASK works correctly for foliage/etc.
+        Instead of glTF texture references, texture filenames are stored in
+        material.extras so the viewer can load per-map textures at runtime.
         """
-        # Per-asset texture policy. rocks30 is kept at full source resolution
-        # because its atlas has very small UV shells per model — halving the
-        # texture makes each rock look like a featureless blur and hides
-        # whether UVs are hitting the right tile at all.
-        keep_full_res = 'rocks30' in name.lower()
-
         mat: dict = {
             "name": name,
             "pbrMetallicRoughness": {
@@ -804,64 +544,26 @@ class FeatureGLBBuilder(GLBBuilder):
             "doubleSided": True,
         }
 
-        # Color texture (possibly with alpha borrowed from the Extra texture)
-        if color_path:
-            filename, has_mask = self.texture_cache.register_color_with_mask(
-                color_path, mask_source_path=extra_path,
-                keep_full_res=keep_full_res,
-            )
-            if filename:
-                color_tex = self._register_cache_filename(filename)
-                mat["pbrMetallicRoughness"]["baseColorTexture"] = {"index": color_tex}
-                if has_mask:
-                    mat["alphaMode"] = "MASK"
-                    mat["alphaCutoff"] = 0.5
+        if has_mask:
+            mat["alphaMode"] = "MASK"
+            mat["alphaCutoff"] = 0.5
 
-        # Normal texture — clamped to the color texture's dimensions when
-        # the source normal is larger, so both textures sample at the same
-        # per-UV-texel rate. Without this, rocks30 (3072×2048 normal over a
-        # 1536×1024 color) produced "blobby" shading that didn't correspond
-        # to the diffuse detail.
-        has_normal = False
-        if normal_path:
-            normal_tex = self._add_uri_texture(
-                normal_path, lossless=True, match_size_of=color_path,
-                keep_full_res=keep_full_res,
-            )
-            if normal_tex is not None:
-                mat["normalTexture"] = {"index": normal_tex}
-                has_normal = True
+        # Store texture filenames in extras for the viewer to resolve
+        extras: dict = {}
+        if color_tex_filename:
+            extras["colorTex"] = color_tex_filename
+        if normal_tex_filename:
+            extras["normalTex"] = normal_tex_filename
+        if feature_group:
+            extras["featureGroup"] = feature_group
+        if extras:
+            mat["extras"] = extras
 
+        has_normal = normal_tex_filename is not None
         idx = len(self.materials)
         self.materials.append(mat)
         self._materials_need_tangents[idx] = has_normal
         return idx
-
-    def _register_cache_filename(self, filename: str) -> int:
-        """Given a filename already living in the texture cache directory,
-        add an image+texture entry (or return existing) and return the
-        texture index. Used by register_color_with_mask, which does its own
-        cache interaction before handing back a filename.
-        """
-        if filename in self._tex_idx_by_filename:
-            return self._tex_idx_by_filename[filename]
-
-        abs_tex_path = os.path.join(self.texture_cache.textures_dir, filename)
-        rel = os.path.relpath(abs_tex_path, self.glb_dir).replace('\\', '/')
-
-        img_idx = len(self.images)
-        self.images.append({
-            "uri": rel,
-            "mimeType": "image/webp",
-        })
-        sampler_idx = self._add_default_sampler()
-        tex_idx = len(self.textures)
-        self.textures.append({
-            "sampler": sampler_idx,
-            "source": img_idx,
-        })
-        self._tex_idx_by_filename[filename] = tex_idx
-        return tex_idx
 
     # -- Final GLB assembly -------------------------------------------------
 
@@ -884,12 +586,8 @@ class FeatureGLBBuilder(GLBBuilder):
         }
         if self.materials:
             gltf["materials"] = self.materials
-        if self.images:
-            gltf["images"] = self.images
-        if self.textures:
-            gltf["textures"] = self.textures
-        if self.samplers:
-            gltf["samplers"] = self.samplers
+        # Geometry-only GLB: no images/textures/samplers.
+        # Texture filenames live in material.extras for the viewer.
 
         json_str = json.dumps(gltf, separators=(',', ':'))
         json_bytes = json_str.encode('utf-8')
@@ -1003,20 +701,54 @@ def _compute_tangents(positions: np.ndarray,
 # Public build function
 # ──────────────────────────────────────────────────────────────────────────
 
-def build_feature_glb(s3o_path: str,
-                       color_tex_path: Optional[str],
-                       normal_tex_path: Optional[str],
-                       texture_cache: TextureCache,
-                       glb_out_dir: str,
-                       extra_tex_path: Optional[str] = None) -> Optional[bytes]:
-    """Parse an .s3o and build a textured .glb referencing the shared
-    TextureCache. Returns GLB bytes, or None on failure.
+def register_feature_textures(
+    color_tex_path: Optional[str],
+    normal_tex_path: Optional[str],
+    extra_tex_path: Optional[str],
+    texture_cache: TextureCache,
+    feature_group: str,
+    asset_name: str,
+) -> dict:
+    """Register textures with the per-map cache. Returns a dict with
+    keys 'color_filename', 'normal_filename', 'has_mask', 'feature_group'
+    for use by the GLB builder or when the GLB already exists.
+    """
+    keep_full_res = 'rocks30' in asset_name.lower()
 
-    extra_tex_path is BAR's tex2/"Extra" texture. Its RGB (spec/emit) is
-    ignored, but its *alpha channel* carries the feature mask for
-    transparency (e.g. leaves on trees). When provided and the color
-    texture has no usable alpha of its own, that alpha gets spliced onto
-    the color texture so alphaMode=MASK works correctly.
+    color_filename = None
+    has_mask = False
+    if color_tex_path:
+        color_filename, has_mask = texture_cache.register_color_with_mask(
+            color_tex_path, mask_source_path=extra_tex_path,
+            feature_group=feature_group,
+            keep_full_res=keep_full_res,
+        )
+
+    normal_filename = None
+    if normal_tex_path:
+        normal_filename = texture_cache.register(
+            normal_tex_path, lossless=True,
+            feature_group=feature_group,
+            match_size_of=color_tex_path,
+            keep_full_res=keep_full_res,
+        )
+
+    return {
+        'color_filename': color_filename,
+        'normal_filename': normal_filename,
+        'has_mask': has_mask,
+        'feature_group': feature_group,
+    }
+
+
+def build_feature_glb(s3o_path: str,
+                       color_tex_filename: Optional[str] = None,
+                       normal_tex_filename: Optional[str] = None,
+                       has_mask: bool = False,
+                       feature_group: Optional[str] = None) -> Optional[bytes]:
+    """Parse an .s3o and build a geometry-only .glb. Texture filenames
+    (already registered with TextureCache) are stored in material.extras.
+    Returns GLB bytes, or None on failure.
     """
     try:
         model = parse_s3o(s3o_path)
@@ -1028,7 +760,7 @@ def build_feature_glb(s3o_path: str,
         print(f"      [S3O] {os.path.basename(s3o_path)}: no root piece")
         return None
 
-    builder = FeatureGLBBuilder(texture_cache=texture_cache, glb_dir=glb_out_dir)
+    builder = FeatureGLBBuilder()
     asset_name = os.path.splitext(os.path.basename(s3o_path))[0]
     # rocks30 is BAR's only `cuspbr = "yes"` feature and is authored with
     # V=0 at the atlas bottom (inverse of the usual s3o convention). Flip
@@ -1036,9 +768,10 @@ def build_feature_glb(s3o_path: str,
     if 'rocks30' in asset_name.lower():
         builder._flip_v = True
     mat_idx = builder.add_textured_material(
-        color_path=color_tex_path,
-        normal_path=normal_tex_path,
-        extra_path=extra_tex_path,
+        color_tex_filename=color_tex_filename,
+        normal_tex_filename=normal_tex_filename,
+        has_mask=has_mask,
+        feature_group=feature_group,
         name=asset_name,
     )
     root_node = builder.add_piece_node(model.root_piece, mat_idx)
@@ -1058,8 +791,17 @@ if __name__ == "__main__":
 
     out_dir = os.path.dirname(os.path.abspath(out))
     textures_dir = os.path.join(out_dir, '_textures')
-    cache = TextureCache(textures_dir)
-    data = build_feature_glb(s3o, color, normal, cache, out_dir)
+    cache = TextureCache(textures_root=textures_dir, map_slug='standalone')
+    feature_group = os.path.splitext(os.path.basename(s3o))[0]
+    tex_info = register_feature_textures(
+        color, normal, None, cache, feature_group, feature_group)
+    data = build_feature_glb(
+        s3o,
+        color_tex_filename=tex_info['color_filename'],
+        normal_tex_filename=tex_info['normal_filename'],
+        has_mask=tex_info['has_mask'],
+        feature_group=tex_info['feature_group'],
+    )
     if data is None:
         print("Conversion failed")
         sys.exit(2)

@@ -7,6 +7,7 @@
  "maxHeight": 1121.0,
  "heightmap": "heightmap.png",
  "featuresBase": "../features",
+ "texturesBase": "..",
  "features": [
   {
    "name": "fir_tree_tall_3__tree_fir_tall_1",
