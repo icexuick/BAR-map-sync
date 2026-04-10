@@ -303,7 +303,8 @@ class TextureCache:
                                   color_path: str,
                                   mask_source_path: Optional[str],
                                   feature_group: str,
-                                  keep_full_res: bool = False) -> Tuple[Optional[str], bool]:
+                                  keep_full_res: bool = False,
+                                  shared: bool = False) -> Tuple[Optional[str], bool]:
         """Register a color texture, optionally borrowing its alpha channel
         from another image (BAR's tex2/"Extra") when the color's own alpha
         is unusable.
@@ -353,6 +354,7 @@ class TextureCache:
             feature_group=feature_group,
             name_suffix='_masked' if merged else '',
             keep_full_res=keep_full_res,
+            shared=shared,
         )
         return filename, has_mask
 
@@ -735,7 +737,10 @@ def register_feature_textures(
     keys 'color_filename', 'normal_filename', 'has_mask', 'feature_group'
     for use by the GLB builder or when the GLB already exists.
     """
-    keep_full_res = 'rocks30' in asset_name.lower()
+    is_rocks30 = 'rocks30' in asset_name.lower()
+    keep_full_res = is_rocks30
+    # rocks30 textures come from BAR.sdd and are map-independent
+    shared_color = is_rocks30
 
     color_filename = None
     has_mask = False
@@ -744,6 +749,7 @@ def register_feature_textures(
             color_tex_path, mask_source_path=extra_tex_path,
             feature_group=feature_group,
             keep_full_res=keep_full_res,
+            shared=shared_color,
         )
 
     normal_filename = None
