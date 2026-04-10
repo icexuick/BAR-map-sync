@@ -526,24 +526,26 @@ async function init() {
     } catch (_) { /* skip unparseable GLBs */ }
   }
 
-  function configureTex(tex, sRGB, noFlipY) {
+  function configureTex(tex, sRGB) {
     if (sRGB) tex.colorSpace = THREE.SRGBColorSpace;
-    if (noFlipY) tex.flipY = false;
+    // s3o UVs use V=0 at top (DirectX convention), matching how
+    // PNG/WebP store pixels. Three.js default flipY=true would
+    // invert the atlas, breaking multi-tile textures (pilha, rocks30).
+    tex.flipY = false;
     tex.anisotropy = IS_MOBILE ? 1 : 8;
     if (IS_MOBILE) { tex.generateMipmaps = false; tex.minFilter = THREE.LinearFilter; }
     tex.wrapS = THREE.RepeatWrapping; tex.wrapT = THREE.RepeatWrapping;
     tex.needsUpdate = true;
     return tex;
   }
-  function loadMapTex(featureGroup, filename, sRGB, noFlipY) {
+  function loadMapTex(featureGroup, filename, sRGB) {
     const stem = texStem(filename);
     const knownFG = stemToGroup.get(stem);
     const fg = knownFG || featureGroup;
-    const key = `${stem}|${noFlipY ? 1 : 0}`;
-    if (texCache.has(key)) return texCache.get(key);
+    if (texCache.has(stem)) return texCache.get(stem);
     const url = `${texBase}/${fg}/${filename}`;
     const promise = new THREE.TextureLoader().loadAsync(url)
-      .then(tex => { stemToGroup.set(stem, fg); return configureTex(tex, sRGB, noFlipY); })
+      .then(tex => { stemToGroup.set(stem, fg); return configureTex(tex, sRGB); })
       .catch(() => {
         const candidates = stemCandidates.get(stem);
         if (!candidates) return null;
@@ -554,49 +556,36 @@ async function init() {
             if (result) return result;
             const altUrl = `${texBase}/${alt}/${filename}`;
             return new THREE.TextureLoader().loadAsync(altUrl)
-              .then(tex => { stemToGroup.set(stem, alt); return configureTex(tex, sRGB, noFlipY); })
+              .then(tex => { stemToGroup.set(stem, alt); return configureTex(tex, sRGB); })
               .catch(() => null);
           });
         }
         return chain;
       });
-    texCache.set(key, promise);
+    texCache.set(stem, promise);
     return promise;
   }
 
-  // Rewrite a texture filename for the current map.
-  // GLB extras store a filename that may contain __<original-slug> from
-  // whichever map first built the GLB. Shared textures (normals, rocks30)
-  // have no __slug suffix and are used as-is.
   function rewriteTexForMap(filename) {
     if (!filename) return filename;
     const m = filename.match(/^(.+)__[a-z0-9-]+(\.\w+)$/);
-    if (!m) return filename;            // shared texture — no slug suffix
-    return `${m[1]}__${slug}${m[2]}`;   // replace slug with current map
+    if (!m) return filename;
+    return `${m[1]}__${slug}${m[2]}`;
   }
 
-  // Extract material extras directly from GLB binary (the glTF JSON chunk).
-  // GLTFLoader doesn't always propagate material.extras to material.userData,
-  // so we read the raw JSON ourselves.
   function extractMaterialExtras(glbBuffer) {
     const view = new DataView(glbBuffer);
     const jsonLen = view.getUint32(12, true);
     const jsonStr = new TextDecoder().decode(new Uint8Array(glbBuffer, 20, jsonLen));
     const gltf = JSON.parse(jsonStr);
-    const materials = gltf.materials || [];
-    // Return array of extras objects, indexed by material index
-    return materials.map(m => m.extras || null);
+    return (gltf.materials || []).map(m => m.extras || null);
   }
 
-  // Assign per-map textures to materials using extras parsed from the GLB.
-  // Most BAR features have a single material. We find the first extras with
-  // a featureGroup and apply it to every mesh material in the scene.
   async function assignMapTextures(scene, materialExtras) {
     if (!materialExtras) return;
     const extras = materialExtras.find(e => e && e.featureGroup);
     if (!extras) return;
-    const { colorTex, normalTex, featureGroup, uvFlipV } = extras;
-    const noFlipY = !!uvFlipV; // UVs already V-flipped at build time
+    const { colorTex, normalTex, featureGroup } = extras;
     const promises = [];
     const seenMats = new Set();
     scene.traverse(o => {
@@ -606,7 +595,7 @@ async function init() {
       seenMats.add(mat);
       if (colorTex) {
         const fn = rewriteTexForMap(colorTex);
-        promises.push(loadMapTex(featureGroup, fn, true, noFlipY).then(tex => {
+        promises.push(loadMapTex(featureGroup, fn, true).then(tex => {
           if (tex) {
             mat.map = tex;
             mat.emissiveMap = tex;
@@ -616,7 +605,7 @@ async function init() {
         }));
       }
       if (normalTex) {
-        promises.push(loadMapTex(featureGroup, normalTex, false, noFlipY).then(tex => {
+        promises.push(loadMapTex(featureGroup, normalTex, false).then(tex => {
           if (tex) { mat.normalMap = tex; mat.needsUpdate = true; }
         }));
       }
@@ -630,18 +619,14 @@ async function init() {
   for (const [name, buf] of buffers) {
     try {
       const url = `${CDN_BASE}/features/${name}/model.glb`;
-      // Step 1: parse GLB → GLTF scene graph
       const materialExtras = extractMaterialExtras(buf);
       const gltf = await parseGLB(buf, url);
       await _yieldFrame();
-      // Step 2: load per-map textures into parsed materials
       await assignMapTextures(gltf.scene, materialExtras);
       await _yieldFrame();
-      // Step 3: prepare prototype (merge pieces, bake transforms)
       ensureScratch();
       const protoGroups = prepareProto(gltf.scene, ctx);
       await _yieldFrame();
-      // Step 4: create InstancedMeshes + upload matrices
       if (protoGroups) {
         const placementsForName = placementsByName.get(name);
         const placementMatrices = new Array(placementsForName.length);
