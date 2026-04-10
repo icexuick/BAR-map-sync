@@ -750,12 +750,15 @@ async function init() {
   // filenames + featureGroup from the builder.
   async function assignMapTextures(scene) {
     const promises = [];
+    let meshCount = 0, texCount = 0;
     scene.traverse(o => {
       if (!o.isMesh) return;
+      meshCount++;
       const mat = Array.isArray(o.material) ? o.material[0] : o.material;
       if (!mat || !mat.userData) return;
       const { colorTex, normalTex, featureGroup } = mat.userData;
       if (!featureGroup) return;
+      texCount++;
       if (colorTex) {
         const fn = rewriteTexForMap(colorTex);
         promises.push(loadMapTex(featureGroup, fn, true).then(tex => {
@@ -778,6 +781,8 @@ async function init() {
       }
     });
     if (promises.length) await Promise.all(promises);
+    if (texCount > 0) log(`  textures: ${texCount}/${meshCount} meshes had extras, ${promises.length} loads`);
+    else if (meshCount > 0) log(`  textures: 0/${meshCount} meshes had extras (no userData.featureGroup)`);
   }
 
   log(`parsing & placing ${buffers.size} feature types...`);
