@@ -320,7 +320,16 @@ class TextureCache:
         if color_img is None:
             return None, False
 
-        color_has_alpha = 'A' in color_img.getbands()
+        # Check if the alpha channel is a usable mask (has pixels > 128).
+        # Some textures (unit wrecks) have an alpha channel that stores
+        # specular/team-color data with all values < 128, which would make
+        # the entire mesh invisible with alphaTest=0.5.
+        color_has_alpha = False
+        if 'A' in color_img.getbands():
+            import numpy as np
+            alpha = np.array(color_img.split()[-1])
+            if np.any(alpha > 128):
+                color_has_alpha = True
 
         merged = False
         if not color_has_alpha and mask_source_path:
