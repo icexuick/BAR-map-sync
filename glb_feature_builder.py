@@ -261,12 +261,15 @@ class TextureCache:
     def register(self, source_path: str, lossless: bool,
                  feature_group: str,
                  match_size_of: Optional[str] = None,
-                 keep_full_res: bool = False) -> Optional[str]:
+                 keep_full_res: bool = False,
+                 shared: bool = False) -> Optional[str]:
         """Encode + store the texture, returning the filename (no dir prefix).
         Returns None if the source can't be loaded.
 
         feature_group: the feature texture set name (e.g. "ad0_fir",
             "rocks30"). Used as the subdirectory under textures_root.
+        shared: if True, write without __<mapslug> suffix (e.g. normal maps
+            that are identical across all maps).
         """
         if not source_path:
             return None
@@ -293,7 +296,8 @@ class TextureCache:
 
         return self._store_image(img, source_path, lossless, key,
                                   feature_group=feature_group,
-                                  keep_full_res=keep_full_res)
+                                  keep_full_res=keep_full_res,
+                                  shared=shared)
 
     def register_color_with_mask(self,
                                   color_path: str,
@@ -359,8 +363,14 @@ class TextureCache:
                       source_key: str,
                       feature_group: str,
                       name_suffix: str = '',
-                      keep_full_res: bool = False) -> Optional[str]:
-        """Encode to webp with __<mapslug> suffix, write to feature_group dir."""
+                      keep_full_res: bool = False,
+                      shared: bool = False) -> Optional[str]:
+        """Encode to webp, write to feature_group dir.
+
+        shared=False (default): per-map texture with __<mapslug> suffix.
+        shared=True: map-independent texture (e.g. normal maps) without
+            slug suffix. Skips writing if the file already exists on disk.
+        """
         data = _encode_webp(img, lossless=lossless, keep_full_res=keep_full_res)
         content_hash = hashlib.sha1(data).hexdigest()
 
@@ -372,11 +382,23 @@ class TextureCache:
             return existing[0]
 
         stem = _safe_basename(source_path_for_name) + name_suffix
-        filename = f"{stem}__{self.map_slug}.webp"
+        if shared:
+            filename = f"{stem}.webp"
+        else:
+            filename = f"{stem}__{self.map_slug}.webp"
 
         out_dir = os.path.join(self.textures_root, feature_group)
         os.makedirs(out_dir, exist_ok=True)
         out_path = os.path.join(out_dir, filename)
+
+        # Shared textures: skip writing if already on disk (from earlier run)
+        if shared and os.path.isfile(out_path):
+            entry = (filename, feature_group)
+            self._by_source[source_key] = entry
+            self._by_hash[content_hash] = entry
+            self.stats['reused_by_content'] += 1
+            return filename
+
         with open(out_path, 'wb') as f:
             f.write(data)
 
@@ -731,6 +753,7 @@ def register_feature_textures(
             feature_group=feature_group,
             match_size_of=color_tex_path,
             keep_full_res=keep_full_res,
+            shared=True,  # normals are map-independent, no __mapslug suffix
         )
 
     return {
