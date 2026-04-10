@@ -114,10 +114,13 @@ def _rmtree_with_retry(path: str, attempts: int = 4, delay: float = 0.5) -> None
 # -- WEBFLOW LOOKUP --------------------------------------------------------
 
 def fetch_webflow_map(map_filter: str) -> Optional[dict]:
-    """Find the first Webflow map whose name contains map_filter (case-insens)."""
+    """Find the best Webflow map matching map_filter (case-insensitive).
+    Prefers exact name match, falls back to substring match."""
     url = f"https://api.webflow.com/v2/collections/{COLLECTION_ID}/items"
     offset = 0
     limit = 100
+    best_partial = None
+    needle = map_filter.lower()
     while True:
         try:
             r = requests.get(url, headers=HEADERS_WEBFLOW,
@@ -129,14 +132,17 @@ def fetch_webflow_map(map_filter: str) -> Optional[dict]:
             return None
         batch = data.get('items', [])
         if not batch:
-            return None
+            break
         for item in batch:
             name = item.get('fieldData', {}).get('name', '')
-            if map_filter.lower() in name.lower():
-                return item
+            if name.lower() == needle:
+                return item  # exact match — return immediately
+            if needle in name.lower() and best_partial is None:
+                best_partial = item
         if len(batch) < limit:
-            return None
+            break
         offset += limit
+    return best_partial
 
 
 # -- SD7 DOWNLOAD + EXTRACTION ---------------------------------------------
