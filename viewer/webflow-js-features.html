@@ -620,7 +620,7 @@ async function init() {
   }
   log(`loading placements for "${slug}"`);
 
-  const url = `${CDN_BASE}/maps_features/${slug}/placements.json`;
+  const url = `${CDN_BASE}/maps_placement/${slug}/placements.json`;
   let sceneData;
   try {
     sceneData = await fetchJson(url);

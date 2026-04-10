@@ -7,9 +7,9 @@ Given a BAR map (from Webflow CMS), this script:
   3. Resolves each unique feature name to an .s3o model + textures, looking
      first inside the sd7's own features/ + objects3d/ + unittextures/, then
      falling back to the local BAR.sdd installation
-  4. Converts each unique s3o -> a self-contained .glb (embedded WebP textures)
-  5. Writes results to features/<name>/model.glb, dedup-ed by name
-  6. Writes maps_features/<map_slug>/placements.json + heightmap.png so the
+  4. Converts each unique s3o -> geometry-only .glb, writes to features/<name>/model.glb
+  5. Registers per-map textures to maps_features/<feature_group>/
+  6. Writes maps_placement/<map_slug>/placements.json so the
      map viewer can assemble a full scene (terrain + placed features).
 
 Usage:
@@ -65,7 +65,9 @@ BAR_UNITTEX_DIR = os.path.join(BAR_SDD_ROOT, "unittextures")
 # Repo-relative output
 REPO_ROOT = os.path.dirname(os.path.abspath(__file__))
 FEATURES_OUT_DIR = os.path.join(REPO_ROOT, "features")
-# Per-map scene data (placements + heightmap) used by the map viewer.
+# Per-map placement data used by the map viewer.
+PLACEMENTS_OUT_DIR = os.path.join(REPO_ROOT, "maps_placement")
+# Per-map feature textures grouped by feature set.
 MAPS_OUT_DIR = os.path.join(REPO_ROOT, "maps_features")
 # Per-map textures are stored in maps_features/<feature_group>/ with
 # an __<mapslug> suffix. The root is maps_features/ itself.
@@ -784,12 +786,12 @@ def process_map(map_filter: str, force: bool = False):
                 print(f"   [OK] {name}  ({resolved_from}, {size_kb:.0f} KB){tex_str}")
                 stats['converted'] += 1
 
-        # 6. Write per-map scene data: placements.json + heightmap.png
+        # 6. Write per-map scene data: placements.json
         # smf_info was already parsed in step 3 (so we could merge any
         # geovents embedded in the SMF binary into the placement list).
         print(f"\n[6/6] Writing scene data...")
-        map_out_dir = os.path.join(MAPS_OUT_DIR, map_slug)
-        os.makedirs(map_out_dir, exist_ok=True)
+        placement_out_dir = os.path.join(PLACEMENTS_OUT_DIR, map_slug)
+        os.makedirs(placement_out_dir, exist_ok=True)
 
         if smf_info:
             print(f"   [OK] SMF: {smf_info['world_width']}x{smf_info['world_height']} elmos "
@@ -813,14 +815,6 @@ def process_map(map_filter: str, force: bool = False):
             min_h = lm if lm is not None else 0.0
             max_h = lM if lM is not None else 1000.0
         print(f"   [OK] Height range: {min_h} .. {max_h}")
-
-        # Heightmap PNG (16-bit grayscale, full precision)
-        heightmap_rel = None
-        if smf_info is not None:
-            heightmap_path = os.path.join(map_out_dir, 'heightmap.png')
-            write_heightmap_png(smf_info['heightmap'], heightmap_path)
-            heightmap_rel = 'heightmap.png'
-            print(f"   [OK] Heightmap -> {heightmap_path}")
 
         # Enrich placements with y sampled from heightmap, and convert
         # rotation from Spring heading (int16, 0..65535 = 2*pi) to radians.
@@ -858,12 +852,11 @@ def process_map(map_filter: str, force: bool = False):
             'worldHeight': smf_info['world_height'] if smf_info else None,
             'minHeight': min_h,
             'maxHeight': max_h,
-            'heightmap': heightmap_rel,
-            'featuresBase': '../features',
-            'texturesBase': '..',
+            'featuresBase': '../../features',
+            'texturesBase': '../../maps_features',
             'features': enriched,
         }
-        scene_path = os.path.join(map_out_dir, 'placements.json')
+        scene_path = os.path.join(placement_out_dir, 'placements.json')
         with open(scene_path, 'w', encoding='utf-8') as f:
             json.dump(scene, f, indent=1)
         print(f"   [OK] Placements ({len(enriched)}) -> {scene_path}")
