@@ -1,0 +1,8601 @@
+{
+ "name": "Angel Crossing",
+ "slug": "angel-crossing",
+ "worldWidth": 8192,
+ "worldHeight": 8192,
+ "minHeight": -150.0,
+ "maxHeight": 850.0,
+ "heightmap": "heightmap.png",
+ "featuresBase": "../features",
+ "features": [
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 4135.0,
+   "y": 250.1411459525445,
+   "z": 7188.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3698.0,
+   "y": 43.08813992523079,
+   "z": 2327.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 3185.0,
+   "y": 154.9582284275578,
+   "z": 1300.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5362.0,
+   "y": 152.1381704432746,
+   "z": 3629.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5290.0,
+   "y": 152.10955977721824,
+   "z": 7019.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5736.0,
+   "y": 150.614175631342,
+   "z": 5797.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2777.0,
+   "y": 50.52834363317314,
+   "z": 3784.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6118.0,
+   "y": 44.8968108644236,
+   "z": 359.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 5611.0,
+   "y": 139.47365911345088,
+   "z": 5849.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2867.0,
+   "y": 61.103322652017994,
+   "z": 393.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3032.0,
+   "y": 259.96795605401695,
+   "z": 5817.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2800.0,
+   "y": 51.60982681010148,
+   "z": 3350.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 1973.0,
+   "y": 59.18783855954834,
+   "z": 3716.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 2773.0,
+   "y": 68.25169756618601,
+   "z": 746.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6431.0,
+   "y": 55.49014839398794,
+   "z": 4047.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8147.0,
+   "y": 52.03326466773481,
+   "z": 2318.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 6981.0,
+   "y": 57.06969558251316,
+   "z": 444.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 4906.0,
+   "y": 82.5284199282826,
+   "z": 5181.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2119.0,
+   "y": 34.28797589074543,
+   "z": 7660.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2773.0,
+   "y": 70.46830891889829,
+   "z": 2851.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5498.0,
+   "y": 56.97528038452734,
+   "z": 5196.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 56.0,
+   "y": 42.698558022430774,
+   "z": 2804.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 44.0,
+   "y": 54.91626611734188,
+   "z": 1227.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 5358.0,
+   "y": 63.940547035935,
+   "z": 5171.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2251.0,
+   "y": 152.40901808194093,
+   "z": 2304.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3000.0,
+   "y": 64.16037232013426,
+   "z": 3220.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 2142.0,
+   "y": 28.658827344167236,
+   "z": 5317.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 8112.0,
+   "y": 152.08094911116194,
+   "z": 3269.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 207.0,
+   "y": 148.40757801174942,
+   "z": 5167.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_2",
+   "x": 1084.0,
+   "y": 43.638895246814684,
+   "z": 7689.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 1628.0,
+   "y": 252.03898680094608,
+   "z": 2871.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 1837.0,
+   "y": 60.26526855878538,
+   "z": 3741.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3031.0,
+   "y": 74.19508659494926,
+   "z": 3024.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 8053.0,
+   "y": 146.9753757534142,
+   "z": 2991.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8069.0,
+   "y": 153.5870622568093,
+   "z": 3319.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3736.0,
+   "y": 153.44090943770505,
+   "z": 1784.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2200.0,
+   "y": 152.12863355458916,
+   "z": 4476.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6182.0,
+   "y": 56.035896849011976,
+   "z": 4093.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2207.0,
+   "y": 152.123149843595,
+   "z": 2353.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 2049.0,
+   "y": 253.1848439765011,
+   "z": 2606.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5374.0,
+   "y": 151.63748378728923,
+   "z": 6933.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_4",
+   "x": 4423.0,
+   "y": 255.87853818570233,
+   "z": 6576.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 4906.0,
+   "y": 82.10402838178072,
+   "z": 5171.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2610.0,
+   "y": 53.06420233463035,
+   "z": 3766.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 7501.0,
+   "y": 53.866254673075446,
+   "z": 6883.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 7016.0,
+   "y": 149.74822613870452,
+   "z": 6383.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 954.0,
+   "y": 251.59075303273062,
+   "z": 2696.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 153.0,
+   "y": 52.49485008010987,
+   "z": 6080.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 5309.0,
+   "y": 251.3542381933318,
+   "z": 2892.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3738.0,
+   "y": 156.51178759441524,
+   "z": 3671.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8153.0,
+   "y": 58.35121499961852,
+   "z": 5725.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2183.0,
+   "y": 154.19050888838024,
+   "z": 1365.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2966.0,
+   "y": 56.33440146486609,
+   "z": 364.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1935.0,
+   "y": 51.346608682383476,
+   "z": 7742.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6429.0,
+   "y": 50.55361638818954,
+   "z": 530.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2698.0,
+   "y": 61.05611505302511,
+   "z": 2883.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7632.0,
+   "y": 55.22812237735562,
+   "z": 5589.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 7022.0,
+   "y": 56.41260395208667,
+   "z": 7346.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1719.0,
+   "y": 147.42051003280687,
+   "z": 4777.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6245.0,
+   "y": 55.27008468757151,
+   "z": 4074.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 63.0,
+   "y": 152.02444304570076,
+   "z": 4891.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 6998.0,
+   "y": 150.2107652399481,
+   "z": 6305.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2121.0,
+   "y": 154.5696002136263,
+   "z": 2286.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 2946.0,
+   "y": 250.4310673685817,
+   "z": 5332.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5158.0,
+   "y": 65.9771496147097,
+   "z": 4974.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 6627.0,
+   "y": 254.90911345082782,
+   "z": 5266.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6003.0,
+   "y": 152.24307621881434,
+   "z": 6912.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 5656.0,
+   "y": 48.32150759136337,
+   "z": 5232.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1659.0,
+   "y": 53.55296787975891,
+   "z": 7574.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 324.0,
+   "y": 145.74654764629588,
+   "z": 5233.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3460.0,
+   "y": 141.50835431448849,
+   "z": 3550.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2792.0,
+   "y": 52.00083924620432,
+   "z": 3647.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6523.0,
+   "y": 54.38172350652323,
+   "z": 4134.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 6111.0,
+   "y": 152.1324483100633,
+   "z": 3743.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 145.0,
+   "y": 146.63157091630427,
+   "z": 5196.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_2",
+   "x": 1233.0,
+   "y": 55.13656824597544,
+   "z": 7588.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4390.0,
+   "y": 74.2809185931182,
+   "z": 4715.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2878.0,
+   "y": 54.16285191119249,
+   "z": 142.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 4973.0,
+   "y": 78.7994964522774,
+   "z": 5146.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 4992.0,
+   "y": 75.80300602731364,
+   "z": 5112.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8035.0,
+   "y": 57.9575799191272,
+   "z": 5756.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5669.0,
+   "y": 148.63813229571986,
+   "z": 6149.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5234.0,
+   "y": 78.0766002899214,
+   "z": 5256.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 1121.0,
+   "y": 250.7934691386282,
+   "z": 2672.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6044.0,
+   "y": 154.7150377660792,
+   "z": 6797.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 2630.0,
+   "y": 146.5500305180438,
+   "z": 1941.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5624.0,
+   "y": 149.62615396353095,
+   "z": 6232.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2142.0,
+   "y": 35.675116350041975,
+   "z": 5241.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 2267.0,
+   "y": 157.39871824216067,
+   "z": 1569.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 639.0,
+   "y": 53.57609483482108,
+   "z": 1337.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 1637.0,
+   "y": 44.33961814297703,
+   "z": 7309.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2858.0,
+   "y": 56.418326085297934,
+   "z": 268.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1968.0,
+   "y": 47.87899595635918,
+   "z": 7914.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 1700.0,
+   "y": 35.38376440070192,
+   "z": 7502.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 7195.0,
+   "y": 253.40228503852904,
+   "z": 5649.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5082.0,
+   "y": 75.82970931563287,
+   "z": 5152.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4417.0,
+   "y": 59.6553845273518,
+   "z": 3121.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5326.0,
+   "y": 54.70359349965668,
+   "z": 8028.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 6185.0,
+   "y": 251.4133669031815,
+   "z": 5540.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 6107.0,
+   "y": 57.6559758144503,
+   "z": 4227.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2823.0,
+   "y": 152.5291828793774,
+   "z": 4740.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2668.0,
+   "y": 51.00423437857634,
+   "z": 3093.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5333.0,
+   "y": 152.26191157396806,
+   "z": 3669.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1695.0,
+   "y": 55.400740062561994,
+   "z": 4044.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 251.0,
+   "y": 75.91554131380178,
+   "z": 5741.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6971.0,
+   "y": 56.31151293202106,
+   "z": 545.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4529.0,
+   "y": 54.707408255130844,
+   "z": 3097.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2757.0,
+   "y": 54.123750667582215,
+   "z": 3156.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3047.0,
+   "y": 79.39126039520866,
+   "z": 2957.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3074.0,
+   "y": 151.42862592507817,
+   "z": 1593.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 1999.0,
+   "y": 55.298695353627835,
+   "z": 4112.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2053.0,
+   "y": 155.76624132143132,
+   "z": 1163.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2679.0,
+   "y": 52.96239604791333,
+   "z": 3633.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2512.0,
+   "y": 148.3520256351568,
+   "z": 2061.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4634.0,
+   "y": 73.37777523460747,
+   "z": 4814.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3652.0,
+   "y": 69.59639887083239,
+   "z": 3996.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3729.0,
+   "y": 69.72228580148013,
+   "z": 4746.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 47.0,
+   "y": 130.95101853971158,
+   "z": 5533.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3625.0,
+   "y": 69.18822003509575,
+   "z": 3977.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 1575.0,
+   "y": 44.34486343175402,
+   "z": 7305.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5613.0,
+   "y": 139.06166552224,
+   "z": 5982.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5432.0,
+   "y": 147.9247730220493,
+   "z": 7006.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2192.0,
+   "y": 153.04417486839094,
+   "z": 2259.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 6184.0,
+   "y": 55.243381399252314,
+   "z": 4617.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 1927.0,
+   "y": 59.27224002441443,
+   "z": 3610.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4420.0,
+   "y": 64.14511329823756,
+   "z": 3181.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2461.0,
+   "y": 150.07629510948345,
+   "z": 2385.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8025.0,
+   "y": 55.79103723201342,
+   "z": 5599.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 6967.0,
+   "y": 151.46105134660866,
+   "z": 6324.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3687.0,
+   "y": 52.949759670405115,
+   "z": 5124.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3822.0,
+   "y": 250.9374761577783,
+   "z": 1526.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 5877.0,
+   "y": 55.61293583581292,
+   "z": 4274.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2790.0,
+   "y": 57.53223468375677,
+   "z": 3125.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 6849.0,
+   "y": 55.65918974593728,
+   "z": 7518.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2176.0,
+   "y": 158.6366063935302,
+   "z": 1572.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 544.0,
+   "y": 52.321278706034946,
+   "z": 5991.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 8124.0,
+   "y": 146.68307011520562,
+   "z": 2957.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8084.0,
+   "y": 54.752231631952384,
+   "z": 5549.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 307.0,
+   "y": 55.87639238574806,
+   "z": 2501.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 2859.0,
+   "y": 152.0294499122606,
+   "z": 1159.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 5281.0,
+   "y": 152.065213244831,
+   "z": 6898.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2651.0,
+   "y": 130.4453250171664,
+   "z": 2299.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2735.0,
+   "y": 52.521553368429096,
+   "z": 3583.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2955.0,
+   "y": 75.99422064545664,
+   "z": 2958.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4218.0,
+   "y": 39.76310368505378,
+   "z": 5575.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7886.0,
+   "y": 125.68093385214007,
+   "z": 2868.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1901.0,
+   "y": 56.334878309300365,
+   "z": 4073.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 8141.0,
+   "y": 54.54528114747845,
+   "z": 7001.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 6017.0,
+   "y": 40.920881971465604,
+   "z": 2995.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 925.0,
+   "y": 56.21423666742962,
+   "z": 1040.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6177.0,
+   "y": 153.04345960173953,
+   "z": 6883.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3857.0,
+   "y": 247.0690756847486,
+   "z": 1399.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 1109.0,
+   "y": 56.844625009536884,
+   "z": 890.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 4228.0,
+   "y": 254.83615625238423,
+   "z": 1027.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 252.0,
+   "y": 55.48180361638819,
+   "z": 2564.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3123.0,
+   "y": 148.37300679026475,
+   "z": 1698.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5342.0,
+   "y": 59.046692607003905,
+   "z": 5023.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 6201.0,
+   "y": 57.7158197909514,
+   "z": 4574.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 2873.0,
+   "y": 152.96406500343323,
+   "z": 1094.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 4030.0,
+   "y": 251.99511711299306,
+   "z": 7145.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 5059.0,
+   "y": 248.87059395742733,
+   "z": 3039.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 5905.0,
+   "y": 21.48470283054857,
+   "z": 330.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 171.0,
+   "y": 37.470435645075156,
+   "z": 2923.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 4599.0,
+   "y": 155.17423895628292,
+   "z": 4434.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4274.0,
+   "y": 73.04779888609141,
+   "z": 4337.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4771.0,
+   "y": 83.32832646677349,
+   "z": 5991.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5361.0,
+   "y": 68.11436636911574,
+   "z": 7629.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5477.0,
+   "y": 51.79293507286184,
+   "z": 4747.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 1182.0,
+   "y": 251.0891126878767,
+   "z": 2353.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2950.0,
+   "y": 61.38561455710689,
+   "z": 497.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 3273.0,
+   "y": 145.37842374303807,
+   "z": 1850.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 6258.0,
+   "y": 59.46345464255742,
+   "z": 4521.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3750.0,
+   "y": 71.25152590218966,
+   "z": 4851.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 5477.0,
+   "y": 59.28702220187685,
+   "z": 7899.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2179.0,
+   "y": 158.697642481117,
+   "z": 1577.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 327.0,
+   "y": 156.28099488822767,
+   "z": 5120.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 1621.0,
+   "y": 38.893339436942085,
+   "z": 7237.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 786.0,
+   "y": 54.52239261463339,
+   "z": 1212.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5209.0,
+   "y": 66.2017433432517,
+   "z": 5038.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 1985.0,
+   "y": 252.76069085221638,
+   "z": 2701.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5087.0,
+   "y": 72.57381551842525,
+   "z": 5088.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 5964.0,
+   "y": 56.54612039368274,
+   "z": 4256.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3508.0,
+   "y": 81.60524910353249,
+   "z": 2462.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_4",
+   "x": 3729.0,
+   "y": 252.1839475089647,
+   "z": 6612.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6065.0,
+   "y": 151.3210975051499,
+   "z": 3419.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5581.0,
+   "y": 61.57539864194706,
+   "z": 3034.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4434.0,
+   "y": 56.16464484626533,
+   "z": 5584.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2309.0,
+   "y": 152.50009536888683,
+   "z": 1387.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5069.0,
+   "y": 142.9279201953155,
+   "z": 6402.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 363.0,
+   "y": 138.23434042877847,
+   "z": 5310.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2668.0,
+   "y": 60.37422751201649,
+   "z": 326.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3770.0,
+   "y": 72.59050507362477,
+   "z": 3903.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 4443.0,
+   "y": 53.00221255817502,
+   "z": 3047.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 147.0,
+   "y": 154.70836194399942,
+   "z": 4884.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7054.0,
+   "y": 53.76420996414129,
+   "z": 605.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 3235.0,
+   "y": 150.1003757534142,
+   "z": 1719.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5297.0,
+   "y": 68.31750209811551,
+   "z": 5180.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2790.0,
+   "y": 52.06950484473947,
+   "z": 3565.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 4161.0,
+   "y": 37.750820172426955,
+   "z": 5498.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2731.0,
+   "y": 51.80676356145571,
+   "z": 3794.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5426.0,
+   "y": 52.377546349279015,
+   "z": 4650.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5767.0,
+   "y": 151.6398680094606,
+   "z": 5794.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 66.0,
+   "y": 49.06157015335316,
+   "z": 2708.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 4413.0,
+   "y": 70.71674486915387,
+   "z": 3497.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3629.0,
+   "y": 64.85418097199971,
+   "z": 2467.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 5297.0,
+   "y": 253.39608606088353,
+   "z": 2762.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3166.0,
+   "y": 155.05550469214927,
+   "z": 1258.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 8101.0,
+   "y": 56.14747844663157,
+   "z": 6724.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 1636.0,
+   "y": 51.58979934386207,
+   "z": 6043.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 6465.0,
+   "y": 32.50910772869457,
+   "z": 2169.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6314.0,
+   "y": 61.55155642023345,
+   "z": 4487.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7701.0,
+   "y": 54.45372701609827,
+   "z": 5421.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 135.0,
+   "y": 42.35618371862364,
+   "z": 2834.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2521.0,
+   "y": 156.4378767071031,
+   "z": 4314.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4555.0,
+   "y": 73.8112268253605,
+   "z": 4746.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2831.0,
+   "y": 54.45563439383534,
+   "z": 126.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 629.0,
+   "y": 50.43941214618144,
+   "z": 5705.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6449.0,
+   "y": 56.258344777599746,
+   "z": 4113.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7328.0,
+   "y": 46.13946746013579,
+   "z": 968.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2193.0,
+   "y": 133.9134145876249,
+   "z": 4927.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3866.0,
+   "y": 72.33539330128937,
+   "z": 3911.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7649.0,
+   "y": 55.343518730449375,
+   "z": 5532.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 116.0,
+   "y": 54.48615243762873,
+   "z": 1704.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2802.0,
+   "y": 51.92835889219501,
+   "z": 3507.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 1489.0,
+   "y": 254.8504615854124,
+   "z": 2961.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 8115.0,
+   "y": 151.83299000534066,
+   "z": 3112.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4751.0,
+   "y": 253.58229381246662,
+   "z": 1139.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6025.0,
+   "y": 155.78126192111085,
+   "z": 6748.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5411.0,
+   "y": 151.2331197070268,
+   "z": 3394.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 2456.0,
+   "y": 35.690852216372946,
+   "z": 3118.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6952.0,
+   "y": 57.99000534065766,
+   "z": 477.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 3235.0,
+   "y": 259.4686999313344,
+   "z": 5749.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6908.0,
+   "y": 56.93236438544287,
+   "z": 563.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 561.0,
+   "y": 55.33326657511253,
+   "z": 2745.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 3962.0,
+   "y": 253.37605859464412,
+   "z": 7152.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3857.0,
+   "y": 53.73130769817655,
+   "z": 2758.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 5060.0,
+   "y": 252.553025101091,
+   "z": 3109.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3734.0,
+   "y": 65.48886091401542,
+   "z": 4630.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 162.0,
+   "y": 123.3196002136263,
+   "z": 5321.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4741.0,
+   "y": 251.37712672617687,
+   "z": 1435.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3811.0,
+   "y": 72.30487525749598,
+   "z": 3984.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 614.0,
+   "y": 52.16630426489661,
+   "z": 5947.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5682.0,
+   "y": 146.64826047150376,
+   "z": 5829.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8162.0,
+   "y": 151.73189898527505,
+   "z": 3288.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4440.0,
+   "y": 72.25528343633172,
+   "z": 4267.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7747.0,
+   "y": 55.51995117112992,
+   "z": 5619.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 5661.0,
+   "y": 156.96192874036774,
+   "z": 3895.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 6086.0,
+   "y": 48.909933623254744,
+   "z": 461.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2872.0,
+   "y": 66.69336995498588,
+   "z": 552.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7878.0,
+   "y": 116.79636835278859,
+   "z": 2784.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5459.0,
+   "y": 50.882639047837046,
+   "z": 4994.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 7135.0,
+   "y": 250.9501125352865,
+   "z": 5559.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5212.0,
+   "y": 72.77027542534526,
+   "z": 5177.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 898.0,
+   "y": 264.72018768596934,
+   "z": 2849.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3738.0,
+   "y": 61.284046692607006,
+   "z": 5040.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2387.0,
+   "y": 153.78995956359194,
+   "z": 4402.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4246.0,
+   "y": 47.11842908369573,
+   "z": 5375.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 1240.0,
+   "y": 257.6485847257191,
+   "z": 3019.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 6195.0,
+   "y": 153.71938658731972,
+   "z": 6809.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 53.0,
+   "y": 53.75967994201571,
+   "z": 963.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 7173.0,
+   "y": 252.8992141603723,
+   "z": 5216.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2677.0,
+   "y": 52.966449225604634,
+   "z": 3586.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3707.0,
+   "y": 55.37117570763712,
+   "z": 5101.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 914.0,
+   "y": 58.11923018234532,
+   "z": 1165.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_2__tree_fir_tall_5",
+   "x": 1600.0,
+   "y": 42.39147020675975,
+   "z": 5695.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 554.0,
+   "y": 53.71223392080569,
+   "z": 1285.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2895.0,
+   "y": 75.5920023651484,
+   "z": 2925.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6405.0,
+   "y": 55.354962996871905,
+   "z": 4061.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5464.0,
+   "y": 162.14808880750746,
+   "z": 3947.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5722.0,
+   "y": 46.35309376668954,
+   "z": 5332.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 6513.0,
+   "y": 43.63651102464334,
+   "z": 854.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2504.0,
+   "y": 145.61684596017398,
+   "z": 2293.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 105.0,
+   "y": 120.38176165407793,
+   "z": 5374.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 5057.0,
+   "y": 249.51123445487144,
+   "z": 2982.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 6135.0,
+   "y": 157.29571984435802,
+   "z": 6652.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1823.0,
+   "y": 55.79675936522469,
+   "z": 4123.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3326.0,
+   "y": 151.7762455176623,
+   "z": 1613.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 7145.0,
+   "y": 51.94838635843442,
+   "z": 714.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3766.0,
+   "y": 76.07242313267719,
+   "z": 3515.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 3501.0,
+   "y": 155.83514534218358,
+   "z": 3742.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7117.0,
+   "y": 55.727616922255265,
+   "z": 7475.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 3722.0,
+   "y": 62.7107652399481,
+   "z": 2697.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 1735.0,
+   "y": 31.07523651483939,
+   "z": 6023.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3678.0,
+   "y": 153.02986953536276,
+   "z": 1746.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1955.0,
+   "y": 48.874647135118636,
+   "z": 7922.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 57.0,
+   "y": 153.08899824521245,
+   "z": 4811.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 5071.0,
+   "y": 19.12623025864042,
+   "z": 522.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2799.0,
+   "y": 89.46746013580531,
+   "z": 2662.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 7411.0,
+   "y": 53.30357824063478,
+   "z": 8031.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3621.0,
+   "y": 66.060120546273,
+   "z": 4089.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 6098.0,
+   "y": 159.16399633783476,
+   "z": 6550.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 7101.0,
+   "y": 56.71683070115205,
+   "z": 7386.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 7201.0,
+   "y": 251.059786755169,
+   "z": 5509.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 8088.0,
+   "y": 54.100862134737156,
+   "z": 7406.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 7115.0,
+   "y": 252.84294651712827,
+   "z": 5769.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5546.0,
+   "y": 53.944457160296025,
+   "z": 5191.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 1291.0,
+   "y": 56.31270504310672,
+   "z": 657.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2588.0,
+   "y": 138.22766460669868,
+   "z": 2206.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3440.0,
+   "y": 251.2817578393225,
+   "z": 6942.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_2",
+   "x": 1180.0,
+   "y": 53.41325246051727,
+   "z": 7541.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5175.0,
+   "y": 65.0549324788281,
+   "z": 4971.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7320.0,
+   "y": 53.776607919432365,
+   "z": 7606.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 49.0,
+   "y": 58.41153582055392,
+   "z": 2429.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2859.0,
+   "y": 64.67917906462193,
+   "z": 3040.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7716.0,
+   "y": 55.28629739833676,
+   "z": 5493.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 1393.0,
+   "y": 58.13305867093919,
+   "z": 381.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 3564.0,
+   "y": 67.63084611276417,
+   "z": 2353.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 3024.0,
+   "y": 83.0891889829862,
+   "z": 2892.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1830.0,
+   "y": 38.198100251773866,
+   "z": 8102.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2667.0,
+   "y": 48.67198825055314,
+   "z": 3343.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3329.0,
+   "y": 83.69215877012283,
+   "z": 2985.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2541.0,
+   "y": 50.162127107652424,
+   "z": 2904.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2662.0,
+   "y": 53.00984206912338,
+   "z": 3641.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5269.0,
+   "y": 61.80476081483175,
+   "z": 7732.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 6691.0,
+   "y": 31.66413939116501,
+   "z": 2541.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4693.0,
+   "y": 151.90284771496147,
+   "z": 6325.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 6888.0,
+   "y": 248.30243381399248,
+   "z": 5922.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 5398.0,
+   "y": 151.66227969787133,
+   "z": 6881.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1189.0,
+   "y": 42.070077058060576,
+   "z": 8156.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 2881.0,
+   "y": 151.93670366979472,
+   "z": 1261.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6115.0,
+   "y": 43.12962539101244,
+   "z": 496.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5942.0,
+   "y": 152.40901808194093,
+   "z": 5911.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 4435.0,
+   "y": 68.36900129701687,
+   "z": 3548.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_4",
+   "x": 3928.0,
+   "y": 251.03952086671245,
+   "z": 1603.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 6443.0,
+   "y": 149.3925001907378,
+   "z": 3399.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 1686.0,
+   "y": 46.032654306858916,
+   "z": 5710.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4705.0,
+   "y": 250.9467746242466,
+   "z": 1363.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3419.0,
+   "y": 252.43619821469446,
+   "z": 6798.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 6006.0,
+   "y": 156.87418936446176,
+   "z": 6702.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6574.0,
+   "y": 142.7085717555505,
+   "z": 3451.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6433.0,
+   "y": 56.06164644846265,
+   "z": 490.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 4372.0,
+   "y": 53.50194552529183,
+   "z": 5546.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 6232.0,
+   "y": 53.20820935378043,
+   "z": 374.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6353.0,
+   "y": 151.5006294346532,
+   "z": 3409.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 53.0,
+   "y": 53.87579156176088,
+   "z": 874.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3624.0,
+   "y": 72.90188448920426,
+   "z": 3257.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3944.0,
+   "y": 42.721446555275804,
+   "z": 2632.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5457.0,
+   "y": 64.03830014496069,
+   "z": 5304.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 866.0,
+   "y": 47.75453955901426,
+   "z": 7163.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5482.0,
+   "y": 69.33508812085145,
+   "z": 7641.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 6552.0,
+   "y": 53.608758678568705,
+   "z": 7454.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 4699.0,
+   "y": 157.14169909208823,
+   "z": 4414.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4587.0,
+   "y": 72.71305409323264,
+   "z": 4817.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3257.0,
+   "y": 81.19134813458459,
+   "z": 3025.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 7567.0,
+   "y": 52.56756885633632,
+   "z": 2177.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2111.0,
+   "y": 153.56107423514152,
+   "z": 1314.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3806.0,
+   "y": 54.66020065613793,
+   "z": 2647.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2924.0,
+   "y": 72.40501258869304,
+   "z": 2987.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 8157.0,
+   "y": 54.01956015869382,
+   "z": 6153.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5733.0,
+   "y": 151.8163004501411,
+   "z": 6158.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 4532.0,
+   "y": 66.73151750972764,
+   "z": 3312.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6059.0,
+   "y": 43.20592050049592,
+   "z": 395.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 7968.0,
+   "y": 134.82299534599832,
+   "z": 2935.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3756.0,
+   "y": 242.04623483634697,
+   "z": 1394.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 4972.0,
+   "y": 149.91989013504235,
+   "z": 6474.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6070.0,
+   "y": 153.92729076066223,
+   "z": 6868.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7573.0,
+   "y": 53.94469558251316,
+   "z": 6787.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 175.0,
+   "y": 55.0626573586633,
+   "z": 1606.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 5070.0,
+   "y": 151.95506218051423,
+   "z": 6619.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 4731.0,
+   "y": 157.33219844357978,
+   "z": 4461.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4503.0,
+   "y": 64.88255321583887,
+   "z": 3221.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5483.0,
+   "y": 71.15305752651255,
+   "z": 7591.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2639.0,
+   "y": 56.06522278171968,
+   "z": 2927.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3686.0,
+   "y": 72.57190814068818,
+   "z": 3404.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3774.0,
+   "y": 73.64576180666819,
+   "z": 3429.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4462.0,
+   "y": 70.65928511482414,
+   "z": 4135.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3725.0,
+   "y": 64.7220950637064,
+   "z": 4626.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2884.0,
+   "y": 68.58167391470207,
+   "z": 3004.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2636.0,
+   "y": 133.0806057831693,
+   "z": 2239.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3098.0,
+   "y": 47.299153124284715,
+   "z": 552.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2181.0,
+   "y": 143.85252155336843,
+   "z": 4856.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3505.0,
+   "y": 74.51004234378578,
+   "z": 3265.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 5270.0,
+   "y": 248.39208056763556,
+   "z": 2917.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7547.0,
+   "y": 45.71960593575952,
+   "z": 2583.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5425.0,
+   "y": 50.94987411306937,
+   "z": 4813.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 2890.0,
+   "y": 247.8460936903944,
+   "z": 5233.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3219.0,
+   "y": 72.57953765163651,
+   "z": 3126.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_4",
+   "x": 3767.0,
+   "y": 256.6522182803082,
+   "z": 1629.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 5112.0,
+   "y": 248.99290455481804,
+   "z": 2994.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 1756.0,
+   "y": 44.42664225223163,
+   "z": 7630.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 7014.0,
+   "y": 55.33541237506674,
+   "z": 483.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4590.0,
+   "y": 56.758316166933696,
+   "z": 3187.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 139.0,
+   "y": 54.179064621957735,
+   "z": 1031.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 1802.0,
+   "y": 38.00259403372243,
+   "z": 7644.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_4",
+   "x": 4421.0,
+   "y": 253.76516365300984,
+   "z": 6632.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5282.0,
+   "y": 64.05737392233158,
+   "z": 7682.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4243.0,
+   "y": 252.22233348592357,
+   "z": 6519.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2738.0,
+   "y": 51.90594720378425,
+   "z": 3483.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 8133.0,
+   "y": 151.84920271610588,
+   "z": 3228.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3387.0,
+   "y": 252.54777981231405,
+   "z": 6918.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5209.0,
+   "y": 59.35401884489204,
+   "z": 7671.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 6873.0,
+   "y": 55.058842603189134,
+   "z": 7434.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 2599.0,
+   "y": 148.51176852063782,
+   "z": 1934.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2946.0,
+   "y": 151.9903486686503,
+   "z": 1214.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4605.0,
+   "y": 74.6364061188678,
+   "z": 4765.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2934.0,
+   "y": 84.20405127031358,
+   "z": 2833.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 240.0,
+   "y": 88.62058442053865,
+   "z": 5658.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 1231.0,
+   "y": 250.74816891737242,
+   "z": 2199.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 54.0,
+   "y": 127.53395132372015,
+   "z": 5401.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1331.0,
+   "y": 57.477159151598386,
+   "z": 397.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5603.0,
+   "y": 148.12123292896922,
+   "z": 6223.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3309.0,
+   "y": 150.9980354009308,
+   "z": 1754.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5661.0,
+   "y": 43.7094682230869,
+   "z": 5128.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 6192.0,
+   "y": 42.44678416113527,
+   "z": 476.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4509.0,
+   "y": 70.09613183794917,
+   "z": 4171.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3562.0,
+   "y": 152.78143358510715,
+   "z": 3695.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 860.0,
+   "y": 53.58014801251241,
+   "z": 534.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 5565.0,
+   "y": 141.73867017624173,
+   "z": 6158.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4670.0,
+   "y": 252.26358052948808,
+   "z": 1087.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8057.0,
+   "y": 68.25932707713434,
+   "z": 2458.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 2799.0,
+   "y": 66.12854772259098,
+   "z": 2943.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2786.0,
+   "y": 151.91643778133817,
+   "z": 4743.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8116.0,
+   "y": 56.70634012359807,
+   "z": 5612.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 4943.0,
+   "y": 73.17678530556194,
+   "z": 5057.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 7045.0,
+   "y": 145.49143587396048,
+   "z": 6293.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2600.0,
+   "y": 52.73899443045701,
+   "z": 2958.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5525.0,
+   "y": 51.92812046997787,
+   "z": 4741.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5560.0,
+   "y": 64.21759365224688,
+   "z": 7742.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6185.0,
+   "y": 151.94743266956584,
+   "z": 3607.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4643.0,
+   "y": 251.30083161669342,
+   "z": 1160.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4328.0,
+   "y": 254.30685893034257,
+   "z": 6522.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 2860.0,
+   "y": 57.39299610894943,
+   "z": 3216.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1846.0,
+   "y": 54.09514000152589,
+   "z": 7915.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7745.0,
+   "y": 68.75238422217137,
+   "z": 2622.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5379.0,
+   "y": 51.87113756008242,
+   "z": 4551.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5508.0,
+   "y": 47.723544670786595,
+   "z": 4895.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 548.0,
+   "y": 49.73392080567638,
+   "z": 2869.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1720.0,
+   "y": 38.033112077515824,
+   "z": 7359.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2834.0,
+   "y": 51.953154802777135,
+   "z": 3487.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2155.0,
+   "y": 154.2839703974975,
+   "z": 1361.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5433.0,
+   "y": 52.564707789730676,
+   "z": 4597.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 8141.0,
+   "y": 52.19729915312428,
+   "z": 2112.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1792.0,
+   "y": 58.6480506599527,
+   "z": 3798.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 80.0,
+   "y": 60.58785381857024,
+   "z": 5721.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 6092.0,
+   "y": 57.97856107423516,
+   "z": 4261.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2039.0,
+   "y": 152.04280155642022,
+   "z": 5016.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4536.0,
+   "y": 152.4567025253681,
+   "z": 6385.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 5814.0,
+   "y": 153.2978561074235,
+   "z": 3761.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1252.0,
+   "y": 58.823529411764724,
+   "z": 221.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 1213.0,
+   "y": 252.1519989318685,
+   "z": 2137.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2502.0,
+   "y": 41.174563210498206,
+   "z": 3084.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5225.0,
+   "y": 52.59427214465552,
+   "z": 8025.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4471.0,
+   "y": 65.5744544899672,
+   "z": 3219.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 362.0,
+   "y": 128.76707103074693,
+   "z": 5376.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2101.0,
+   "y": 154.84283207446407,
+   "z": 1408.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 7246.0,
+   "y": 257.76398107881283,
+   "z": 5206.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5194.0,
+   "y": 52.752822919050885,
+   "z": 7899.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 118.0,
+   "y": 54.28778515297168,
+   "z": 1933.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2994.0,
+   "y": 152.3651483939879,
+   "z": 1118.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 7181.0,
+   "y": 260.1009956511787,
+   "z": 5718.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 174.0,
+   "y": 69.47909514000153,
+   "z": 5754.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8146.0,
+   "y": 152.50629434653234,
+   "z": 3376.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5034.0,
+   "y": 149.94182497901886,
+   "z": 6510.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2076.0,
+   "y": 148.9023041123064,
+   "z": 5051.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2849.0,
+   "y": 51.795796139467456,
+   "z": 3556.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_4",
+   "x": 3853.0,
+   "y": 252.7151522087434,
+   "z": 1658.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 7037.0,
+   "y": 254.92866407263296,
+   "z": 6023.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 6417.0,
+   "y": 254.9501220721752,
+   "z": 5370.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 606.0,
+   "y": 52.31555657282368,
+   "z": 5968.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 3616.0,
+   "y": 73.11360341802092,
+   "z": 3198.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 5102.0,
+   "y": 248.4273670557717,
+   "z": 3082.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5217.0,
+   "y": 76.21118486305028,
+   "z": 5221.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2922.0,
+   "y": 152.4805447470817,
+   "z": 4491.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 5985.0,
+   "y": 34.67040512703136,
+   "z": 448.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2183.0,
+   "y": 152.42046234836346,
+   "z": 4436.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5285.0,
+   "y": 68.39332036316472,
+   "z": 5170.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 5041.0,
+   "y": 255.02594033722437,
+   "z": 2449.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 7111.0,
+   "y": 56.81506065461204,
+   "z": 7236.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2485.0,
+   "y": 152.7106221866178,
+   "z": 1973.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 6283.0,
+   "y": 257.1908140688182,
+   "z": 5428.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 4239.0,
+   "y": 252.42999923704895,
+   "z": 1087.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1751.0,
+   "y": 56.88754100862133,
+   "z": 4052.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6348.0,
+   "y": 57.2632944228275,
+   "z": 4038.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5718.0,
+   "y": 155.35782406347755,
+   "z": 3863.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6533.0,
+   "y": 55.96818493934538,
+   "z": 4236.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3595.0,
+   "y": 73.13458457312888,
+   "z": 3311.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 6562.0,
+   "y": 44.74660486762798,
+   "z": 863.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 2203.0,
+   "y": 159.39407377737086,
+   "z": 1653.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 1688.0,
+   "y": 40.94567788204776,
+   "z": 7517.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3699.0,
+   "y": 70.95826657511253,
+   "z": 3990.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 5920.0,
+   "y": 55.8632791638056,
+   "z": 4314.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 1681.0,
+   "y": 39.53612573434043,
+   "z": 7427.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3665.0,
+   "y": 69.15770199130236,
+   "z": 4033.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 5050.0,
+   "y": 73.79453727016099,
+   "z": 5099.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 4523.0,
+   "y": 59.47156099794003,
+   "z": 3146.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 4086.0,
+   "y": 33.58701457236589,
+   "z": 2727.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 3181.0,
+   "y": 18.429083695735102,
+   "z": 7791.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 57.0,
+   "y": 56.340123598077355,
+   "z": 1476.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3147.0,
+   "y": 150.72432669565882,
+   "z": 1645.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2861.0,
+   "y": 54.55672541390098,
+   "z": 173.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 1106.0,
+   "y": 142.02143892576487,
+   "z": 1850.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 894.0,
+   "y": 259.18879224841686,
+   "z": 2673.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3158.0,
+   "y": 255.8651865415427,
+   "z": 5759.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 4638.0,
+   "y": 153.50766765850307,
+   "z": 4465.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 3033.0,
+   "y": 68.79339284351872,
+   "z": 3131.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8133.0,
+   "y": 48.23281452658884,
+   "z": 5468.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5151.0,
+   "y": 152.57114518959332,
+   "z": 7080.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 628.0,
+   "y": 55.19188220035096,
+   "z": 2598.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3398.0,
+   "y": 150.49591821164262,
+   "z": 1896.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3703.0,
+   "y": 65.80357824063478,
+   "z": 4708.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7797.0,
+   "y": 141.98329137102314,
+   "z": 2832.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5189.0,
+   "y": 84.94125276569773,
+   "z": 5337.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6061.0,
+   "y": 152.7955004959182,
+   "z": 5833.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 4695.0,
+   "y": 73.94522011139088,
+   "z": 5904.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 849.0,
+   "y": 54.99947547112228,
+   "z": 1129.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5406.0,
+   "y": 51.92454413672084,
+   "z": 4500.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1238.0,
+   "y": 56.88181887541006,
+   "z": 311.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3849.0,
+   "y": 72.80317769131,
+   "z": 4638.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_2",
+   "x": 1282.0,
+   "y": 55.67349507896543,
+   "z": 7594.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6166.0,
+   "y": 52.06759746700237,
+   "z": 424.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2760.0,
+   "y": 51.59647516594188,
+   "z": 3757.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 4467.0,
+   "y": 63.89143205920499,
+   "z": 3188.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 2143.0,
+   "y": 23.18441481651027,
+   "z": 7617.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 3156.0,
+   "y": 246.7727168688487,
+   "z": 5138.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 3099.0,
+   "y": 233.88218127718017,
+   "z": 4959.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 655.0,
+   "y": 52.167496375982296,
+   "z": 5971.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2600.0,
+   "y": 52.925917448691536,
+   "z": 2951.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 883.0,
+   "y": 45.75703822384986,
+   "z": 7245.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 7918.0,
+   "y": 55.47035934996566,
+   "z": 5619.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 3112.0,
+   "y": 72.22476539253833,
+   "z": 3114.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 2632.0,
+   "y": 146.16807812619209,
+   "z": 1947.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 6219.0,
+   "y": 51.80247196154727,
+   "z": 428.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 1578.0,
+   "y": 49.052986953536276,
+   "z": 6042.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2491.0,
+   "y": 45.149538414587624,
+   "z": 2973.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3753.0,
+   "y": 71.59366178377965,
+   "z": 4775.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 1486.0,
+   "y": 54.53192950331882,
+   "z": 635.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3244.0,
+   "y": 163.212405584802,
+   "z": 1246.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3509.0,
+   "y": 74.31858930342565,
+   "z": 3329.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7636.0,
+   "y": 46.64301518272677,
+   "z": 5272.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3670.0,
+   "y": 59.752422369726105,
+   "z": 5035.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5412.0,
+   "y": 69.50389105058366,
+   "z": 7611.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1740.0,
+   "y": 151.0833905546654,
+   "z": 4820.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4426.0,
+   "y": 70.45662623025862,
+   "z": 3483.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 4462.0,
+   "y": 70.9601739528496,
+   "z": 3355.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 4460.0,
+   "y": 156.25238422217137,
+   "z": 4530.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 7033.0,
+   "y": 251.8120088502327,
+   "z": 5944.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 4405.0,
+   "y": 71.74505989166093,
+   "z": 3334.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 5749.0,
+   "y": 149.34576943617913,
+   "z": 6001.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 4480.0,
+   "y": 67.31326771953917,
+   "z": 5283.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5577.0,
+   "y": 53.13191424429695,
+   "z": 4662.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7572.0,
+   "y": 50.810635538262005,
+   "z": 2510.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 6702.0,
+   "y": 32.85744258793011,
+   "z": 2587.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6139.0,
+   "y": 153.23872739757377,
+   "z": 6936.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 6171.0,
+   "y": 154.98278591592282,
+   "z": 6743.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1316.0,
+   "y": 55.188067444876765,
+   "z": 780.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3083.0,
+   "y": 47.72664415960935,
+   "z": 397.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8144.0,
+   "y": 52.052338445105676,
+   "z": 2222.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5631.0,
+   "y": 39.261463340199896,
+   "z": 2918.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 2768.0,
+   "y": 65.16365300984208,
+   "z": 441.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 7848.0,
+   "y": 60.996032654306845,
+   "z": 6219.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_2",
+   "x": 1257.0,
+   "y": 54.78942549782559,
+   "z": 7567.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7498.0,
+   "y": 53.32885099565118,
+   "z": 7693.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2564.0,
+   "y": 140.6176089112688,
+   "z": 2294.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 4691.0,
+   "y": 156.2843327992676,
+   "z": 4434.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7638.0,
+   "y": 53.05371175707637,
+   "z": 5375.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6288.0,
+   "y": 54.16189822232394,
+   "z": 335.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2075.0,
+   "y": 50.553139543755265,
+   "z": 7736.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2003.0,
+   "y": 152.742570763714,
+   "z": 1269.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3552.0,
+   "y": 73.90325780117496,
+   "z": 3348.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 6083.0,
+   "y": 149.97448882276643,
+   "z": 3317.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3641.0,
+   "y": 72.81128404669263,
+   "z": 3356.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 165.0,
+   "y": 54.14091706721598,
+   "z": 1035.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2432.0,
+   "y": 151.71282520790413,
+   "z": 2446.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 7408.0,
+   "y": 53.49431601434347,
+   "z": 7654.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 3671.0,
+   "y": 68.75143053330282,
+   "z": 2796.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 1987.0,
+   "y": 56.33058670939192,
+   "z": 4048.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5388.0,
+   "y": 52.0284962233921,
+   "z": 4565.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7637.0,
+   "y": 55.39024948500801,
+   "z": 5455.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1893.0,
+   "y": 36.51674677653162,
+   "z": 7690.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1965.0,
+   "y": 38.2794022278172,
+   "z": 7695.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3300.0,
+   "y": 151.94934004730294,
+   "z": 1650.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 1150.0,
+   "y": 251.94695582513162,
+   "z": 2243.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4671.0,
+   "y": 81.25238422217137,
+   "z": 5696.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 4416.0,
+   "y": 73.91660944533456,
+   "z": 4683.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5509.0,
+   "y": 52.4910353246357,
+   "z": 5102.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 161.0,
+   "y": 113.68448157473108,
+   "z": 5410.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5327.0,
+   "y": 152.11456664377812,
+   "z": 6971.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 6226.0,
+   "y": 152.24069199664302,
+   "z": 3711.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7420.0,
+   "y": 53.20439459830624,
+   "z": 7849.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 7033.0,
+   "y": 250.88883802548258,
+   "z": 5488.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2562.0,
+   "y": 148.03015564202332,
+   "z": 1997.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 4942.0,
+   "y": 79.17906462195774,
+   "z": 5134.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 1174.0,
+   "y": 252.4352445258259,
+   "z": 2979.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 1925.0,
+   "y": 53.341725795376504,
+   "z": 716.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5085.0,
+   "y": 75.61417563134202,
+   "z": 5150.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 3121.0,
+   "y": 70.34122987716486,
+   "z": 3164.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 6275.0,
+   "y": 153.31311512932018,
+   "z": 6822.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3766.0,
+   "y": 71.87428473334859,
+   "z": 4833.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 6269.0,
+   "y": 153.2806897077897,
+   "z": 6827.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4708.0,
+   "y": 250.94033722438394,
+   "z": 1354.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_4",
+   "x": 3831.0,
+   "y": 251.22167544060426,
+   "z": 1578.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 1033.0,
+   "y": 251.49037727931642,
+   "z": 2547.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 64.0,
+   "y": 53.891050583657574,
+   "z": 1909.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5297.0,
+   "y": 152.59761005569538,
+   "z": 7079.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2823.0,
+   "y": 152.92210269321737,
+   "z": 4462.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6133.0,
+   "y": 48.37968261234454,
+   "z": 470.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1683.0,
+   "y": 56.40020599679559,
+   "z": 3988.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 1780.0,
+   "y": 54.04364080262454,
+   "z": 760.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 5370.0,
+   "y": 65.59376668955522,
+   "z": 5218.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 7270.0,
+   "y": 253.68076218814377,
+   "z": 5395.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6908.0,
+   "y": 61.97070267795834,
+   "z": 8044.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 8065.0,
+   "y": 112.685969329366,
+   "z": 2732.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 68.0,
+   "y": 122.28389410238799,
+   "z": 5477.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2088.0,
+   "y": 36.587319752803836,
+   "z": 5273.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 1993.0,
+   "y": 58.73006790264745,
+   "z": 3672.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 83.0,
+   "y": 35.685606927595956,
+   "z": 2922.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 2098.0,
+   "y": 160.01182574196997,
+   "z": 1684.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 6641.0,
+   "y": 60.26550698100252,
+   "z": 2612.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 6902.0,
+   "y": 55.12703135728998,
+   "z": 7388.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 7496.0,
+   "y": 49.63378347447929,
+   "z": 2218.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 3226.0,
+   "y": 238.80130846112763,
+   "z": 5065.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 640.0,
+   "y": 55.8899824521248,
+   "z": 2752.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 5890.0,
+   "y": 55.880445563439366,
+   "z": 4244.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 943.0,
+   "y": 40.149109254596766,
+   "z": 7127.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 220.0,
+   "y": 57.70771343556879,
+   "z": 2387.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_2",
+   "x": 1257.0,
+   "y": 55.199511711299294,
+   "z": 7583.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6034.0,
+   "y": 152.58640421149005,
+   "z": 3764.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6687.0,
+   "y": 49.18125810635536,
+   "z": 21.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4982.0,
+   "y": 146.07890821698328,
+   "z": 6399.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 599.0,
+   "y": 52.323901350423455,
+   "z": 5971.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7941.0,
+   "y": 67.54382200350958,
+   "z": 2409.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 4309.0,
+   "y": 254.73220416571297,
+   "z": 1064.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3105.0,
+   "y": 69.10477225909818,
+   "z": 3201.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2130.0,
+   "y": 138.4117265583276,
+   "z": 5018.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_4",
+   "x": 3687.0,
+   "y": 251.55355916685744,
+   "z": 6668.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2845.0,
+   "y": 152.2399767299916,
+   "z": 4559.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 2937.0,
+   "y": 248.531319142443,
+   "z": 5277.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 5211.0,
+   "y": 152.34416723887995,
+   "z": 7042.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4910.0,
+   "y": 149.617570763714,
+   "z": 6418.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 8097.0,
+   "y": 135.05140383001446,
+   "z": 2895.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5134.0,
+   "y": 150.23365377279316,
+   "z": 6550.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5698.0,
+   "y": 45.685511558709095,
+   "z": 5232.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 2975.0,
+   "y": 250.9308003356985,
+   "z": 5391.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3175.0,
+   "y": 255.9057183184558,
+   "z": 5738.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2866.0,
+   "y": 152.44668879224838,
+   "z": 4645.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5191.0,
+   "y": 79.48615243762873,
+   "z": 5253.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3259.0,
+   "y": 79.96871900511175,
+   "z": 3049.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 3206.0,
+   "y": 253.95780880445562,
+   "z": 5663.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5992.0,
+   "y": 152.2659647516594,
+   "z": 5852.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3537.0,
+   "y": 251.87685969329368,
+   "z": 7088.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 2025.0,
+   "y": 41.77324139772642,
+   "z": 7697.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 3684.0,
+   "y": 154.57389181353471,
+   "z": 3703.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4406.0,
+   "y": 75.23460746166171,
+   "z": 4635.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 925.0,
+   "y": 256.02826733806364,
+   "z": 2614.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 7231.0,
+   "y": 56.74687190051117,
+   "z": 7206.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4448.0,
+   "y": 68.39093614099338,
+   "z": 3265.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 2845.0,
+   "y": 152.03517204547188,
+   "z": 1124.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3691.0,
+   "y": 69.23948081177997,
+   "z": 4819.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3337.0,
+   "y": 151.8780518043793,
+   "z": 1595.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1007.0,
+   "y": 55.37046044098574,
+   "z": 701.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 41.0,
+   "y": 151.90403982604715,
+   "z": 4938.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 4985.0,
+   "y": 258.47900930800336,
+   "z": 2427.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 3262.0,
+   "y": 255.9243152513924,
+   "z": 5686.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7714.0,
+   "y": 52.35275043869689,
+   "z": 2171.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 6254.0,
+   "y": 156.9905394064241,
+   "z": 6602.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 166.0,
+   "y": 38.37691691462578,
+   "z": 2909.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 544.0,
+   "y": 43.67513542381934,
+   "z": 5548.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 2794.0,
+   "y": 58.21698329137104,
+   "z": 292.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 7255.0,
+   "y": 260.10624093995574,
+   "z": 5612.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2445.0,
+   "y": 149.1435873960479,
+   "z": 2178.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1846.0,
+   "y": 54.506179903868144,
+   "z": 7745.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7917.0,
+   "y": 57.34912642099641,
+   "z": 6297.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 6257.0,
+   "y": 151.9417105363546,
+   "z": 3585.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 3038.0,
+   "y": 68.75047684443427,
+   "z": 3138.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 6692.0,
+   "y": 252.0523384451057,
+   "z": 5272.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 1539.0,
+   "y": 42.24650949874115,
+   "z": 6010.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3536.0,
+   "y": 74.53841458762494,
+   "z": 3361.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1868.0,
+   "y": 151.73189898527505,
+   "z": 4784.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_4",
+   "x": 3992.0,
+   "y": 251.55642023346303,
+   "z": 1639.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 6542.0,
+   "y": 41.645685511558725,
+   "z": 2216.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7492.0,
+   "y": 38.58434424353399,
+   "z": 2510.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2297.0,
+   "y": 155.16708628976886,
+   "z": 1480.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_4__tree_fir_tall_2",
+   "x": 6145.0,
+   "y": 151.94409475852598,
+   "z": 3334.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7148.0,
+   "y": 62.03936827649346,
+   "z": 640.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3926.0,
+   "y": 73.29385061417565,
+   "z": 3850.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4549.0,
+   "y": 152.0227740901808,
+   "z": 6458.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2011.0,
+   "y": 151.95148584725717,
+   "z": 4517.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5541.0,
+   "y": 52.831979095140014,
+   "z": 4578.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5444.0,
+   "y": 52.71610589761195,
+   "z": 4553.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 6579.0,
+   "y": 252.4731536583505,
+   "z": 5303.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5018.0,
+   "y": 71.27489127946899,
+   "z": 5048.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5509.0,
+   "y": 62.899595635919724,
+   "z": 7797.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4369.0,
+   "y": 252.04423208972304,
+   "z": 6569.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 8132.0,
+   "y": 125.9050507362478,
+   "z": 2673.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5478.0,
+   "y": 52.780956740672934,
+   "z": 4494.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 1788.0,
+   "y": 56.83794918745707,
+   "z": 7822.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 1709.0,
+   "y": 35.05283436331732,
+   "z": 6011.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5514.0,
+   "y": 53.017471580071714,
+   "z": 4508.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 2770.0,
+   "y": 61.620698863202875,
+   "z": 2983.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 4529.0,
+   "y": 73.59688525215535,
+   "z": 3443.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 7254.0,
+   "y": 252.06187533379114,
+   "z": 5510.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8100.0,
+   "y": 58.004310673685836,
+   "z": 5693.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2973.0,
+   "y": 69.93758106355384,
+   "z": 3053.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 379.0,
+   "y": 149.5527199206531,
+   "z": 5259.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 81.0,
+   "y": 54.06033035782406,
+   "z": 774.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2181.0,
+   "y": 154.5896276798657,
+   "z": 1390.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5712.0,
+   "y": 147.28389410238805,
+   "z": 5913.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 1147.0,
+   "y": 253.80307278553448,
+   "z": 2197.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 962.0,
+   "y": 255.60959792477303,
+   "z": 2566.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1501.0,
+   "y": 54.033388647287694,
+   "z": 777.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5690.0,
+   "y": 149.11879148546575,
+   "z": 6132.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 2029.0,
+   "y": 153.4580758373388,
+   "z": 1331.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 8102.0,
+   "y": 52.420462348363486,
+   "z": 2055.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 6149.0,
+   "y": 153.88890478370337,
+   "z": 6821.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8011.0,
+   "y": 56.79407949950408,
+   "z": 5679.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3824.0,
+   "y": 75.23651483939881,
+   "z": 3531.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3041.0,
+   "y": 47.47081712062257,
+   "z": 128.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4348.0,
+   "y": 72.3468375677119,
+   "z": 4287.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2055.0,
+   "y": 153.4087224383917,
+   "z": 1225.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3775.0,
+   "y": 74.96566720073244,
+   "z": 3498.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6402.0,
+   "y": 56.675822079804675,
+   "z": 333.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5541.0,
+   "y": 50.14305333028153,
+   "z": 5093.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 1641.0,
+   "y": 42.386463340199896,
+   "z": 5723.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 5188.0,
+   "y": 246.58197909513996,
+   "z": 2986.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3554.0,
+   "y": 251.1134317540246,
+   "z": 6717.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5214.0,
+   "y": 54.32545586327916,
+   "z": 7879.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 8102.0,
+   "y": 150.36049439230942,
+   "z": 3028.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2042.0,
+   "y": 154.36884870679785,
+   "z": 1410.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 6072.0,
+   "y": 40.42114900434882,
+   "z": 518.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4950.0,
+   "y": 256.16178377965974,
+   "z": 2486.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 3004.0,
+   "y": 245.77134355687798,
+   "z": 5183.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 1162.0,
+   "y": 147.8351262684062,
+   "z": 1902.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 105.0,
+   "y": 58.06010147249563,
+   "z": 2471.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2063.0,
+   "y": 158.23748760204472,
+   "z": 1582.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4468.0,
+   "y": 67.60891126878766,
+   "z": 3258.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_2",
+   "x": 1342.0,
+   "y": 57.034409094377054,
+   "z": 7611.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 8104.0,
+   "y": 151.87685969329362,
+   "z": 3220.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6386.0,
+   "y": 56.418326085297934,
+   "z": 401.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 1701.0,
+   "y": 252.54396505683985,
+   "z": 2830.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3436.0,
+   "y": 76.3170443274586,
+   "z": 3305.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2499.0,
+   "y": 46.9348439765011,
+   "z": 2931.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5054.0,
+   "y": 42.5493057145037,
+   "z": 7903.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4502.0,
+   "y": 71.5733958953231,
+   "z": 3534.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 5586.0,
+   "y": 54.01598382543679,
+   "z": 5278.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 2683.0,
+   "y": 52.21828030823224,
+   "z": 3088.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3517.0,
+   "y": 250.80491340505074,
+   "z": 6886.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 2991.0,
+   "y": 66.37746051728084,
+   "z": 3149.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 6225.0,
+   "y": 53.05752651255054,
+   "z": 4624.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 1573.0,
+   "y": 47.43457694361791,
+   "z": 7364.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 117.0,
+   "y": 152.22590981918057,
+   "z": 4922.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1765.0,
+   "y": 152.4087796597238,
+   "z": 4843.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 2785.0,
+   "y": 56.50034332799265,
+   "z": 222.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 565.0,
+   "y": 55.47608148317693,
+   "z": 2615.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2911.0,
+   "y": 152.06759746700237,
+   "z": 1200.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 67.0,
+   "y": 56.92950331883725,
+   "z": 2581.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_2",
+   "x": 1311.0,
+   "y": 57.78448538948655,
+   "z": 7643.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4786.0,
+   "y": 252.30411230640118,
+   "z": 1350.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 2620.0,
+   "y": 61.12001220721751,
+   "z": 370.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 3025.0,
+   "y": 86.12048905165179,
+   "z": 2849.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 8082.0,
+   "y": 52.22781719691767,
+   "z": 2115.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 763.0,
+   "y": 53.732738231479374,
+   "z": 103.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 6545.0,
+   "y": 46.16903181506066,
+   "z": 801.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 6535.0,
+   "y": 44.97405966277563,
+   "z": 838.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3767.0,
+   "y": 71.88787479972532,
+   "z": 4763.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7840.0,
+   "y": 55.67635614557105,
+   "z": 6484.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 2110.0,
+   "y": 56.363965819790934,
+   "z": 4022.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1890.0,
+   "y": 151.74620431830317,
+   "z": 4718.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4328.0,
+   "y": 75.47875181200885,
+   "z": 4633.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 1001.0,
+   "y": 252.54825665674832,
+   "z": 2944.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2738.0,
+   "y": 52.750915541313816,
+   "z": 3159.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7627.0,
+   "y": 51.89211871519035,
+   "z": 2276.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 1786.0,
+   "y": 56.98195620660715,
+   "z": 7810.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1858.0,
+   "y": 56.464103150988024,
+   "z": 4150.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2121.0,
+   "y": 157.7363241016251,
+   "z": 1523.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 8049.0,
+   "y": 123.3987563897154,
+   "z": 2858.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1037.0,
+   "y": 56.88348783093002,
+   "z": 971.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2614.0,
+   "y": 49.4935912108034,
+   "z": 3378.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 5196.0,
+   "y": 253.76897840848403,
+   "z": 2452.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 4596.0,
+   "y": 156.64530403601134,
+   "z": 4415.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 1563.0,
+   "y": 41.11972610055693,
+   "z": 5689.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2301.0,
+   "y": 152.51010910200654,
+   "z": 2359.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 6104.0,
+   "y": 150.6637674525063,
+   "z": 3298.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 5033.0,
+   "y": 151.96269169146257,
+   "z": 6627.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4875.0,
+   "y": 143.37472343022813,
+   "z": 6260.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 3183.0,
+   "y": 71.31876096742198,
+   "z": 3152.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 2900.0,
+   "y": 252.3460746166171,
+   "z": 5366.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5713.0,
+   "y": 148.4245059891661,
+   "z": 6076.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5160.0,
+   "y": 70.79423208972304,
+   "z": 5109.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 1092.0,
+   "y": 251.0910200656138,
+   "z": 2773.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 6759.0,
+   "y": 54.37671663996338,
+   "z": 7401.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 743.0,
+   "y": 54.314488441290905,
+   "z": 1232.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 1968.0,
+   "y": 251.26649881742583,
+   "z": 2654.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2237.0,
+   "y": 155.08316166933702,
+   "z": 1441.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 5861.0,
+   "y": 153.24254215304796,
+   "z": 3810.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 1108.0,
+   "y": 56.675822079804675,
+   "z": 816.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 180.0,
+   "y": 55.020218204013105,
+   "z": 1616.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 6612.0,
+   "y": 44.39707789730679,
+   "z": 2543.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5562.0,
+   "y": 47.101262684061936,
+   "z": 4863.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 3186.0,
+   "y": 243.8758869306477,
+   "z": 5087.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 6966.0,
+   "y": 253.54819943541622,
+   "z": 6083.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 5091.0,
+   "y": 246.96631570916304,
+   "z": 3172.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5692.0,
+   "y": 154.75604638742658,
+   "z": 3791.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4568.0,
+   "y": 152.30029755092698,
+   "z": 6405.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 3141.0,
+   "y": 261.83861676966507,
+   "z": 5066.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 617.0,
+   "y": 54.954175249866466,
+   "z": 2675.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6301.0,
+   "y": 59.577658884565494,
+   "z": 4431.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3804.0,
+   "y": 71.10322728313113,
+   "z": 4652.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 7884.0,
+   "y": 145.18959334706648,
+   "z": 2969.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2996.0,
+   "y": 55.680170901045244,
+   "z": 668.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 5905.0,
+   "y": 55.93337529564354,
+   "z": 4203.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 1350.0,
+   "y": 55.18043793392843,
+   "z": 735.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1876.0,
+   "y": 55.243381399252314,
+   "z": 4125.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2680.0,
+   "y": 61.53009842069122,
+   "z": 2831.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3232.0,
+   "y": 151.77004654001678,
+   "z": 1628.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 6149.0,
+   "y": 152.0466163118944,
+   "z": 3733.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6304.0,
+   "y": 55.45891508354313,
+   "z": 4086.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 6162.0,
+   "y": 152.03803311207747,
+   "z": 3190.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8145.0,
+   "y": 56.17895017929351,
+   "z": 2460.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5373.0,
+   "y": 152.0289730678263,
+   "z": 3475.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7540.0,
+   "y": 53.81380178530557,
+   "z": 6927.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 6634.0,
+   "y": 48.65482185091935,
+   "z": 805.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 6606.0,
+   "y": 43.435759517814915,
+   "z": 2183.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 1967.0,
+   "y": 56.390192263675885,
+   "z": 4141.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 7875.0,
+   "y": 153.77756160830086,
+   "z": 3065.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2665.0,
+   "y": 56.618839169909194,
+   "z": 2959.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2984.0,
+   "y": 52.39375906004426,
+   "z": 225.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 5089.0,
+   "y": 17.933165484092456,
+   "z": 502.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 2687.0,
+   "y": 140.71536202029455,
+   "z": 1974.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2565.0,
+   "y": 52.538481345845724,
+   "z": 2869.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4289.0,
+   "y": 72.43958381017777,
+   "z": 4179.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5246.0,
+   "y": 96.44512474250402,
+   "z": 5509.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2764.0,
+   "y": 52.086671244373235,
+   "z": 3713.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5148.0,
+   "y": 68.25741969939727,
+   "z": 5021.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 627.0,
+   "y": 52.018005645838116,
+   "z": 5928.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7442.0,
+   "y": 54.44514381628136,
+   "z": 6990.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 2617.0,
+   "y": 142.17975127794313,
+   "z": 2044.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 5646.0,
+   "y": 152.28122377355612,
+   "z": 6284.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4507.0,
+   "y": 68.75906004425116,
+   "z": 3408.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4601.0,
+   "y": 68.56832227054247,
+   "z": 4234.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3639.0,
+   "y": 63.97201876859691,
+   "z": 4937.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2436.0,
+   "y": 154.58915083543144,
+   "z": 4356.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4773.0,
+   "y": 151.32276646066987,
+   "z": 6300.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2079.0,
+   "y": 155.23765926604108,
+   "z": 1441.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4337.0,
+   "y": 75.09679942015717,
+   "z": 4723.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3658.0,
+   "y": 152.62932021057446,
+   "z": 1807.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1975.0,
+   "y": 52.50867856870374,
+   "z": 7821.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 138.0,
+   "y": 138.2290951400015,
+   "z": 5259.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6464.0,
+   "y": 53.49431601434347,
+   "z": 544.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7142.0,
+   "y": 32.627603570611114,
+   "z": 484.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 77.0,
+   "y": 52.12291142137789,
+   "z": 6020.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 6031.0,
+   "y": 159.2352845807584,
+   "z": 6559.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 6340.0,
+   "y": 251.94171053635466,
+   "z": 5450.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 2055.0,
+   "y": 56.441214618142965,
+   "z": 4030.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7821.0,
+   "y": 136.33459220263978,
+   "z": 2852.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 4703.0,
+   "y": 155.948157473106,
+   "z": 4524.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2778.0,
+   "y": 68.3127336537728,
+   "z": 519.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5421.0,
+   "y": 55.73763065537497,
+   "z": 5051.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 1055.0,
+   "y": 57.15075913633936,
+   "z": 893.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 2160.0,
+   "y": 56.94857709620811,
+   "z": 4037.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 3611.0,
+   "y": 152.24712939650567,
+   "z": 1837.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 4453.0,
+   "y": 67.76340886549173,
+   "z": 3528.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3235.0,
+   "y": 79.71527618829631,
+   "z": 3043.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 7280.0,
+   "y": 53.967345693141056,
+   "z": 7580.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1707.0,
+   "y": 55.94934958419165,
+   "z": 3861.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5604.0,
+   "y": 53.14335851071945,
+   "z": 4517.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 5559.0,
+   "y": 56.45647364003966,
+   "z": 5304.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5149.0,
+   "y": 48.13267719539178,
+   "z": 8017.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 489.0,
+   "y": 53.81690127412833,
+   "z": 1201.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5130.0,
+   "y": 47.006370641641865,
+   "z": 7995.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 1079.0,
+   "y": 250.9887369344625,
+   "z": 2907.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1753.0,
+   "y": 57.806658655680195,
+   "z": 3807.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 6814.0,
+   "y": 55.00305180437934,
+   "z": 7477.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3507.0,
+   "y": 74.18745708400093,
+   "z": 3310.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2079.0,
+   "y": 28.910124361028466,
+   "z": 7656.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5579.0,
+   "y": 56.050202182040124,
+   "z": 8146.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 119.0,
+   "y": 54.560540169375145,
+   "z": 1964.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2897.0,
+   "y": 53.955901426718555,
+   "z": 125.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6210.0,
+   "y": 50.205996795605415,
+   "z": 328.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2428.0,
+   "y": 154.11707484550237,
+   "z": 4403.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5152.0,
+   "y": 47.566186007476915,
+   "z": 8068.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 74.0,
+   "y": 145.61303120469978,
+   "z": 5242.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2686.0,
+   "y": 56.73304341191729,
+   "z": 2988.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2874.0,
+   "y": 54.548142214084066,
+   "z": 182.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5135.0,
+   "y": 151.61554894331272,
+   "z": 6605.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5239.0,
+   "y": 53.1927119096666,
+   "z": 8017.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3033.0,
+   "y": 49.40299076829177,
+   "z": 238.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 4985.0,
+   "y": 139.4867723353933,
+   "z": 6297.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7023.0,
+   "y": 44.33985656519417,
+   "z": 57.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 8141.0,
+   "y": 55.321583886472865,
+   "z": 6921.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2575.0,
+   "y": 52.99458304722668,
+   "z": 2877.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5305.0,
+   "y": 64.15679598687723,
+   "z": 5103.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 5002.0,
+   "y": 254.02552071412225,
+   "z": 2522.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 6033.0,
+   "y": 41.401541161211554,
+   "z": 508.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_4",
+   "x": 4352.0,
+   "y": 251.00900282291906,
+   "z": 6659.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 2300.0,
+   "y": 86.63309681849393,
+   "z": 4044.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4717.0,
+   "y": 252.19729915312428,
+   "z": 1498.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2917.0,
+   "y": 152.3010128175784,
+   "z": 1143.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 4884.0,
+   "y": 86.41851682307163,
+   "z": 5285.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5660.0,
+   "y": 46.87857633325703,
+   "z": 5195.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 6511.0,
+   "y": 41.019111924925596,
+   "z": 2182.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 2174.0,
+   "y": 57.329575799191275,
+   "z": 3901.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 8070.0,
+   "y": 53.864347295338376,
+   "z": 7230.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 2087.0,
+   "y": 56.44955939574271,
+   "z": 4021.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 5589.0,
+   "y": 157.90417334248878,
+   "z": 3924.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3014.0,
+   "y": 253.09472037842374,
+   "z": 5726.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4075.0,
+   "y": 251.1539635309377,
+   "z": 6556.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1994.0,
+   "y": 46.33640421149005,
+   "z": 7891.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 71.0,
+   "y": 152.03231097886624,
+   "z": 5060.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2175.0,
+   "y": 35.421911955443676,
+   "z": 7658.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 3721.0,
+   "y": 156.22234302281225,
+   "z": 3610.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3003.0,
+   "y": 152.21065079728385,
+   "z": 1144.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_2",
+   "x": 1245.0,
+   "y": 58.46112764171818,
+   "z": 7736.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4352.0,
+   "y": 55.75265125505453,
+   "z": 5384.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 6921.0,
+   "y": 55.61031319142441,
+   "z": 7339.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2981.0,
+   "y": 64.24525062943465,
+   "z": 3196.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8119.0,
+   "y": 54.40794995040818,
+   "z": 2394.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3507.0,
+   "y": 251.04905775539788,
+   "z": 6798.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7000.0,
+   "y": 54.066529335469596,
+   "z": 623.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2961.0,
+   "y": 152.1629663538567,
+   "z": 1174.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 3644.0,
+   "y": 45.59014267185472,
+   "z": 2272.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 287.0,
+   "y": 127.30411230640118,
+   "z": 5307.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3817.0,
+   "y": 71.57434958419165,
+   "z": 4575.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 5256.0,
+   "y": 250.77439536125735,
+   "z": 2849.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4496.0,
+   "y": 70.92393377584497,
+   "z": 4210.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 2759.0,
+   "y": 54.917219806210426,
+   "z": 44.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6086.0,
+   "y": 153.8328755626764,
+   "z": 5849.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 4921.0,
+   "y": 144.99885557335773,
+   "z": 6328.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 2284.0,
+   "y": 20.71412222476539,
+   "z": 7942.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6098.0,
+   "y": 36.82574196993974,
+   "z": 2943.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 6703.0,
+   "y": 34.36975471122301,
+   "z": 2183.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5395.0,
+   "y": 51.73571374074922,
+   "z": 4502.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2559.0,
+   "y": 42.97393568322272,
+   "z": 3109.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5436.0,
+   "y": 151.55260547798883,
+   "z": 3473.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5283.0,
+   "y": 152.18776226443885,
+   "z": 3616.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6265.0,
+   "y": 37.68787670710307,
+   "z": 488.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 1686.0,
+   "y": 47.2018768596933,
+   "z": 7292.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5294.0,
+   "y": 60.926413366903176,
+   "z": 5007.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2588.0,
+   "y": 43.02662699320973,
+   "z": 3144.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4282.0,
+   "y": 251.23979552910663,
+   "z": 6592.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 4911.0,
+   "y": 84.72405012588692,
+   "z": 5239.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 6022.0,
+   "y": 57.11022735942626,
+   "z": 4155.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3718.0,
+   "y": 73.61333638513773,
+   "z": 3466.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 4469.0,
+   "y": 72.71591515983826,
+   "z": 4796.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5457.0,
+   "y": 52.30125123979553,
+   "z": 4412.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7120.0,
+   "y": 55.8899824521248,
+   "z": 632.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 8139.0,
+   "y": 151.3597219043259,
+   "z": 3051.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3482.0,
+   "y": 155.18139162279698,
+   "z": 3685.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5376.0,
+   "y": 60.24071107042039,
+   "z": 5107.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6372.0,
+   "y": 52.0246814679179,
+   "z": 477.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 5986.0,
+   "y": 156.41832608529796,
+   "z": 6716.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 6163.0,
+   "y": 151.70901045243,
+   "z": 3256.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1695.0,
+   "y": 53.52745670252537,
+   "z": 749.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6136.0,
+   "y": 153.5515373464561,
+   "z": 6962.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3607.0,
+   "y": 153.58396276798652,
+   "z": 3726.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3045.0,
+   "y": 153.94874876020447,
+   "z": 1070.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 2125.0,
+   "y": 159.63797970550087,
+   "z": 1665.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8024.0,
+   "y": 57.78782330052644,
+   "z": 2375.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2036.0,
+   "y": 151.8425268940261,
+   "z": 4527.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3565.0,
+   "y": 54.514763103685056,
+   "z": 2214.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5714.0,
+   "y": 153.4122987716487,
+   "z": 3697.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 1770.0,
+   "y": 255.630579079881,
+   "z": 2824.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1897.0,
+   "y": 53.999771114671546,
+   "z": 7783.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5783.0,
+   "y": 154.41176470588232,
+   "z": 3864.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4844.0,
+   "y": 101.45914396887159,
+   "z": 5866.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 7175.0,
+   "y": 250.93103875791564,
+   "z": 5303.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6120.0,
+   "y": 48.90135042343783,
+   "z": 392.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5477.0,
+   "y": 144.40971427481497,
+   "z": 6977.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6279.0,
+   "y": 50.43392843518731,
+   "z": 447.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6350.0,
+   "y": 54.649233234149676,
+   "z": 438.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 103.0,
+   "y": 53.78495269703211,
+   "z": 837.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1630.0,
+   "y": 53.36652170595866,
+   "z": 684.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5060.0,
+   "y": 40.897993438620574,
+   "z": 8152.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 5507.0,
+   "y": 60.547798886091414,
+   "z": 5324.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 4410.0,
+   "y": 52.63027389944304,
+   "z": 5620.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 4596.0,
+   "y": 153.73846036469058,
+   "z": 4466.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5278.0,
+   "y": 81.48699168383308,
+   "z": 5330.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 6300.0,
+   "y": 151.87209124895094,
+   "z": 3649.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4451.0,
+   "y": 70.05607690547035,
+   "z": 3448.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 7631.0,
+   "y": 53.73846036469061,
+   "z": 6879.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6210.0,
+   "y": 152.6626993209735,
+   "z": 6952.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5601.0,
+   "y": 41.90175097276267,
+   "z": 5006.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5613.0,
+   "y": 57.46356908522165,
+   "z": 7953.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 1417.0,
+   "y": 252.4140249485008,
+   "z": 3019.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7054.0,
+   "y": 52.334630350194544,
+   "z": 667.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 6518.0,
+   "y": 41.9518196383612,
+   "z": 787.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 3110.0,
+   "y": 256.47364003967346,
+   "z": 5803.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 1570.0,
+   "y": 53.55153734645609,
+   "z": 744.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3067.0,
+   "y": 253.11856260013735,
+   "z": 5750.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7678.0,
+   "y": 51.98271915770201,
+   "z": 2218.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6693.0,
+   "y": 54.20147631036849,
+   "z": 7422.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3694.0,
+   "y": 74.1302357518883,
+   "z": 3471.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 1060.0,
+   "y": 133.60990310521095,
+   "z": 1917.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 3133.0,
+   "y": 18.85538261997408,
+   "z": 7734.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5476.0,
+   "y": 57.96902418554973,
+   "z": 7949.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 5414.0,
+   "y": 62.683108262760356,
+   "z": 5219.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 5037.0,
+   "y": 76.26983672846572,
+   "z": 5137.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3011.0,
+   "y": 152.0208667124437,
+   "z": 1220.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3278.0,
+   "y": 149.75204089417866,
+   "z": 1768.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2557.0,
+   "y": 157.0172426947433,
+   "z": 4258.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 857.0,
+   "y": 55.9948882276646,
+   "z": 1051.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2630.0,
+   "y": 50.727187762264435,
+   "z": 5213.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5105.0,
+   "y": 45.16718165865569,
+   "z": 8031.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2860.0,
+   "y": 152.30888075074387,
+   "z": 4531.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 1524.0,
+   "y": 53.53723201342794,
+   "z": 711.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 1933.0,
+   "y": 59.17305638208592,
+   "z": 3662.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5159.0,
+   "y": 147.29724574654762,
+   "z": 6495.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5047.0,
+   "y": 154.41939421683065,
+   "z": 6968.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4804.0,
+   "y": 252.92210269321737,
+   "z": 1282.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 3474.0,
+   "y": 152.1176661326009,
+   "z": 3609.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3208.0,
+   "y": 145.34218356603344,
+   "z": 1801.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3262.0,
+   "y": 73.79644464789808,
+   "z": 3124.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2590.0,
+   "y": 38.22957198443581,
+   "z": 5287.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 6228.0,
+   "y": 154.7693980315862,
+   "z": 6727.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7854.0,
+   "y": 55.76409552147706,
+   "z": 5708.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5468.0,
+   "y": 61.22587167162584,
+   "z": 5265.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2506.0,
+   "y": 50.320439459830624,
+   "z": 2786.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 1599.0,
+   "y": 46.22577630273898,
+   "z": 7345.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5176.0,
+   "y": 73.84985122453651,
+   "z": 5172.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 1518.0,
+   "y": 36.41565575646601,
+   "z": 5618.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5633.0,
+   "y": 41.223201342793914,
+   "z": 5050.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3171.0,
+   "y": 40.47264820325017,
+   "z": 448.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 1251.0,
+   "y": 251.21499961852447,
+   "z": 2936.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 3319.0,
+   "y": 146.69260700389106,
+   "z": 1877.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 3307.0,
+   "y": 85.39139391165025,
+   "z": 2930.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 6594.0,
+   "y": 62.11947814145114,
+   "z": 8183.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 6259.0,
+   "y": 59.38167582207981,
+   "z": 4469.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 5304.0,
+   "y": 247.89425497825584,
+   "z": 2968.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 6612.0,
+   "y": 48.78976882581824,
+   "z": 789.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 6115.0,
+   "y": 56.52680819409474,
+   "z": 4109.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 7014.0,
+   "y": 56.931410696574346,
+   "z": 7285.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 8044.0,
+   "y": 54.013122758831145,
+   "z": 7349.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 6432.0,
+   "y": 25.139238574807337,
+   "z": 2183.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 2199.0,
+   "y": 56.900654230563816,
+   "z": 3993.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6852.0,
+   "y": 65.80071717402916,
+   "z": 8120.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 8083.0,
+   "y": 54.44228274967574,
+   "z": 6215.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 5417.0,
+   "y": 148.20944914930953,
+   "z": 7090.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2916.0,
+   "y": 54.023613336385125,
+   "z": 173.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2702.0,
+   "y": 63.69020370794232,
+   "z": 2831.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 3951.0,
+   "y": 72.12176699473562,
+   "z": 3920.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4374.0,
+   "y": 74.83739604791333,
+   "z": 4639.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 5324.0,
+   "y": 263.6243991760128,
+   "z": 2711.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 2856.0,
+   "y": 82.41588464179446,
+   "z": 2793.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3632.0,
+   "y": 254.2172121766995,
+   "z": 7115.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3765.0,
+   "y": 68.24597543297475,
+   "z": 4560.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2041.0,
+   "y": 151.85587853818566,
+   "z": 4480.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2631.0,
+   "y": 158.87622072175174,
+   "z": 4299.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 6490.0,
+   "y": 47.54139009689479,
+   "z": 611.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 5975.0,
+   "y": 33.70717936980242,
+   "z": 2936.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 2901.0,
+   "y": 244.67841611352713,
+   "z": 5152.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2597.0,
+   "y": 48.598077363241,
+   "z": 3051.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6314.0,
+   "y": 54.97253376058595,
+   "z": 393.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2151.0,
+   "y": 152.3956664377813,
+   "z": 2356.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3756.0,
+   "y": 68.8191424429694,
+   "z": 4677.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7590.0,
+   "y": 51.77243076218815,
+   "z": 2227.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2447.0,
+   "y": 152.81147478446627,
+   "z": 4544.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 7273.0,
+   "y": 257.6807717250324,
+   "z": 5331.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2399.0,
+   "y": 155.15135042343786,
+   "z": 4322.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 7960.0,
+   "y": 55.27962157625694,
+   "z": 6440.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 6529.0,
+   "y": 54.066529335469596,
+   "z": 7422.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1772.0,
+   "y": 50.86308842603191,
+   "z": 7675.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4288.0,
+   "y": 72.92286564431222,
+   "z": 4342.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 6458.0,
+   "y": 154.1099221789883,
+   "z": 3345.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 6181.0,
+   "y": 252.01895933470666,
+   "z": 5633.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 6363.0,
+   "y": 60.686560616464476,
+   "z": 4474.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8145.0,
+   "y": 42.93888761730375,
+   "z": 5396.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2863.0,
+   "y": 54.043879224841675,
+   "z": 95.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 6360.0,
+   "y": 54.850461585412376,
+   "z": 283.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5316.0,
+   "y": 66.43682764934769,
+   "z": 7541.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 2051.0,
+   "y": 152.03254940108337,
+   "z": 4801.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3696.0,
+   "y": 65.66910811017016,
+   "z": 4965.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1334.0,
+   "y": 57.02630273899442,
+   "z": 559.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4647.0,
+   "y": 73.29861905851837,
+   "z": 4876.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_2",
+   "x": 1094.0,
+   "y": 52.95262073701076,
+   "z": 7540.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4502.0,
+   "y": 54.38696879530022,
+   "z": 3087.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2026.0,
+   "y": 153.17006179903865,
+   "z": 1220.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 6467.0,
+   "y": 53.08685244525827,
+   "z": 7513.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 168.0,
+   "y": 67.20263981078813,
+   "z": 5761.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5055.0,
+   "y": 148.50318532082093,
+   "z": 6486.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5807.0,
+   "y": 152.23878461890592,
+   "z": 5703.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4062.0,
+   "y": 251.6250858319982,
+   "z": 1648.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 3612.0,
+   "y": 72.96673533226522,
+   "z": 2615.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5387.0,
+   "y": 57.41755359731442,
+   "z": 5045.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 80.0,
+   "y": 152.08857862211028,
+   "z": 4987.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2665.0,
+   "y": 52.95643549248493,
+   "z": 3744.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 135.0,
+   "y": 111.34102960250249,
+   "z": 5467.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5627.0,
+   "y": 140.51937895780884,
+   "z": 5996.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 944.0,
+   "y": 56.21042191195542,
+   "z": 1052.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3627.0,
+   "y": 54.40461203936826,
+   "z": 5081.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3650.0,
+   "y": 67.11299305714505,
+   "z": 4880.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8141.0,
+   "y": 57.759212634470146,
+   "z": 5826.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 2694.0,
+   "y": 52.9182879377432,
+   "z": 3646.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 912.0,
+   "y": 254.38887617303732,
+   "z": 2761.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 1721.0,
+   "y": 37.811617837796604,
+   "z": 7561.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 6261.0,
+   "y": 53.330281528954,
+   "z": 414.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2933.0,
+   "y": 63.67589837491417,
+   "z": 3156.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4594.0,
+   "y": 75.73815518425269,
+   "z": 5520.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 5070.0,
+   "y": 255.1155870908675,
+   "z": 2404.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6125.0,
+   "y": 154.99732967116813,
+   "z": 6762.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 25.0,
+   "y": 55.76218814373999,
+   "z": 1350.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5584.0,
+   "y": 140.28381780727858,
+   "z": 6099.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5390.0,
+   "y": 51.86017013809416,
+   "z": 4693.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5122.0,
+   "y": 67.73193713282978,
+   "z": 4978.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3647.0,
+   "y": 48.1183718623636,
+   "z": 5164.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 6183.0,
+   "y": 156.38399328603037,
+   "z": 6672.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 1196.0,
+   "y": 150.35286488136109,
+   "z": 1818.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2065.0,
+   "y": 157.1900988021668,
+   "z": 1525.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8018.0,
+   "y": 153.82810711833366,
+   "z": 3284.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 5717.0,
+   "y": 40.44213015945678,
+   "z": 5133.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 595.0,
+   "y": 52.65292401007096,
+   "z": 2829.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1770.0,
+   "y": 153.78185320820933,
+   "z": 4869.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4643.0,
+   "y": 252.07761120012208,
+   "z": 1510.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_3",
+   "x": 5313.0,
+   "y": 255.43030441748687,
+   "z": 2819.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2392.0,
+   "y": 151.71854734111542,
+   "z": 2331.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 1446.0,
+   "y": 54.08941786831463,
+   "z": 746.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 5736.0,
+   "y": 154.13138017853055,
+   "z": 6230.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 2905.0,
+   "y": 252.25285152971696,
+   "z": 5439.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2547.0,
+   "y": 154.01121538109402,
+   "z": 4463.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5666.0,
+   "y": 50.08773937590601,
+   "z": 5324.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 1792.0,
+   "y": 29.45372701609827,
+   "z": 7609.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 5641.0,
+   "y": 56.13841840238041,
+   "z": 8013.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 414.0,
+   "y": 151.74429694056607,
+   "z": 5327.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2553.0,
+   "y": 141.97065499351493,
+   "z": 2173.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 4429.0,
+   "y": 60.936188677805745,
+   "z": 5447.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 8144.0,
+   "y": 57.446402685587856,
+   "z": 5848.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 4514.0,
+   "y": 156.43453879606318,
+   "z": 4438.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 7167.0,
+   "y": 56.732089723048745,
+   "z": 7234.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 7073.0,
+   "y": 250.8850232700084,
+   "z": 5352.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 1198.0,
+   "y": 56.06450751506827,
+   "z": 7666.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7383.0,
+   "y": 53.53437094682232,
+   "z": 8062.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 8148.0,
+   "y": 128.1662470435645,
+   "z": 2738.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4852.0,
+   "y": 149.48500801098646,
+   "z": 6350.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 4400.0,
+   "y": 72.5223163195239,
+   "z": 3400.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 6874.0,
+   "y": 252.4795910582132,
+   "z": 5178.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 3758.0,
+   "y": 51.682307164110796,
+   "z": 2518.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 4527.0,
+   "y": 72.31393530174714,
+   "z": 4774.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2060.0,
+   "y": 43.715190356298166,
+   "z": 7698.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3602.0,
+   "y": 252.27740901808198,
+   "z": 6656.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1745.0,
+   "y": 55.174000534065755,
+   "z": 4113.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3602.0,
+   "y": 58.084420538643485,
+   "z": 5006.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 2879.0,
+   "y": 61.13550965133135,
+   "z": 3159.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2673.0,
+   "y": 48.8956282902266,
+   "z": 3140.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 502.0,
+   "y": 51.916914625772506,
+   "z": 5906.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4545.0,
+   "y": 69.76257915617609,
+   "z": 4217.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 2971.0,
+   "y": 56.427862973983366,
+   "z": 377.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 638.0,
+   "y": 46.42795834287023,
+   "z": 5611.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 800.0,
+   "y": 53.12237735561152,
+   "z": 243.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 3016.0,
+   "y": 55.76028076600289,
+   "z": 490.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 3560.0,
+   "y": 152.15152208743416,
+   "z": 1826.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 103.0,
+   "y": 52.28480010681315,
+   "z": 6105.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 257.0,
+   "y": 55.58146410315098,
+   "z": 2550.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 4559.0,
+   "y": 60.94262607766842,
+   "z": 3192.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 5404.0,
+   "y": 149.18554970626383,
+   "z": 7047.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5379.0,
+   "y": 60.276951247425046,
+   "z": 7841.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4516.0,
+   "y": 68.24979018844891,
+   "z": 5408.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5566.0,
+   "y": 44.26260776684214,
+   "z": 4996.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 8145.0,
+   "y": 53.94636453803312,
+   "z": 7308.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 3082.0,
+   "y": 74.1373884184024,
+   "z": 3057.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6556.0,
+   "y": 50.833524071107064,
+   "z": 70.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 3992.0,
+   "y": 43.26314183260854,
+   "z": 2794.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2635.0,
+   "y": 54.392690928511485,
+   "z": 2975.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5204.0,
+   "y": 73.12981612878616,
+   "z": 5177.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 4684.0,
+   "y": 81.7683299000534,
+   "z": 5735.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 7106.0,
+   "y": 136.52532997634847,
+   "z": 6278.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 5406.0,
+   "y": 61.24542229343098,
+   "z": 5173.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 3070.0,
+   "y": 73.36537727931642,
+   "z": 3063.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7693.0,
+   "y": 45.09994659342337,
+   "z": 5267.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 1220.0,
+   "y": 250.99946593423363,
+   "z": 2200.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 6111.0,
+   "y": 156.5003433279927,
+   "z": 6704.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_2",
+   "x": 6057.0,
+   "y": 56.99101625085831,
+   "z": 4173.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4611.0,
+   "y": 252.21828030823224,
+   "z": 1100.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_4",
+   "x": 3901.0,
+   "y": 259.35282673380635,
+   "z": 1708.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5533.0,
+   "y": 54.75318532082093,
+   "z": 5193.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_1__tree_fir_tall_1",
+   "x": 6325.0,
+   "y": 48.63527122911421,
+   "z": 470.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4640.0,
+   "y": 72.69779507133595,
+   "z": 5793.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 131.0,
+   "y": 56.28433279926756,
+   "z": 2593.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_1",
+   "x": 8111.0,
+   "y": 124.12642099641414,
+   "z": 2808.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 7691.0,
+   "y": 43.74189364461739,
+   "z": 5249.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7048.0,
+   "y": 53.295948729686415,
+   "z": 520.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5603.0,
+   "y": 49.76348516060122,
+   "z": 5172.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2479.0,
+   "y": 148.88609140154114,
+   "z": 2371.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 4580.0,
+   "y": 54.94392309452962,
+   "z": 3132.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 5478.0,
+   "y": 64.5361257343404,
+   "z": 7762.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 8084.0,
+   "y": 54.69691767757686,
+   "z": 7019.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 6120.0,
+   "y": 157.82406347753113,
+   "z": 6625.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 1159.0,
+   "y": 54.543850614175625,
+   "z": 7622.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 1126.0,
+   "y": 145.00886930647744,
+   "z": 1835.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 2843.0,
+   "y": 62.20411802853437,
+   "z": 3081.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 1846.0,
+   "y": 59.54070344090945,
+   "z": 3780.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 7272.0,
+   "y": 39.36064698252841,
+   "z": 1078.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 4679.0,
+   "y": 83.84927901121537,
+   "z": 5596.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 2106.0,
+   "y": 45.05607690547035,
+   "z": 7808.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5334.0,
+   "y": 152.10097657740135,
+   "z": 7066.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 2791.0,
+   "y": 59.03739414053561,
+   "z": 3089.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 2772.0,
+   "y": 60.36087586785686,
+   "z": 3022.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 4451.0,
+   "y": 73.0125123979553,
+   "z": 4739.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5843.0,
+   "y": 152.31674868390934,
+   "z": 5823.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 69.0,
+   "y": 58.2360570687419,
+   "z": 2478.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3487.0,
+   "y": 255.4932478828107,
+   "z": 7136.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_2",
+   "x": 5565.0,
+   "y": 53.093766689555196,
+   "z": 4651.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 4571.0,
+   "y": 252.788109407187,
+   "z": 1534.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 5197.0,
+   "y": 254.18168726634622,
+   "z": 2447.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 93.0,
+   "y": 55.116540779736,
+   "z": 5793.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 6949.0,
+   "y": 254.26012817578396,
+   "z": 5188.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 5153.0,
+   "y": 67.49256122682536,
+   "z": 5007.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 796.0,
+   "y": 53.8385976958877,
+   "z": 621.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 661.0,
+   "y": 36.60543984130618,
+   "z": 5548.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_5",
+   "x": 4681.0,
+   "y": 73.58615625238423,
+   "z": 4853.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_5",
+   "x": 1270.0,
+   "y": 55.8632791638056,
+   "z": 724.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2728.0,
+   "y": 49.76539253833832,
+   "z": 3243.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_1",
+   "x": 8130.0,
+   "y": 56.09025711451895,
+   "z": 6685.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 5421.0,
+   "y": 150.15449759670406,
+   "z": 6948.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 2163.0,
+   "y": 155.9030956740673,
+   "z": 1461.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_4",
+   "x": 7116.0,
+   "y": 256.332494087129,
+   "z": 5858.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 79.0,
+   "y": 150.092984664683,
+   "z": 5166.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_1",
+   "x": 5805.0,
+   "y": 151.88448920424202,
+   "z": 5892.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 3491.0,
+   "y": 152.4719615472648,
+   "z": 1852.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 6111.0,
+   "y": 147.7607385366598,
+   "z": 3184.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_4",
+   "x": 4168.0,
+   "y": 253.658350499733,
+   "z": 6510.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_5",
+   "x": 4502.0,
+   "y": 156.2557221332113,
+   "z": 4479.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_3__tree_fir_tall_1",
+   "x": 1791.0,
+   "y": 54.21530479896239,
+   "z": 7710.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_2",
+   "x": 4571.0,
+   "y": 54.125658045319284,
+   "z": 3108.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_7__tree_fir_tall_5",
+   "x": 8079.0,
+   "y": 153.68410009918364,
+   "z": 3332.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 3464.0,
+   "y": 252.1782253757534,
+   "z": 6714.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 5096.0,
+   "y": 253.2578011749447,
+   "z": 2460.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 2788.0,
+   "y": 53.60494392309454,
+   "z": 3214.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_2__tree_fir_tall_2",
+   "x": 6185.0,
+   "y": 157.85458152132452,
+   "z": 6589.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_8__tree_fir_tall_4",
+   "x": 958.0,
+   "y": 252.00560769054704,
+   "z": 2879.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_small_3__tree_fir_tall_5",
+   "x": 2926.0,
+   "y": 66.97375448233768,
+   "z": 3065.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "fir_tree_tall_6__tree_fir_tall_5",
+   "x": 2943.0,
+   "y": 64.50179293507284,
+   "z": 3144.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 1840.0,
+   "y": 58.0872816052491,
+   "z": 3946.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 6352.0,
+   "y": 58.18265049210348,
+   "z": 4246.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 1032.0,
+   "y": 53.04226749065384,
+   "z": 367.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 7160.0,
+   "y": 53.408484016174555,
+   "z": 7825.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 2240.0,
+   "y": 151.1215381094072,
+   "z": 2500.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 5952.0,
+   "y": 150.9842069123369,
+   "z": 5692.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 1610.0,
+   "y": 41.10828183413443,
+   "z": 5867.0,
+   "rotY": 0.0
+  },
+  {
+   "name": "geovent",
+   "x": 6582.0,
+   "y": 40.70916304264895,
+   "z": 2325.0,
+   "rotY": 0.0
+  }
+ ]
+}
