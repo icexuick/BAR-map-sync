@@ -38,7 +38,7 @@
         defaultMinHeight: -25.0, defaultMaxHeight: 150.0, skirtOffset: 100.0,
         rendererExposure: 1.2, envMapIntensity: 0.5,
         sunColor: 0xffffff, sunIntensity: 2.7, sunAzimuth: 0.85, sunElevation: 0.45, ambientColor: 0xfffaed, ambientIntensity: 0.2, shadowNormalBias: 0.02,
-        autoRotateSpeed: 0.5, rotateSpeed: 0.8, dampingFactor: 0.035,
+        autoRotateSpeed: 0.2, rotateSpeed: 0.8, dampingFactor: 0.035,
 
         waterLevel: 0.0, waterColor: 0x10424c, waterSunColor: 0x333333,
         waterOpacity: 0.6, waterScale: 30, waterSpeed: 0.0042,
@@ -170,14 +170,39 @@
         const scene = new THREE.Scene(); if (envMap) { envMap.mapping = THREE.EquirectangularReflectionMapping; envMap.colorSpace = THREE.SRGBColorSpace; scene.environment = envMap; scene.background = null; }
         const camera = new THREE.PerspectiveCamera(45, mainContainer.offsetWidth / mainContainer.offsetHeight, 1, maxDim * 10);
         const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true; controls.dampingFactor = CONFIG.dampingFactor; controls.rotateSpeed = CONFIG.rotateSpeed; controls.target.set(0, (currentMinH + currentMaxH)/2, 0);
+        controls.enableDamping = true; controls.dampingFactor = CONFIG.dampingFactor; controls.rotateSpeed = CONFIG.rotateSpeed; controls.target.set(0, currentMaxH * 0.5, 0);
+        controls.enableZoom = false; controls.panSpeed = 1.8; controls.screenSpacePanning = false;
+        controls.autoRotate = true; controls.autoRotateSpeed = CONFIG.autoRotateSpeed;
+        const ZOOM_SPEED = 0.025;
+        const MIN_TARGET_DIST = 20;
+        let zoomVelocity = 0;
+        renderer.domElement.addEventListener('wheel', (e) => { e.preventDefault(); zoomVelocity += -Math.sign(e.deltaY) * ZOOM_SPEED; }, { passive: false });
+        const _raycaster = new THREE.Raycaster();
+        const _mouse = new THREE.Vector2();
+        // Sample terrain height at a Three.js world XZ position using the heightmap.
+        function terrainYAt(x, z) {
+            const u = (x + scaledW / 2) / scaledW, v = (z + scaledH / 2) / scaledH;
+            if (u < 0 || u > 1 || v < 0 || v > 1) return controls.target.y;
+            if (!_heightData || !_heightSize) return currentMaxH * 0.5;
+            const gx = u * (_heightSize - 1), gz = v * (_heightSize - 1);
+            const x0 = gx | 0, z0 = gz | 0, fx = gx - x0, fz = gz - z0;
+            const x1 = Math.min(x0 + 1, _heightSize - 1), z1 = Math.min(z0 + 1, _heightSize - 1);
+            const h00 = _heightData[z0 * _heightSize + x0], h10 = _heightData[z0 * _heightSize + x1];
+            const h01 = _heightData[z1 * _heightSize + x0], h11 = _heightData[z1 * _heightSize + x1];
+            const hNorm = (1-fx)*(1-fz)*h00 + fx*(1-fz)*h10 + (1-fx)*fz*h01 + fx*fz*h11;
+            return currentMinH + (currentMaxH - currentMinH) * hNorm;
+        }
+        let _heightData = null, _heightSize = 0;
+        // Animated target transition on double-click (ease-out)
+        let _targetAnim = null; // { from, to, camOffset, t }
+        renderer.domElement.addEventListener('dblclick', (e) => { const rect = renderer.domElement.getBoundingClientRect(); _mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1; _mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1; _raycaster.setFromCamera(_mouse, camera); const hits = _raycaster.intersectObject(scene, true); if (hits.length > 0) { const tx = hits[0].point.x, tz = hits[0].point.z, ty = terrainYAt(tx, tz); _targetAnim = { from: controls.target.clone(), to: new THREE.Vector3(tx, ty, tz), camOffset: camera.position.clone().sub(controls.target), t: 0 }; } });
         const mapDiagonal = Math.sqrt(Math.pow(scaledW, 2) + Math.pow(scaledH, 2)); let cameraDist = (mapDiagonal / 2) / Math.sin((camera.fov * Math.PI) / 180 / 2); const aspect = mainContainer.offsetWidth / mainContainer.offsetHeight; if (aspect < 1) cameraDist = cameraDist / aspect; cameraDist *= CONFIG.cameraZoomFactor; const angle = Math.PI / 4; camera.position.set(0, Math.sin(angle) * cameraDist, Math.cos(angle) * cameraDist); controls.update();
         let lastResizeHeight = 0;
         const onResize = () => { if (!mainContainer) return; const w = mainContainer.offsetWidth; const h = mainContainer.offsetHeight; if (isMobile && w === renderer.domElement.width && Math.abs(h - lastResizeHeight) < 100) return; lastResizeHeight = h; if (w === 0 || h === 0) return; camera.aspect = w / h; camera.setViewOffset(w, h, 0, h * CONFIG.screenOffsetY, w, h); camera.updateProjectionMatrix(); renderer.setSize(w, h); };
         onResize(); window.addEventListener('resize', onResize); new ResizeObserver(() => onResize()).observe(mainContainer);
         let isAltDown = false; window.addEventListener('keydown', (e) => { if (e.key === 'Alt') { e.preventDefault(); isAltDown = true; controls.enabled = false; document.body.style.cursor = 'crosshair'; } }); window.addEventListener('keyup', (e) => { if (e.key === 'Alt') { isAltDown = false; controls.enabled = true; document.body.style.cursor = 'default'; } });
-        controls.autoRotate = true; controls.autoRotateSpeed = CONFIG.autoRotateSpeed;
-        let userWantsRotation = true; const rotateBtn = document.getElementById('rotate-toggle-button'); if (rotateBtn) { rotateBtn.addEventListener('click', () => { userWantsRotation = !userWantsRotation; controls.autoRotate = userWantsRotation; }); }
+        let userWantsRotation = true;
+        const rotateBtn = document.getElementById('rotate-toggle-button'); if (rotateBtn) { rotateBtn.addEventListener('click', () => { userWantsRotation = !userWantsRotation; controls.autoRotate = userWantsRotation; }); }
 
         // ==========================================
         // ✅ EXPORT KNOP LOGICA (AANGEPAST)
@@ -228,7 +253,7 @@
             });
         }
 
-        let rotateTimeout; controls.addEventListener('start', () => { controls.autoRotate = false; clearTimeout(rotateTimeout); }); controls.addEventListener('end', () => { if (userWantsRotation) { rotateTimeout = setTimeout(() => { controls.autoRotate = true; }, CONFIG.autoRotatePause); } });
+        let rotateTimeout; controls.addEventListener('start', () => { controls.autoRotate = false; clearTimeout(rotateTimeout); }); controls.addEventListener('end', () => { if (userWantsRotation) { rotateTimeout = setTimeout(() => { controls.autoRotate = true; }, CONFIG.autoRotatePause || 3000); } });
 
         const ambientLight = new THREE.AmbientLight(CONFIG.ambientColor, CONFIG.ambientIntensity); scene.add(ambientLight);
         const dirLight = new THREE.DirectionalLight(CONFIG.sunColor, CONFIG.sunIntensity); dirLight.castShadow = true; dirLight.shadow.bias = (PERF.shadowBias !== undefined) ? PERF.shadowBias : CONFIG.shadowBias; dirLight.shadow.normalBias = CONFIG.shadowNormalBias; dirLight.shadow.mapSize.set(PERF.shadowSize, PERF.shadowSize); const dCam = mapDiagonal * 0.75; dirLight.shadow.camera.left = -dCam; dirLight.shadow.camera.right = dCam; dirLight.shadow.camera.top = dCam; dirLight.shadow.camera.bottom = -dCam; dirLight.shadow.camera.near = 1; dirLight.shadow.camera.far = maxDim * 6; scene.add(dirLight);
@@ -318,6 +343,9 @@
 
         let skirtMesh, bottomMesh, heightData = null;
         if (!isVoidMode && hImageLoaded) { heightData = getHeightData(hImageLoaded, PERF.skirtRes + 1); const skirtGeo = generateSkirts(scaledW, scaledH, PERF.skirtRes, heightData, currentMinH, currentMaxH); const skirtMat = terrainMat.clone(); skirtMat.displacementMap = null; skirtMat.displacementScale = 0; skirtMat.clippingPlanes = []; skirtMesh = new THREE.Mesh(skirtGeo, skirtMat); skirtMesh.receiveShadow = true; skirtMesh.castShadow = true; scene.add(skirtMesh); const bottomGeo = new THREE.PlaneGeometry(scaledW, scaledH, 1, 1); const bottomMat = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 1.0, metalness: 0.0, side: THREE.DoubleSide }); bottomMesh = new THREE.Mesh(bottomGeo, bottomMat); bottomMesh.rotation.x = -Math.PI / 2; bottomMesh.position.y = currentMinH - CONFIG.skirtOffset; scene.add(bottomMesh); }
+        // Build a higher-res heightmap for terrain-follow (pan target snaps to surface).
+        // We reuse getHeightData at 257×257 — small enough to be fast, fine enough for smooth sampling.
+        if (hImageLoaded) { const hfSize = 257; _heightData = getHeightData(hImageLoaded, hfSize); _heightSize = hfSize; controls.target.y = terrainYAt(0, 0); controls.update(); }
 
         if (true) {
             const margin = 12.0;
@@ -414,9 +442,16 @@
 
         let isVisible = true; let lastFrameTime = 0; const fpsInterval = PERF.targetFPS ? 1000 / PERF.targetFPS : 0;
         const lodForDist = (dist) => { const t = Math.max(0, Math.min(1, (dist - cameraDist * 0.15) / (cameraDist * 1.35))); return Math.round(LOD_MAX - t * (LOD_MAX - LOD_MIN)); };
+        const _zoomDir = new THREE.Vector3();
         const animate = (time) => {
             if (!isVisible) return; requestAnimationFrame(animate);
             if (fpsInterval > 0) { const elapsed = time - lastFrameTime; if (elapsed < fpsInterval) return; lastFrameTime = time - (elapsed % fpsInterval); }
+            // Animate target transition (dblclick ease-out)
+            if (_targetAnim) { _targetAnim.t += 0.016; const ease = 1 - Math.pow(1 - Math.min(_targetAnim.t, 1), 4); controls.target.lerpVectors(_targetAnim.from, _targetAnim.to, ease); camera.position.copy(controls.target).add(_targetAnim.camOffset); if (_targetAnim.t >= 1) _targetAnim = null; }
+            // Smooth zoom: move camera toward/away from target (target stays fixed)
+            if (Math.abs(zoomVelocity) > 0.0001) { const curDist = camera.position.distanceTo(controls.target); const step = zoomVelocity * curDist; const newDist = curDist - step; if (newDist < MIN_TARGET_DIST) { zoomVelocity = 0; } else { _zoomDir.subVectors(controls.target, camera.position).normalize(); camera.position.addScaledVector(_zoomDir, step); } zoomVelocity *= 0.85; } else { zoomVelocity = 0; }
+            // Floor clamp: keep camera above terrain surface
+            if (_heightData) { const floorY = terrainYAt(camera.position.x, camera.position.z) + 5; if (camera.position.y < floorY) camera.position.y = floorY; }
             controls.update();
             { const dist = camera.position.distanceTo(controls.target); const want = lodForDist(dist); const snapped = Math.max(LOD_MIN, Math.min(LOD_MAX, Math.round(want / LOD_STEP) * LOD_STEP)); if (snapped !== currentLOD) { currentLOD = snapped; terrainMesh.geometry = getLodGeo(currentLOD); } }
             if (!hasLava && liquidMesh) { liquidMesh.material.uniforms['time'].value += CONFIG.waterSpeed; }

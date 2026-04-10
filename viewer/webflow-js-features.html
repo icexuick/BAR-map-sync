@@ -1,80 +1,31 @@
 <script>
-// Plain (non-module) script on purpose. Firefox / iOS Safari don't deal well
-// with two separate <script type="module"> blocks both importing the same
-// three.js URL — they end up with two distinct THREE namespaces and instanceof
-// checks break. So instead we wait for the host footer script to expose its
-// own THREE + GLTFLoader via window.barTerrain, and reuse those.
-//
-// All "top-level" code is wrapped in an IIFE so we don't leak helpers into
-// window scope. THREE / GLTFLoader are filled in from the host inside init().
 (function () {
 let THREE, GLTFLoader;
 
-// Mobile devices skip GLB feature loading entirely. Geovents (smoke) still
-// spawn — they're cheap and visually important — but the heavy 3D models
-// (trees, rocks, statues, etc.) are too expensive on phones, both in
-// download size and per-frame render cost. Same UA detection as the host
-// footer so behavior is consistent.
 const IS_MOBILE = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 800;
-
-// ---------------------------------------------------------------------------
-// Config
-// ---------------------------------------------------------------------------
 
 const GH_OWNER = 'icexuick';
 const GH_REPO = 'BAR-map-sync';
 const GH_BRANCH = 'main';
 const CDN_BASE = `https://cdn.jsdelivr.net/gh/${GH_OWNER}/${GH_REPO}@${GH_BRANCH}`;
 
-// Spring world is measured in "elmos". The main script builds the terrain
-// plane with size `mapW * 128 × mapH * 128` Three world units, where mapW/mapH
-// come from data-map-width / data-map-height in "map-squares". One
-// map-square = 512 elmos, so the horizontal conversion is a constant:
-//
-//     threeUnitsPerElmo = (mapW * 128) / (mapW * 512) = 128 / 512 = 0.25
-//
-// Features are authored in elmos, so every model needs scale = 0.25 in XZ.
 const THREE_UNITS_PER_ELMO = 128 / 512; // 0.25
 
-// Any feature whose name matches is treated as a geovent (invisible geyser
-// marker) and gets a smoke plume instead of a GLB.
-const GEOVENT_NAMES = new Set([
-  'geovent',
-  'geothermal',
-  'geovent_feature',
-]);
+const GEOVENT_NAMES = new Set(['geovent', 'geothermal', 'geovent_feature']);
 
-// Smoke sprite — you picked this one in Webflow assets
 const SMOKE_SPRITE_URL =
   'https://cdn.prod.website-files.com/5c68622246b367adf6f3041d/69cbda83c9b8dff28c72325a_dirtbar.png';
 
-// ---------------------------------------------------------------------------
-// Utilities
-// ---------------------------------------------------------------------------
+function log(...args) { console.log('[bar-features]', ...args); }
+function warn(...args) { console.warn('[bar-features]', ...args); }
 
-function log(...args) {
-  console.log('[bar-features]', ...args);
-}
-function warn(...args) {
-  console.warn('[bar-features]', ...args);
-}
-
-/**
- * Wait for the host terrain script to dispatch `barMapReady`. Resolves with
- * the host context object (scene, camera, CONFIG, scaledW, scaledH, ...).
- */
 function waitForHost() {
   return new Promise((resolve) => {
-    if (window.barTerrain) {
-      resolve(window.barTerrain);
-      return;
-    }
+    if (window.barTerrain) { resolve(window.barTerrain); return; }
     const handler = (e) => {
       document.removeEventListener('barMapReady', handler, true);
       resolve(e.detail || window.barTerrain);
     };
-    // Capture phase on document so we catch the event regardless of which
-    // element dispatched it.
     document.addEventListener('barMapReady', handler, true);
   });
 }
@@ -85,16 +36,6 @@ async function fetchJson(url) {
   return r.json();
 }
 
-// ---------------------------------------------------------------------------
-// Coordinate conversion
-// ---------------------------------------------------------------------------
-
-/**
- * Bilinear sample of the host's shared heightmap at Spring world (x, z).
- * Returns the real-world Y in elmos. The host (footer) decoded the PNG once
- * with the CMS min/max so we don't have to know either of those here — the
- * Float32Array already contains absolute heights.
- */
 function sampleHeightmapAtSpring(hm, springX, springZ, worldW, worldH) {
   let gx = (springX / worldW) * (hm.width - 1);
   let gz = (springZ / worldH) * (hm.height - 1);
@@ -112,21 +53,6 @@ function sampleHeightmapAtSpring(hm, springX, springZ, worldW, worldH) {
        +      fx  *      fz  * hm.heights[i11];
 }
 
-/**
- * Convert a Spring (x, y, z) in elmos into a Three world-space position
- * relative to the terrain mesh. The terrain is centered at origin and
- * spans [-scaledW/2 .. +scaledW/2] × [-scaledH/2 .. +scaledH/2].
- *
- * Vertical: if the host shared a decoded heightmap (which is the normal
- * case in production), we sample it at the feature's (x, z) and ignore
- * `py`. The shared heightmap is the single source of truth for terrain
- * height — same PNG, same CMS min/max as the terrain mesh, so features
- * land exactly on the ground.
- *
- * Fallback: if the host didn't expose a heightmap (older footer / local
- * viewer), use the `py` value baked into placements.json by the Python
- * extractor. Same multiplier as the terrain so it lines up there too.
- */
 function springToThree(px, pz, py, ctx) {
   const { scaledW, scaledH, CONFIG, heightmap, worldW, worldH } = ctx;
   const worldX = px * THREE_UNITS_PER_ELMO - scaledW / 2;
@@ -141,27 +67,10 @@ function springToThree(px, pz, py, ctx) {
   return { worldX, worldY, worldZ };
 }
 
-// ---------------------------------------------------------------------------
-// Feature loading + placement
-// ---------------------------------------------------------------------------
-
-/**
- * Two-phase loader: downloads all GLB files in parallel via fetch()
- * (network I/O doesn't block the main thread), then parses + places
- * them one at a time with frame yields so the render loop stays smooth.
- *
- * Phase 1 — download: fire off all fetches at once (HTTP/2 muxes them
- * over a single TCP connection). Each resolves to an ArrayBuffer.
- * The browser's HTTP cache handles repeat visits automatically.
- *
- * Phase 2 — parse & place: feed each ArrayBuffer into GLTFLoader.parse()
- * one by one, with a requestAnimationFrame yield between each so the
- * terrain keeps rendering smoothly while features pop in.
- */
 const _yieldFrame = () => new Promise(r => requestAnimationFrame(r));
 
 async function downloadAllGLBs(uniqueNames) {
-  const buffers = new Map(); // name → ArrayBuffer
+  const buffers = new Map();
   const failed = [];
   const results = await Promise.allSettled(
     uniqueNames.map(async (name) => {
@@ -182,37 +91,6 @@ async function downloadAllGLBs(uniqueNames) {
   return { buffers, failed };
 }
 
-/**
- * Pull the first Mesh out of a loaded GLTF scene and prepare its material
- * for instancing. All BAR feature GLBs are single-mesh / single-material
- * (verified via inspection of the build pipeline output), so we can grab
- * `proto.children[0]` or recurse one level. Returns { geometry, material }.
- *
- * Material is mutated: shadows/anisotropy/envMapIntensity all configured
- * once on the prototype instead of per-instance — saves O(N) traversal.
- */
-/**
- * Merge a list of { geometry, localMatrix } pieces into a single
- * BufferGeometry, baking each piece's local transform into its vertex
- * positions and normals. This is the core of the draw-call-overhead
- * optimization: 14 piece InstancedMeshes per crystal becomes 1 (or N
- * where N = number of unique materials within the GLB), which collapses
- * ~624 draws/frame on flats-and-forests to ~80-150.
- *
- * Implementation notes:
- * - All s3o-derived GLBs share a consistent attribute set (POSITION,
- *   NORMAL, TEXCOORD_0, optionally TANGENT) so we don't need a generic
- *   merger; we hand-roll one that knows exactly these attributes.
- * - Position is transformed by the full localMatrix.
- * - Normal is transformed by the inverse-transpose 3×3 of localMatrix
- *   (== upper-3×3 if the matrix is rigid + uniform scale, which it is
- *   in our pipeline). Then re-normalized so non-uniform scale wouldn't
- *   bite us if it ever appears.
- * - Tangent (xyz, w handedness) gets the same upper-3×3 transform on
- *   the xyz part, w stays as-is.
- * - All input geometries must be indexed; the s3o → glTF builder always
- *   writes indices, so this is safe.
- */
 function mergeAndBakePieces(pieces) {
   if (pieces.length === 1 && pieces[0].localMatrix.elements[12] === 0
       && pieces[0].localMatrix.elements[13] === 0
@@ -220,13 +98,9 @@ function mergeAndBakePieces(pieces) {
       && pieces[0].localMatrix.elements[0] === 1
       && pieces[0].localMatrix.elements[5] === 1
       && pieces[0].localMatrix.elements[10] === 1) {
-    // Single piece, identity-ish transform: skip the bake and reuse the
-    // original geometry verbatim. Saves a buffer copy for the common
-    // single-mesh feature case (most rocks, simple trees).
     return pieces[0].geometry;
   }
 
-  // Pre-compute totals so we can allocate exact-size typed arrays.
   let totalVerts = 0;
   let totalIndices = 0;
   let hasTangent = true;
@@ -243,13 +117,12 @@ function mergeAndBakePieces(pieces) {
   const normals = new Float32Array(totalVerts * 3);
   const uvs = new Float32Array(totalVerts * 2);
   const tangents = hasTangent ? new Float32Array(totalVerts * 4) : null;
-  // Index width: pick uint32 if any piece pushes us past 65535 verts.
   const indices = totalVerts > 65535
     ? new Uint32Array(totalIndices)
     : new Uint16Array(totalIndices);
 
-  let vCursor = 0; // running vertex offset across pieces
-  let iCursor = 0; // running index offset across pieces
+  let vCursor = 0;
+  let iCursor = 0;
   const tmpV = new THREE.Vector3();
   const tmpN = new THREE.Vector3();
   const normalMat = new THREE.Matrix3();
@@ -302,7 +175,6 @@ function mergeAndBakePieces(pieces) {
       }
       iCursor += idx.count;
     } else {
-      // Non-indexed: synthesize 0..N-1 indices with the vertex offset.
       for (let i = 0; i < vCount; i++) {
         indices[iCursor + i] = i + vCursor;
       }
@@ -321,19 +193,8 @@ function mergeAndBakePieces(pieces) {
 }
 
 function prepareProto(protoScene, ctx) {
-  // Make sure every node's matrixWorld reflects its glTF transform — the
-  // s3o → glTF builder writes per-piece offsets onto node translations, so
-  // a mesh that *looks* like it lives at origin in local space might
-  // actually sit several elmos away once the parent transforms are baked.
   protoScene.updateMatrixWorld(true);
-
-  // Walk the GLB scene and collect every mesh, grouped by material
-  // identity. Pieces sharing the same material get merged into one
-  // baked geometry; pieces with different materials stay separate (one
-  // InstancedMesh per material group). For most BAR features all pieces
-  // share a single material, so this collapses 4-16 piece InstancedMeshes
-  // into a single one.
-  const piecesByMaterial = new Map(); // material -> [{ geometry, localMatrix }]
+  const piecesByMaterial = new Map();
   protoScene.traverse((o) => {
     if (!o.isMesh) return;
     const material = Array.isArray(o.material) ? o.material[0] : o.material;
@@ -358,13 +219,7 @@ function prepareProto(protoScene, ctx) {
       bucket = [];
       piecesByMaterial.set(key, bucket);
     }
-    bucket.push({
-      geometry: o.geometry,
-      // Bake the piece's full world matrix into the merged geometry —
-      // without this we'd drop the per-piece translation / rotation /
-      // scale the s3o builder put on the parent nodes.
-      localMatrix: o.matrixWorld.clone(),
-    });
+    bucket.push({ geometry: o.geometry, localMatrix: o.matrixWorld.clone() });
   });
   if (piecesByMaterial.size === 0) return null;
 
@@ -379,11 +234,7 @@ function prepareProto(protoScene, ctx) {
   return groups;
 }
 
-const FEATURE_SCALE = THREE_UNITS_PER_ELMO; // 0.25 — elmo → three world units
-
-// THREE math scratch objects — lazily created on first use because `THREE`
-// is filled in inside init() (we share the host's THREE namespace, so we
-// can't `new THREE.Matrix4()` at IIFE evaluation time).
+const FEATURE_SCALE = THREE_UNITS_PER_ELMO;
 let _tmpMatrix, _tmpQuat, _tmpPos, _tmpScale, _yAxis;
 function ensureScratch() {
   if (_tmpMatrix) return;
@@ -394,20 +245,6 @@ function ensureScratch() {
   _yAxis = new THREE.Vector3(0, 1, 0);
 }
 
-// ---------------------------------------------------------------------------
-// Geovent smoke particles
-// ---------------------------------------------------------------------------
-
-// Custom Points shader: PointsMaterial doesn't support per-particle UV
-// rotation, size scaling, or lifetime-driven fades, so we ship our own
-// minimal one.
-//   aSize     — per-particle size multiplier (~0.93..1.07), set on spawn
-//   aRotation — per-particle UV rotation in radians, updated on CPU each
-//               frame so each sprite slowly spins around its center.
-//   aLife     — current 0..1 lifetime, used to grow the sprite (1× → 2.4×)
-//               and fade it out after 50%.
-//   aTint     — per-particle brightness multiplier (~0.9..1.1) so the
-//               plume contains a mix of slightly lighter / darker puffs.
 const SMOKE_VERT = `
   attribute float aSize;
   attribute float aRotation;
@@ -448,45 +285,38 @@ const SMOKE_FRAG = `
   }
 `;
 
-/**
- * One Points object for every geovent on the map. Each vent owns PER_VENT
- * particles; when a particle's phase hits 1.0 it respawns at its source.
- * Single draw call for the whole map regardless of vent count.
- */
 function buildGeoventSmoke(geovents, ctx) {
   if (!geovents.length) return null;
 
   const PER_VENT = 60;
   const total = geovents.length * PER_VENT;
 
-  // Precompute each geovent's world position
   const vents = geovents.map((p) => {
     const { worldX, worldY, worldZ } = springToThree(p.x, p.z, p.y, ctx);
     return new THREE.Vector3(worldX, worldY, worldZ);
   });
 
   const positions = new Float32Array(total * 3);
-  const lifetimes = new Float32Array(total); // 0..1 phase
+  const lifetimes = new Float32Array(total);
   const speeds = new Float32Array(total);
-  const horizontal = new Float32Array(total * 2); // per-particle drift
+  const horizontal = new Float32Array(total * 2);
   const ventIdx = new Int32Array(total);
-  const sizes = new Float32Array(total);          // ±7% size variance
-  const rotations = new Float32Array(total);      // current UV rotation, radians
-  const rotRates = new Float32Array(total);       // ±5% of a full turn per second
-  const tints = new Float32Array(total);          // ±10% brightness multiplier
+  const sizes = new Float32Array(total);
+  const rotations = new Float32Array(total);
+  const rotRates = new Float32Array(total);
+  const tints = new Float32Array(total);
 
   for (let i = 0; i < total; i++) {
     const vi = (i / PER_VENT) | 0;
     ventIdx[i] = vi;
     lifetimes[i] = Math.random();
     speeds[i] = 0.25 + Math.random() * 0.35;
-    // Tiny lateral wobble — plume reads as a vertical line instead of a cone.
     horizontal[i * 2    ] = (Math.random() - 0.5) * 0.08;
     horizontal[i * 2 + 1] = (Math.random() - 0.5) * 0.08;
-    sizes[i] = 1.0 + (Math.random() - 0.5) * 0.14;        // [0.93..1.07]
-    rotations[i] = Math.random() * Math.PI * 2.0;         // 360° random spawn
-    rotRates[i] = (Math.random() - 0.5) * 0.10 * Math.PI * 2.0; // ±5% of 2π/sec
-    tints[i] = 0.8 + Math.random() * 0.7;                 // [0.8..1.5]
+    sizes[i] = 1.0 + (Math.random() - 0.5) * 0.14;
+    rotations[i] = Math.random() * Math.PI * 2.0;
+    rotRates[i] = (Math.random() - 0.5) * 0.10 * Math.PI * 2.0;
+    tints[i] = 0.8 + Math.random() * 0.7;
     const v = vents[vi];
     positions[i * 3    ] = v.x;
     positions[i * 3 + 1] = v.y;
@@ -509,11 +339,6 @@ function buildGeoventSmoke(geovents, ctx) {
   tex.magFilter = THREE.LinearFilter;
   tex.minFilter = THREE.LinearMipMapLinearFilter;
 
-  // Terrain is ~1000 Three units across on a typical BAR map; uBaseSize
-  // is the screen size at the start of a particle's life, and the
-  // shader expands it to ~2.4× over the lifetime as the puff rises.
-  // Per-particle aTint adds ±10% brightness wobble around uColor so the
-  // plume contains a mix of slightly lighter / darker puffs.
   const mat = new THREE.ShaderMaterial({
     uniforms: {
       uMap:      { value: tex },
@@ -550,19 +375,16 @@ function tickSmoke(points, dt) {
   const tintAttr = points.geometry.attributes.aTint;
   const arr = posAttr.array;
 
-  const plumeHeight = 60;  // Three-units, roughly 240 elmos
+  const plumeHeight = 60;
   const fadeInSec = 3.0;
 
   for (let i = 0; i < lifetimes.length; i++) {
-    // Subtle continuous rotation
     rotations[i] += rotRates[i] * dt;
     rotAttr.array[i] = rotations[i];
 
     lifetimes[i] += dt / fadeInSec * speeds[i];
     if (lifetimes[i] >= 1.0) {
       lifetimes[i] = 0.0;
-      // Re-roll per-particle randomness each respawn so the column
-      // doesn't settle into a recognisable pattern.
       sizes[i] = 1.0 + (Math.random() - 0.5) * 0.14;
       rotations[i] = Math.random() * Math.PI * 2.0;
       rotRates[i] = (Math.random() - 0.5) * 0.10 * Math.PI * 2.0;
@@ -591,10 +413,6 @@ function tickSmoke(points, dt) {
   lifeAttr.needsUpdate = true;
 }
 
-// ---------------------------------------------------------------------------
-// Init
-// ---------------------------------------------------------------------------
-
 async function init() {
   const host = await waitForHost();
   const { scene, container, CONFIG, scaledW, scaledH } = host;
@@ -602,9 +420,6 @@ async function init() {
     warn('host context missing scene/CONFIG — aborting');
     return;
   }
-  // Pull THREE + GLTFLoader from the host so we share its module instance
-  // (see comment at the top of this file). If the host script is older and
-  // doesn't expose them, bail loudly rather than silently breaking.
   THREE = host.THREE;
   GLTFLoader = host.GLTFLoader;
   if (!THREE || !GLTFLoader) {
@@ -630,15 +445,12 @@ async function init() {
   }
   log(`${sceneData.features.length} placements, world ${sceneData.worldWidth}×${sceneData.worldHeight} elmos`);
 
-  // Sanity: host scaledW should match worldWidth * THREE_UNITS_PER_ELMO.
   const expectedThreeW = sceneData.worldWidth * THREE_UNITS_PER_ELMO;
   if (Math.abs(expectedThreeW - scaledW) > 1) {
     warn(`scaledW mismatch: host=${scaledW}, expected=${expectedThreeW}. ` +
          `Features may land off-terrain — check that data-map-width matches the map size.`);
   }
 
-  // Group placements by feature name so we can place them in batches the
-  // moment each prototype finishes loading.
   const placementsByName = new Map();
   const geovents = [];
   for (const p of sceneData.features) {
@@ -652,11 +464,6 @@ async function init() {
   const uniqueNames = [...placementsByName.keys()];
   log(`streaming ${uniqueNames.length} unique feature models (${sceneData.features.length} placements)...`);
 
-  // Pre-create the feature group so we can attach instances as they arrive.
-  // ctx carries everything springToThree needs: terrain dimensions and the
-  // shared heightmap (if the host exposed one). worldW/worldH come from
-  // placements.json — they're the Spring "elmo" extents, used to map a
-  // feature's (x, z) into heightmap pixel coordinates.
   const ctx = {
     scene, CONFIG, scaledW, scaledH,
     heightmap: host.heightmap || null,
@@ -673,16 +480,12 @@ async function init() {
   group.name = 'bar-features';
   scene.add(group);
 
-  // Geovent smoke is independent of GLB loading — spawn it immediately so
-  // the geyser plumes appear right when the map loads.
   let smoke = null;
   if (geovents.length > 0) {
     smoke = buildGeoventSmoke(geovents, ctx);
     if (smoke) scene.add(smoke);
   }
 
-  // Animation loop for geovent smoke. We tick from our own RAF callback so
-  // we don't fight with the host's render loop.
   let lastFrame = performance.now();
   if (smoke) {
     const tick = (now) => {
@@ -694,43 +497,70 @@ async function init() {
     requestAnimationFrame(tick);
   }
 
-  // Mobile: features are now loaded the same way as desktop (streamed with
-  // frame yields). Previously skipped to save bandwidth/GPU, but the
-  // two-phase loader is light enough to handle it.
-
-  // Phase 1: download all GLBs in parallel. fetch() is non-blocking so
-  // the terrain keeps rendering smoothly while files come in.
   const { buffers, failed } = await downloadAllGLBs(uniqueNames);
   if (failed.length) warn(`${failed.length} models failed to download:`, failed);
 
-  // Phase 2: parse each GLB and place its instances, spreading the work
-  // across many frames. Each feature type gets 4 steps with a frame yield
-  // between each: (1) parse GLB, (2) load per-map textures, (3) prepare
-  // prototype geometry, (4) create InstancedMesh + upload matrices.
   const loader = new GLTFLoader();
   const parseGLB = (buf, url) => new Promise((resolve, reject) => {
     loader.parse(buf, url.substring(0, url.lastIndexOf('/') + 1), resolve, reject);
   });
 
-  // Per-map texture cache: URL → Promise<THREE.Texture>
   const texCache = new Map();
   const texBase = `${CDN_BASE}/maps_features`;
-  function loadMapTex(featureGroup, filename, sRGB) {
-    const url = `${texBase}/${featureGroup}/${filename}`;
-    if (texCache.has(url)) return texCache.get(url);
-    const promise = new THREE.TextureLoader().loadAsync(url).then(tex => {
-      if (sRGB) tex.colorSpace = THREE.SRGBColorSpace;
-      tex.anisotropy = IS_MOBILE ? 1 : 8;
-      if (IS_MOBILE) {
-        tex.generateMipmaps = false;
-        tex.minFilter = THREE.LinearFilter;
+  const stemToGroup = new Map();
+  const stemCandidates = new Map();
+  function texStem(filename) { const m = filename.match(/^(.+)__/); return m ? m[1] : filename.replace(/\.\w+$/, ''); }
+
+  for (const [name, buf] of buffers) {
+    try {
+      const extras = extractMaterialExtras(buf);
+      const ex = extras && extras.find(e => e && e.featureGroup);
+      if (!ex) continue;
+      for (const texFile of [ex.colorTex, ex.normalTex]) {
+        if (!texFile) continue;
+        const fn = rewriteTexForMap(texFile);
+        const stem = texStem(fn);
+        if (!stemCandidates.has(stem)) stemCandidates.set(stem, new Set());
+        stemCandidates.get(stem).add(ex.featureGroup);
       }
-      tex.wrapS = THREE.RepeatWrapping;
-      tex.wrapT = THREE.RepeatWrapping;
-      tex.needsUpdate = true;
-      return tex;
-    }).catch(e => { warn(`tex load failed: ${url}`, e); return null; });
-    texCache.set(url, promise);
+    } catch (_) { /* skip unparseable GLBs */ }
+  }
+
+  function configureTex(tex, sRGB, noFlipY) {
+    if (sRGB) tex.colorSpace = THREE.SRGBColorSpace;
+    if (noFlipY) tex.flipY = false;
+    tex.anisotropy = IS_MOBILE ? 1 : 8;
+    if (IS_MOBILE) { tex.generateMipmaps = false; tex.minFilter = THREE.LinearFilter; }
+    tex.wrapS = THREE.RepeatWrapping; tex.wrapT = THREE.RepeatWrapping;
+    tex.needsUpdate = true;
+    return tex;
+  }
+  function loadMapTex(featureGroup, filename, sRGB, noFlipY) {
+    const stem = texStem(filename);
+    const knownFG = stemToGroup.get(stem);
+    const fg = knownFG || featureGroup;
+    const key = `${stem}|${noFlipY ? 1 : 0}`;
+    if (texCache.has(key)) return texCache.get(key);
+    const url = `${texBase}/${fg}/${filename}`;
+    const promise = new THREE.TextureLoader().loadAsync(url)
+      .then(tex => { stemToGroup.set(stem, fg); return configureTex(tex, sRGB, noFlipY); })
+      .catch(() => {
+        const candidates = stemCandidates.get(stem);
+        if (!candidates) return null;
+        const alts = [...candidates].filter(c => c !== fg);
+        let chain = Promise.resolve(null);
+        for (const alt of alts) {
+          chain = chain.then(result => {
+            if (result) return result;
+            const altUrl = `${texBase}/${alt}/${filename}`;
+            return new THREE.TextureLoader().loadAsync(altUrl)
+              .then(tex => { stemToGroup.set(stem, alt); return configureTex(tex, sRGB, noFlipY); })
+              .catch(() => null);
+          });
+        }
+        return chain;
+      });
+    texCache.set(key, promise);
     return promise;
   }
 
@@ -765,7 +595,8 @@ async function init() {
     if (!materialExtras) return;
     const extras = materialExtras.find(e => e && e.featureGroup);
     if (!extras) return;
-    const { colorTex, normalTex, featureGroup } = extras;
+    const { colorTex, normalTex, featureGroup, uvFlipV } = extras;
+    const noFlipY = !!uvFlipV; // UVs already V-flipped at build time
     const promises = [];
     const seenMats = new Set();
     scene.traverse(o => {
@@ -775,7 +606,7 @@ async function init() {
       seenMats.add(mat);
       if (colorTex) {
         const fn = rewriteTexForMap(colorTex);
-        promises.push(loadMapTex(featureGroup, fn, true).then(tex => {
+        promises.push(loadMapTex(featureGroup, fn, true, noFlipY).then(tex => {
           if (tex) {
             mat.map = tex;
             mat.emissiveMap = tex;
@@ -785,7 +616,7 @@ async function init() {
         }));
       }
       if (normalTex) {
-        promises.push(loadMapTex(featureGroup, normalTex, false).then(tex => {
+        promises.push(loadMapTex(featureGroup, normalTex, false, noFlipY).then(tex => {
           if (tex) { mat.normalMap = tex; mat.needsUpdate = true; }
         }));
       }

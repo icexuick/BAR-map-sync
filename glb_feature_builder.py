@@ -580,6 +580,11 @@ class FeatureGLBBuilder(GLBBuilder):
             extras["normalTex"] = normal_tex_filename
         if feature_group:
             extras["featureGroup"] = feature_group
+        # Signal to the viewer that UVs were V-flipped at build time
+        # (rocks30 / cuspbr assets). The viewer must set flipY=false
+        # on textures for these materials to avoid a double-flip.
+        if self._flip_v:
+            extras["uvFlipV"] = True
         if extras:
             mat["extras"] = extras
 

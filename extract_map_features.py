@@ -825,9 +825,27 @@ def process_map(map_filter: str, force: bool = False):
 
             # Derive feature_group from object path (parent dir of s3o).
             # e.g. "ad0_fir/fir_tree_tall_1.s3o" → "ad0_fir"
-            # For flat paths like "pipe_large_2.s3o" → use the name itself.
+            # For flat paths like "palmetto_1.s3o" → derive from the color
+            # texture stem so that variants sharing the same texture atlas
+            # (palmetto_1, palmetto_2, palmetto_3 all using palmetto.dds)
+            # end up in the same feature_group and share one set of per-map
+            # WebP files instead of each getting an orphan directory.
             obj_parent = os.path.dirname(object_rel.replace('\\', '/'))
-            feature_group = obj_parent if obj_parent else name
+            if obj_parent:
+                feature_group = obj_parent
+            elif tex1:
+                # Use the color texture stem (without extension) as group.
+                # Strip trailing separator+digits so variants sharing
+                # the same atlas land in one directory:
+                #   "palmetto.dds"           → "palmetto"
+                #   "peyote-1.dds"           → "peyote"
+                #   "poplar_dead_1.dds"      → "poplar_dead"
+                #   "tree_elm_dead_01_1.dds" → "tree_elm_dead_01"
+                import re
+                tex_stem = os.path.splitext(os.path.basename(tex1))[0]
+                feature_group = re.sub(r'[-_]?\d+$', '', tex_stem) or name
+            else:
+                feature_group = name
 
             # Always register textures for this map (even if GLB exists)
             tex_info = register_feature_textures(
