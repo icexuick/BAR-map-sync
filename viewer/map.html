@@ -107,6 +107,8 @@ function setStatus(text, isErr = false) {
 
 // -- Three.js setup --------------------------------------------------------
 const renderer = new THREE.WebGLRenderer({ canvas: canvasEl, antialias: true });
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -422,7 +424,7 @@ function buildGeoventSmoke(geovents) {
     sizes[i] = 1.0 + (Math.random() - 0.5) * 0.14;       // [0.93..1.07]
     rotations[i] = Math.random() * Math.PI * 2.0;        // 360° random spawn
     rotRates[i] = (Math.random() - 0.5) * 0.10 * Math.PI * 2.0; // ±5% of 2π per sec
-    tints[i] = 1.0 + (Math.random() - 0.5) * 0.20;       // [0.9..1.1]
+    tints[i] = 0.8 + Math.random() * 0.7;                // [0.8..1.5]
     const v = vents[vi];
     positions[i * 3    ] = v.x;
     positions[i * 3 + 1] = v.y;
@@ -507,7 +509,7 @@ function tickSmoke(points, now) {
       sizes[i] = 1.0 + (Math.random() - 0.5) * 0.14;
       rotations[i] = Math.random() * Math.PI * 2.0;
       rotRates[i] = (Math.random() - 0.5) * 0.10 * Math.PI * 2.0;
-      tints[i] = 1.0 + (Math.random() - 0.5) * 0.20;
+      tints[i] = 0.8 + Math.random() * 0.7;
       sizeAttr.array[i] = sizes[i];
       rotAttr.array[i] = rotations[i];
       tintAttr.array[i] = tints[i];

@@ -144,7 +144,12 @@ def load_feature_file(lua_path: str) -> Dict[str, dict]:
 
 
 def load_feature_dir(features_dir: str) -> Dict[str, dict]:
-    """Load every *.lua in a features/ directory and merge into one dict.
+    """Load every *.lua under a features/ directory (recursively) and merge
+    into one dict.
+
+    Map-local features are often organized in subfolders (e.g.
+    features/lathan/eistatue2.lua, features/smoth/harborset/radardish_1.lua),
+    so we walk the tree rather than just the top level.
 
     If two files define the same feature name, the later one wins (Spring's
     behavior is load-order dependent; for our purposes any consistent rule
@@ -154,14 +159,16 @@ def load_feature_dir(features_dir: str) -> Dict[str, dict]:
     if not os.path.isdir(features_dir):
         return merged
 
-    for fname in sorted(os.listdir(features_dir)):
-        if not fname.lower().endswith('.lua'):
-            continue
-        path = os.path.join(features_dir, fname)
-        defs = load_feature_file(path)
-        if defs:
-            print(f"      [FeatureDef] {fname}: {len(defs)} definitions")
-            merged.update(defs)
+    for root, _dirs, files in os.walk(features_dir):
+        for fname in sorted(files):
+            if not fname.lower().endswith('.lua'):
+                continue
+            path = os.path.join(root, fname)
+            defs = load_feature_file(path)
+            if defs:
+                rel = os.path.relpath(path, features_dir).replace('\\', '/')
+                print(f"      [FeatureDef] {rel}: {len(defs)} definitions")
+                merged.update(defs)
     return merged
 
 

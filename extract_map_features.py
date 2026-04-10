@@ -670,6 +670,23 @@ def process_map(map_filter: str, force: bool = False):
                 if fdef:
                     resolved_from = 'bar'
 
+            # Last-resort fallback: some maps reference a feature by name
+            # without ever defining it in a .lua featureDef. Spring auto-
+            # creates a default FeatureDef for any .s3o present in the map's
+            # objects3d/. Mirror that here by synthesizing a minimal def
+            # pointing at <name>.s3o if we can find one.
+            if not fdef and resources['objects3d_root']:
+                synth_s3o = _find_file_by_basename(
+                    resources['objects3d_root'], f"{name}.s3o"
+                )
+                if synth_s3o:
+                    rel = os.path.relpath(
+                        synth_s3o, resources['objects3d_root']
+                    ).replace('\\', '/')
+                    fdef = {'object': rel}
+                    resolved_from = 'map'
+                    print(f"   [i] {name}: no featureDef, synthesized from {rel}")
+
             if not fdef:
                 stats['unresolved'] += 1
                 unresolved_names.append(name)
