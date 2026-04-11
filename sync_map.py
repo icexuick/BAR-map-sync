@@ -124,11 +124,11 @@ def run_extractor(map_filter: str) -> None:
 
 
 def find_extracted_slug(map_filter: str) -> Optional[str]:
-    """Find which maps_features/<slug>/placements.json was just produced.
+    """Find which maps_placement/<slug>/placements.json was just produced.
     Strategy: look for the most recently modified placements.json under
-    maps_features/. The extractor uses fuzzy matching on Webflow names so we
+    maps_placement/. The extractor uses fuzzy matching on Webflow names so we
     can't reliably re-derive the slug from the user's input."""
-    maps_root = os.path.join(REPO_ROOT, "maps_features")
+    maps_root = os.path.join(REPO_ROOT, "maps_placement")
     if not os.path.isdir(maps_root):
         return None
     candidates: List[Tuple[float, str]] = []
@@ -143,7 +143,7 @@ def find_extracted_slug(map_filter: str) -> Optional[str]:
 
 
 def load_placements(slug: str) -> dict:
-    p = os.path.join(REPO_ROOT, "maps_features", slug, "placements.json")
+    p = os.path.join(REPO_ROOT, "maps_placement", slug, "placements.json")
     with open(p, "r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -240,7 +240,7 @@ def main():
     # 2. Find what was just produced
     slug = find_extracted_slug(args.map)
     if not slug:
-        raise SystemExit("Could not find any maps_features/<slug>/placements.json — extract failed?")
+        raise SystemExit("Could not find any maps_placement/<slug>/placements.json — extract failed?")
     summary = summarize_extracted(slug)
     print(f"\nExtracted: {summary['name']!r}")
     print(f"  slug:         {summary['slug']}")
@@ -252,7 +252,7 @@ def main():
     # 3. Inspect git for what changed
     print(f"\n=== [2/3] Checking git for new content ===")
     feature_changes = git_porcelain(["features/"])
-    placement_path = f"maps_features/{slug}/placements.json"
+    placement_path = f"maps_placement/{slug}/placements.json"
     placement_changes = git_porcelain([placement_path])
 
     print(f"  features/ changes:    {len(feature_changes)}")
