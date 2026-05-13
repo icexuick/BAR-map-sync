@@ -5,7 +5,7 @@ import py7zr
 import requests
 
 # --- DIAGNOSE SCRIPT ---
-# Plak hieronder de URL van de map die faalt (bijv Painted Desert of Aethermoor)
+# Paste the URL of the failing map below (e.g. Painted Desert or Aethermoor)
 TEST_URL = "https://files-cdn.beyondallreason.dev/file/0af9c293ffcbab453a4ddb0ebf1cf4fb/aethermoor_creek_1.0.sd7"
 
 def analyze_header():
@@ -22,7 +22,7 @@ def analyze_header():
                 z.extract(targets=[fname])
                 
                 with open(fname, "rb") as f_smf:
-                    # Lees de eerste 100 bytes als Integers
+                    # Read the first 100 bytes as integers
                     f_smf.seek(0)
                     data = f_smf.read(100)
                     ints = struct.unpack('<25I', data)
@@ -45,7 +45,7 @@ def analyze_header():
                             print(f"Index {i:02d} | {'...':<20} : {val}")
                             
     if os.path.exists("debug_map.sd7"): os.remove("debug_map.sd7")
-    print("\nKijk waar de GROTE getallen beginnen (dat zijn de pointers).")
+    print("\nLook for where the LARGE numbers start (those are the pointers).")
 
 if __name__ == "__main__":
     analyze_header()

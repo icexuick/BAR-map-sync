@@ -4,7 +4,7 @@ import requests
 import os
 import shutil
 
-# De URL van de probleem-map
+# URL of the problematic map
 MAP_URL = "https://files-cdn.beyondallreason.dev/file/e701047941f1a546dfc42ce997aafe4e/the_desert_triad_remake_v1.0.sd7"
 
 def inspect_header():
@@ -25,18 +25,18 @@ def inspect_header():
                     smf_found = True
                     
                     with open(fname, "rb") as f:
-                        # Lees de eerste 64 bytes
+                        # Read the first 64 bytes
                         header_bytes = f.read(64)
-                        
-                        print("\n--- HEX DUMP (Eerste 64 bytes) ---")
-                        # Print in rijen van 16 bytes
+
+                        print("\n--- HEX DUMP (first 64 bytes) ---")
+                        # Print in rows of 16 bytes
                         for i in range(0, 64, 16):
                             chunk = header_bytes[i:i+16]
                             hex_str = " ".join(f"{b:02X}" for b in chunk)
                             print(f"Offset {i:02d}: {hex_str}")
 
                         print("\n--- INTEGER INTERPRETATION (Little Endian) ---")
-                        # Unpack als integers
+                        # Unpack as integers
                         ints = struct.unpack('<16I', header_bytes)
                         labels = [
                             "Magic 1", "Magic 2", "Magic 3", "Magic 4",
@@ -48,17 +48,17 @@ def inspect_header():
                         for i, val in enumerate(ints):
                             print(f"Index {i:02d} [{labels[i] if i < len(labels) else '...'}] : {val}")
                             
-                    # Opruimen
+                    # Cleanup
                     os.remove(fname)
                     break
     except Exception as e:
         print(f"Error: {e}")
 
     if not smf_found:
-        print("Geen .smf bestand gevonden in het archief.")
-        
+        print("No .smf file found in the archive.")
+
     if os.path.exists("debug_map.sd7"): os.remove("debug_map.sd7")
-    if os.path.exists("maps"): shutil.rmtree("maps") # Soms pakt 7z uit in een mapje
+    if os.path.exists("maps"): shutil.rmtree("maps")  # 7z sometimes extracts into a subfolder
 
 if __name__ == "__main__":
     inspect_header()

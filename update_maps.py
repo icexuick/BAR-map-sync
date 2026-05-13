@@ -48,13 +48,13 @@ def get_maps_without_height():
         if not current_batch:
             break
 
-        # Check per item of de data er al is
+        # Check per item whether the data is already present
         for item in current_batch:
             fields = item.get('fieldData', {})
-            
-            # --- HET FILTER ---
-            # Als min of max height leeg is, voegen we hem toe aan de 'te doen' lijst.
-            # Is het al ingevuld? Dan negeren we hem.
+
+            # --- THE FILTER ---
+            # If min or max height is empty, add it to the to-do list.
+            # Already populated? Then ignore it.
             if fields.get(FIELD_MIN) is None or fields.get(FIELD_MAX) is None:
                 items_to_process.append(item)
         
@@ -176,7 +176,7 @@ def update_webflow_item(item_id, min_h, max_h, void_water):
         print(f"   -> API Error: {e}")
 
 def main():
-    # Haal alleen de nieuwe maps op
+    # Only fetch the new maps
     items = get_maps_without_height()
     
     if not items:

@@ -88,6 +88,9 @@ python update_maps_local.py --new-only
 | Argument | Description |
 |---|---|
 | `--new-only` | Only process maps where the `version` field in Webflow is empty. Skips all maps that already have data. Great for quickly picking up newly added maps without re-processing the entire collection. |
+| `--map "Name"` | Process only a specific map by name (case-insensitive partial match). |
+| `--publish` | Publish each item to Webflow immediately after updating (default: staged only). |
+| `--from-cache` | Push metadata from the local `maps_cache.json` to Webflow without downloading any SD7 files. Combine with `--publish` for instant fixes. |
 
 #### Configuration flags (in the script)
 
@@ -150,9 +153,21 @@ From each `.sd7` map archive, the script extracts:
 - Skybox DDS cubemaps are converted to **equirectangular projection** (4096×2048)
 - Images are uploaded to **FTP**, and the public URL is stored in Webflow
 
+#### Local metadata cache (`maps_cache.json`)
+
+Every sync run automatically builds/updates a local JSON cache containing all per-map metadata (heights, water colors, version, void-water, lava level) plus an SD7 fingerprint (etag, content-length, last-modified) for fast change detection.
+
+**Emergency fix — CMS data got corrupted (e.g. all maps show flat):**
+```bash
+# Push cached metadata to Webflow instantly (no SD7 downloads):
+python update_maps_local.py --from-cache --publish
+```
+
+**Fingerprint-based skip:** During normal runs, the script checks the SD7's HTTP headers against the cached fingerprint. If they match and only metadata tasks are needed, the download is skipped entirely.
+
 #### Important notes
 
-- Changes are **staged** in Webflow (not auto-published). You need to publish manually from the Webflow CMS dashboard or add a publish API call.
+- Use `--publish` to auto-publish items. Without it, changes are **staged** only.
 - The script writes temporary files (`temp_map.sd7`, `temp_extract/`) in the working directory and cleans them up after each map.
 - Lava level data is fetched from the BAR GitHub repo (`common/configs/LavaMaps/`).
 
@@ -194,8 +209,8 @@ python check-schema.py
 
 **Example output:**
 ```
---- Gevonden Velden ---
-LABEL                          | SLUG (Gebruik deze in script)  | TYPE
+--- Fields found ---
+LABEL                          | SLUG (use this in script)      | TYPE
 --------------------------------------------------------------------------------
 Name                           | name                           | PlainText
 Download URL                   | downloadurl                    | Link
@@ -269,10 +284,16 @@ The workflow runs `update_maps.py` (lightweight mode) with Python 3.9.
 
 ```bash
 # Full sync (all maps, respects FORCE_* flags)
-python update_maps_local.py
+python update_maps_local.py --publish
 
 # Only process NEW maps (no version in Webflow yet)
-python update_maps_local.py --new-only
+python update_maps_local.py --new-only --publish
+
+# Single map sync
+python update_maps_local.py --map "Throne" --publish
+
+# Emergency: push cached metadata to fix corrupted CMS (no downloads)
+python update_maps_local.py --from-cache --publish
 
 # Lightweight sync (missing heights only, auto-publishes)
 python update_maps.py
@@ -291,11 +312,20 @@ bar-map-sync/
 ├── .gitignore                    # Ignores .env
 ├── requirements.txt              # Python dependencies
 ├── README.md                     # This file
+├── CLAUDE.md                     # Project notes for AI assistants
 ├── update_maps_local.py          # Full sync (local, all data)
 ├── update_maps.py                # Lightweight sync (heights only)
+├── maps_cache.json               # Local metadata cache (auto-generated)
+├── extract_map_features.py       # Feature extraction (GLBs + textures)
+├── sync_map.py                   # Feature sync orchestrator (extract → git → CDN)
+├── fix_all_textures.py           # Batch fix missing feature textures
+├── glb_feature_builder.py        # s3o → GLB converter
 ├── check-schema.py               # Print Webflow field slugs
 ├── test-script.py                # Debug: SMF header dump
 ├── map-desert-checker.py         # Debug: hex dump
+├── features/                     # GLB models (shared across maps)
+├── maps_features/                # Per-map textures (WebP)
+├── maps_placement/               # Per-map placements.json
 └── .github/
     └── workflows/
         └── update_maps.yml       # GitHub Actions workflow

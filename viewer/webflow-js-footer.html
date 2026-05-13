@@ -18,7 +18,7 @@
     import { GUI } from 'lil-gui';
     import { getGPUTier } from 'detect-gpu';
 
-    // ... (Apparaat & Prestaties ongewijzigd) ...
+    // ... (Device & performance, unchanged) ...
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 800;
     const MOBILE_PERF = { tessellation: 400, shadowSize: 512, shadowType: THREE.PCFShadowMap, reflectionRes: 256, pixelRatio: 1.5, skirtRes: 32, targetFPS: 90, shadowBias: -0.004 };
     const DESKTOP_TIERS = {
@@ -67,7 +67,7 @@
     const getHeightData = (image, size) => { const c = document.createElement('canvas'); c.width = size; c.height = size; const ctx = c.getContext('2d'); ctx.drawImage(image, 0, 0, size, size); const d = ctx.getImageData(0, 0, size, size).data; const h = new Float32Array(size * size); for (let i = 0; i < size * size; i++) h[i] = d[i * 4] / 255.0; return h; };
     const createInvertedTexture = (image) => { const c = document.createElement('canvas'); c.width = image.width; c.height = image.height; const ctx = c.getContext('2d'); ctx.drawImage(image, 0, 0); try { const d = ctx.getImageData(0,0,c.width,c.height); const data = d.data; for(let i=0; i<data.length; i+=4){ const v=255-data[i]; data[i]=v; data[i+1]=v; data[i+2]=v; } ctx.putImageData(d,0,0); const t = new THREE.CanvasTexture(c); t.flipY=true; return t; } catch(e) { return null; } };
 
-    // ✅ LAVA SHADER (MET POLYGON OFFSET FIX)
+    // LAVA SHADER (WITH POLYGON OFFSET FIX)
     const createLavaMaterial = (noiseTexture, brightness = 1.0, scale, lowColor, midColor, highColor) => {
         let uniforms = {
             time: { value: 0 }, noiseMap: { value: noiseTexture }, scale: { value: scale },
@@ -95,7 +95,7 @@
                 gl_FragColor = vec4(col * brightness, 1.0);
             }`,
             side: THREE.DoubleSide,
-            // ✅ Z-FIGHTING FIX: Lava naar achteren duwen (+1.0)
+            // Z-FIGHTING FIX: push lava backwards (+1.0)
             polygonOffset: true,
             polygonOffsetFactor: 1.0,
             polygonOffsetUnits: 1.0
@@ -119,11 +119,11 @@
         let PERF = DESKTOP_TIERS[1];
         if (isMobile) { PERF = MOBILE_PERF; } else { try { const gpuTier = await getGPUTier(); if (gpuTier.gpu) { const name = gpuTier.gpu.toLowerCase(); if (name.includes('rtx 50') || name.includes('rtx 40') || name.includes('rx 7900')) { gpuTier.tier = 3; } } if (gpuTier && gpuTier.tier !== undefined) { PERF = DESKTOP_TIERS[gpuTier.tier] || DESKTOP_TIERS[1]; } } catch (e) { console.warn("⚠️ GPU Detect failed", e); } }
 
-        // Min/max-hoogte: Webflow CMS levert deze aan via data-min-height /
-        // data-max-height op #map-container (gevuld door de update_maps sync
-        // vanuit de echte SMF-header). De oudere `setting-min-height` /
-        // `setting-max-height` element-IDs blijven als fallback werken voor
-        // pagina's die nog niet zijn omgezet.
+        // Min/max height: Webflow CMS supplies this via data-min-height /
+        // data-max-height on #map-container (populated by the update_maps sync
+        // from the real SMF header). The older `setting-min-height` /
+        // `setting-max-height` element IDs continue to work as a fallback
+        // for pages that haven't been migrated yet.
         const dataMinH = parseFloat(mainContainer.dataset.minHeight);
         const dataMaxH = parseFloat(mainContainer.dataset.maxHeight);
         const cmsMinHeight = !isNaN(dataMinH) ? dataMinH : getCMSValue('setting-min-height', CONFIG.defaultMinHeight);
@@ -210,7 +210,7 @@
         const rotateBtn = document.getElementById('rotate-toggle-button'); if (rotateBtn) { rotateBtn.addEventListener('click', () => { userWantsRotation = !userWantsRotation; controls.autoRotate = userWantsRotation; }); }
 
         // ==========================================
-        // ✅ EXPORT KNOP LOGICA (AANGEPAST)
+        // EXPORT BUTTON LOGIC (modified)
         // ==========================================
         const exportBtn = document.getElementById('export-button');
         if (exportBtn) {
@@ -220,7 +220,7 @@
                 const prevBg = scene.background;
                 const prevPixelRatio = renderer.getPixelRatio();
 
-                // 1. Sla de originele geometry op
+                // 1. Save the original geometry
                 const originalGeo = terrainMesh.geometry;
 
                 scene.background = null;
@@ -230,12 +230,12 @@
                 renderer.setPixelRatio(1);
                 renderer.setSize(targetW, targetH);
 
-                // 2. Maak een High-Res geometry aan (4x Tessellation)
-                // We cappen dit op 2500 segmenten om WebGL crashes te voorkomen (2500*2500 vertices is al heel zwaar)
+                // 2. Build a high-res geometry (4x tessellation)
+                // Capped at 2500 segments to avoid WebGL crashes (2500*2500 vertices is already very heavy)
                 const highResSegments = Math.min(PERF.tessellation * 4, 2500);
                 const highResGeo = new THREE.PlaneGeometry(scaledW, scaledH, highResSegments, highResSegments);
 
-                // 3. Pas geometry toe
+                // 3. Apply geometry
                 terrainMesh.geometry = highResGeo;
 
                 // 4. Render
@@ -247,9 +247,9 @@
                 link.href = renderer.domElement.toDataURL('image/png');
                 link.click();
 
-                // 5. Herstel alles & Ruim op (MEMORY MANAGEMENT)
-                terrainMesh.geometry = originalGeo; // Zet oude terug
-                highResGeo.dispose(); // Verwijder de zware geometry direct uit geheugen!
+                // 5. Restore everything & clean up (MEMORY MANAGEMENT)
+                terrainMesh.geometry = originalGeo; // restore the original
+                highResGeo.dispose(); // free the heavy geometry from memory immediately
 
                 scene.background = prevBg;
                 renderer.setPixelRatio(prevPixelRatio);
@@ -287,7 +287,7 @@
             normalMap: normMap, normalScale: new THREE.Vector2(CONFIG.terrainNormalScale, CONFIG.terrainNormalScale),
             metalnessMap: null, roughnessMap: null, metalness: CONFIG.globalMetalness, roughness: CONFIG.terrainRoughness,
             side: THREE.DoubleSide, envMapIntensity: CONFIG.envMapIntensity, clippingPlanes: terrainClippingPlanes,
-            // ✅ Z-Fighting: Terrein naar voren (-1)
+            // Z-fighting: push terrain forwards (-1)
             polygonOffset: true, polygonOffsetFactor: -1.0, polygonOffsetUnits: -1.0
         });
 
@@ -374,7 +374,7 @@
             };
 
             if (hasLava) {
-                // ✅ LAVA (Z-fighting handled in shader function)
+                // LAVA (Z-fighting handled in shader function)
                 const matTop = createLavaMaterial(waterNorm, 1.0, CONFIG.lavaScale, cmsMinColor, cmsBaseColor, cmsSurfaceColor);
                 liquidSideMats.push(matTop);
                 const matSide = createLavaMaterial(waterNorm, 0.6, CONFIG.lavaScale, cmsMinColor, cmsBaseColor, cmsSurfaceColor);
@@ -404,7 +404,7 @@
                 liquidMesh.material.transparent = true;
                 liquidMesh.material.depthWrite = false;
 
-                // ✅ Z-FIGHTING: Water naar achteren (+1.0)
+                // Z-FIGHTING: push water backwards (+1.0)
                 liquidMesh.material.polygonOffset = true;
                 liquidMesh.material.polygonOffsetFactor = -1.0;
                 liquidMesh.material.polygonOffsetUnits = -1.0;
@@ -439,7 +439,7 @@
                 liquidGroup.visible = !isVoidMode;
             }
 
-            // ✅ SIDES SCHALEN (Initieel)
+            // SCALE SIDES (initial)
             const startVal = isVoidMode ? bottomY : currentLiquidHeight;
             const totalH = startVal - bottomY;
             for (let i = 1; i < liquidGroup.children.length; i++) {

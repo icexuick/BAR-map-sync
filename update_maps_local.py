@@ -135,7 +135,7 @@ def cache_to_webflow_data(entry):
 
 # --- LUA COMMENT STRIPPER ---
 def strip_lua_comments(content):
-    """Verwijder alle single-line Lua comments (-- ...) uit de content."""
+    """Remove all single-line Lua comments (-- ...) from the content."""
     lines = content.split('\n')
     cleaned = []
     for line in lines:
@@ -762,10 +762,10 @@ def extract_map_data(sd7_url, slug, tasks, current_webflow_version):
                     with open(os.path.join(temp_extract_dir, mapinfo_file), 'r', encoding='utf-8', errors='ignore') as f:
                         raw_content = f.read()
                         
-                        # --- VERSIE CHECK: gebruik ruwe content (voor extract_version_from_lua) ---
+                        # --- VERSION CHECK: use raw content (for extract_version_from_lua) ---
                         found_version = extract_version_from_lua(raw_content)
-                        
-                        # --- STRIP COMMENTS voor alle andere verwerking ---
+
+                        # --- STRIP COMMENTS for all other processing ---
                         content = strip_lua_comments(raw_content)
                         
                         if found_version:
