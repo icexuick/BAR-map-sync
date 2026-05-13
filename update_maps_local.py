@@ -583,6 +583,11 @@ def save_and_upload_pil_image(img, slug, suffix):
         textures where the human eye doesn't notice the loss, and lossy
         compression is ~5-10x smaller for the same dimensions.
 
+    Note for comparisons with imagor-based pipelines: imagor's URL filter
+    API does not expose libvips's `lossless` flag for webpsave — every
+    imagor-served WebP is lossy. So our height/metal output is intentionally
+    higher fidelity than what you'd get from an imagor pipeline.
+
     The encoded file must fit within MAX_FILE_SIZE_MB (Webflow's per-image
     ingest budget). If it doesn't, we fall back in different ways depending
     on the mode — see the loop below."""
