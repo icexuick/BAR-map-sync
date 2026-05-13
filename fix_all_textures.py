@@ -1,19 +1,26 @@
 """
-Batch fix: re-extract all maps with missing textures, commit, push, purge.
+Batch fix: re-extract all maps with missing textures, upload to R2, commit, push.
 """
 import os
 import json
 import subprocess
 import sys
-import requests
 import time
+
+from r2_client import make_client, upload_file
 
 REPO_ROOT = os.path.dirname(os.path.abspath(__file__))
 MAPS_DIR = os.path.join(REPO_ROOT, 'maps_placement')
 FEATURES_DIR = os.path.join(REPO_ROOT, 'maps_features')
-CDN_PURGE = 'https://purge.jsdelivr.net/gh/icexuick/BAR-map-sync@main'
 GEOVENT_NAMES = {'geovent', 'geothermal', 'geovent_feature'}
 BATCH_SIZE = 5  # commit+push every N maps
+
+_r2 = None
+def r2():
+    global _r2
+    if _r2 is None:
+        _r2 = make_client()
+    return _r2
 
 
 def find_broken_maps():
@@ -69,19 +76,26 @@ def git_commit_push(slugs):
     print(f'  [PUSHED] {len(slugs)} maps')
 
 
-def purge_map(slug):
-    """Purge placements.json and all map-specific textures from jsDelivr."""
-    requests.get(f'{CDN_PURGE}/maps_placement/{slug}/placements.json')
-    count = 0
-    for root, dirs, files in os.walk(FEATURES_DIR):
+def upload_map_to_r2(slug):
+    """Upload placements.json and all map-specific textures to R2.
+    Returns the count of files uploaded (skipped files don't count)."""
+    client = r2()
+    uploaded = 0
+    # placements.json
+    placement_local = os.path.join(MAPS_DIR, slug, 'placements.json')
+    if os.path.isfile(placement_local):
+        key = f'maps_placement/{slug}/placements.json'
+        if upload_file(client, placement_local, key) == 'uploaded':
+            uploaded += 1
+    # per-map textures (any file with the slug in its name)
+    for root, _dirs, files in os.walk(FEATURES_DIR):
         for f in files:
             if slug in f:
-                rel = os.path.join(root, f).replace(os.sep, '/')
-                # Make relative to repo root
-                rel = os.path.relpath(rel, REPO_ROOT).replace(os.sep, '/')
-                requests.get(f'{CDN_PURGE}/{rel}')
-                count += 1
-    return count
+                local = os.path.join(root, f)
+                key = os.path.relpath(local, REPO_ROOT).replace(os.sep, '/')
+                if upload_file(client, local, key) == 'uploaded':
+                    uploaded += 1
+    return uploaded
 
 
 def main():
@@ -109,8 +123,8 @@ def main():
         if len(batch_slugs) >= BATCH_SIZE:
             git_commit_push(batch_slugs)
             for s in batch_slugs:
-                n = purge_map(s)
-                print(f'  [PURGED] {s}: {n} textures')
+                n = upload_map_to_r2(s)
+                print(f'  [R2 UPLOAD] {s}: {n} files')
             batch_slugs = []
             time.sleep(1)
 
@@ -120,8 +134,8 @@ def main():
     if batch_slugs:
         git_commit_push(batch_slugs)
         for s in batch_slugs:
-            n = purge_map(s)
-            print(f'  [PURGED] {s}: {n} textures')
+            n = upload_map_to_r2(s)
+            print(f'  [R2 UPLOAD] {s}: {n} files')
 
     print(f'\n{"="*60}')
     print(f'DONE: {done - len(failed)} succeeded, {len(failed)} failed')

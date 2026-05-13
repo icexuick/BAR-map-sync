@@ -8,17 +8,15 @@ Pipeline:
   2. Show unresolved features (if any) and ask the user to confirm.
   3. Inspect git to see whether the extract produced new feature GLBs/textures
      under features/, or just refreshed maps_features/<slug>/placements.json.
-  4. Two-phase commit/push when there are new features:
-        Phase 1: commit + push everything under features/  ->  jsDelivr purge
-                 of one new GLB to force a refresh.
-        Phase 2: commit + push maps_features/<slug>/placements.json  ->
-                 jsDelivr purge of placements.json so the live site picks it
-                 up immediately.
-     This ordering matters: jsDelivr caches 404s for up to 24h, so the
-     placements.json (which references the new GLB URLs) MUST go live AFTER
-     the GLBs themselves are reachable.
-  5. Fast path when there are no new features: a single commit + push of
-     placements.json + a purge.
+  4. Upload changed assets to Cloudflare R2 (serving CDN) and commit/push
+     them to git (history/backup). Two-phase ordering when there are new
+     features:
+        Phase 1: upload + push everything under features/ and maps_features/
+                 so the GLB/texture URLs are live before placements.json
+                 references them.
+        Phase 2: upload + push maps_placement/<slug>/placements.json.
+  5. Fast path when there are no new features: a single upload + commit + push
+     of placements.json.
 
 Usage:
     python sync_map.py "altored divide"
@@ -29,6 +27,9 @@ Notes:
     ever goes to GitHub. The PNGs stay local for viewer/map.html.
   - This script only stages paths it produced (features/, maps_features/...).
     Other dirty files in the working tree are left alone.
+  - R2 is the serving CDN (viewer fetches from there). Git remains the
+    history/backup. If R2 upload fails, the sync stops before pushing to git
+    so the two stay in sync.
 """
 
 import argparse
@@ -36,18 +37,12 @@ import json
 import os
 import subprocess
 import sys
-import time
 from typing import List, Optional, Tuple
 
-import requests
+from r2_client import make_client, public_url, upload_file
 
 
 REPO_ROOT = os.path.dirname(os.path.abspath(__file__))
-GH_OWNER = "icexuick"
-GH_REPO = "BAR-map-sync"
-GH_BRANCH = "main"
-JSDELIVR_PURGE_BASE = f"https://purge.jsdelivr.net/gh/{GH_OWNER}/{GH_REPO}@{GH_BRANCH}"
-JSDELIVR_CDN_BASE = f"https://cdn.jsdelivr.net/gh/{GH_OWNER}/{GH_REPO}@{GH_BRANCH}"
 
 
 # -- shell helpers ----------------------------------------------------------
@@ -82,36 +77,42 @@ def git_porcelain(paths: List[str]) -> List[Tuple[str, str]]:
     return out
 
 
-# -- jsDelivr ---------------------------------------------------------------
+# -- R2 upload --------------------------------------------------------------
 
-def jsdelivr_purge(path: str) -> bool:
-    """Force jsDelivr to drop its cached copy of one file. Returns True on
-    success. Used after each push so the live site doesn't have to wait the
-    default ~12h cache TTL.
+def _r2_client_cached():
+    """Lazily build & cache one R2 client per sync run."""
+    if not hasattr(_r2_client_cached, "_client"):
+        _r2_client_cached._client = make_client()
+    return _r2_client_cached._client
 
-    The purge endpoint is GET-based: a 200 with `{"success": true}` means it
-    worked. We don't fail the whole sync on a purge error — the file is still
-    in git, jsDelivr will catch up on its own eventually."""
-    url = f"{JSDELIVR_PURGE_BASE}/{path.lstrip('/')}"
-    print(f"  purge: {url}")
-    try:
-        r = requests.get(url, timeout=30)
-        if r.status_code == 200:
-            try:
-                body = r.json()
-                if body.get("status") == "finished" or body.get("success"):
-                    print(f"    [OK] purged")
-                    return True
-                print(f"    [!] purge response: {body}")
-                return False
-            except ValueError:
-                print(f"    [!] purge response not JSON ({len(r.text)} bytes)")
-                return False
-        print(f"    [!] purge HTTP {r.status_code}")
-        return False
-    except requests.RequestException as e:
-        print(f"    [!] purge failed: {e}")
-        return False
+
+def upload_paths_to_r2(paths: List[str]) -> int:
+    """Upload a list of repo-relative paths to R2. Returns the count of files
+    actually uploaded (skip-if-unchanged means re-runs are cheap).
+
+    Skips paths that don't exist on disk (e.g. deleted files in porcelain
+    output) and prints a one-line summary per file."""
+    if not paths:
+        return 0
+    client = _r2_client_cached()
+    uploaded = 0
+    skipped = 0
+    for rel in paths:
+        local = os.path.join(REPO_ROOT, rel)
+        if not os.path.isfile(local):
+            continue
+        key = rel.replace(os.sep, "/")
+        try:
+            status = upload_file(client, local, key, skip_if_unchanged=True)
+        except Exception as e:
+            print(f"    [!] R2 upload failed for {key}: {e}")
+            raise
+        if status == "uploaded":
+            uploaded += 1
+        else:
+            skipped += 1
+    print(f"  R2: uploaded={uploaded}, skipped={skipped} (of {len(paths)} paths)")
+    return uploaded
 
 
 # -- extractor --------------------------------------------------------------
@@ -207,28 +208,16 @@ def push() -> None:
     run(["git", "push"])
 
 
-def pick_purge_target(features_changes: List[Tuple[str, str]]) -> Optional[str]:
-    """Pick one newly-added GLB to purge as a representative. We don't purge
-    every individual file — purging one is enough to nudge jsDelivr into
-    refreshing its directory listing for the affected paths."""
-    for _code, path in features_changes:
-        if path.endswith("model.glb"):
-            return path
-    # Fall back to anything under features/
-    for _code, path in features_changes:
-        if path.startswith("features/"):
-            return path
-    return None
-
-
 # -- main flow --------------------------------------------------------------
 
 def main():
-    ap = argparse.ArgumentParser(description="Extract + commit + push one BAR map")
+    ap = argparse.ArgumentParser(description="Extract + upload + commit/push one BAR map")
     ap.add_argument("map", help='Map name (fuzzy match against Webflow CMS), e.g. "altored divide"')
     ap.add_argument("--yes", "-y", action="store_true", help="Skip confirmation prompts")
     ap.add_argument("--skip-extract", action="store_true",
                     help="Skip running extract_map_features.py (use already-generated files)")
+    ap.add_argument("--skip-git", action="store_true",
+                    help="Upload to R2 only; skip git commit/push (R2 is the serving CDN)")
     args = ap.parse_args()
 
     # 1. Extract
@@ -252,19 +241,20 @@ def main():
     # 3. Inspect git for what changed
     print(f"\n=== [2/3] Checking git for new content ===")
     feature_changes = git_porcelain(["features/"])
+    map_feature_changes = git_porcelain(["maps_features/"])
     placement_path = f"maps_placement/{slug}/placements.json"
     placement_changes = git_porcelain([placement_path])
 
-    print(f"  features/ changes:    {len(feature_changes)}")
-    print(f"  placements.json:      {'modified' if placement_changes else 'unchanged'}")
+    print(f"  features/ changes:       {len(feature_changes)}")
+    print(f"  maps_features/ changes:  {len(map_feature_changes)}")
+    print(f"  placements.json:         {'modified' if placement_changes else 'unchanged'}")
 
-    if not feature_changes and not placement_changes:
-        print("\nNothing changed — nothing to push. Done.")
+    if not feature_changes and not map_feature_changes and not placement_changes:
+        print("\nNothing changed — nothing to upload or push. Done.")
         return
 
     # 4. Confirm
     if feature_changes:
-        # Show a quick preview of which feature dirs are new
         new_dirs = set()
         for _code, path in feature_changes:
             parts = path.split("/")
@@ -276,42 +266,44 @@ def main():
         if len(new_dirs) > 20:
             print(f"    ... +{len(new_dirs) - 20} more")
 
-    if not confirm("\nProceed with commit + push?", args.yes):
+    action = "upload to R2" + ("" if args.skip_git else " + commit & push to git")
+    if not confirm(f"\nProceed with {action}?", args.yes):
         print("Aborted.")
         return
 
-    print(f"\n=== [3/3] Committing & pushing ===")
+    print(f"\n=== [3/3] Uploading to R2 & committing ===")
 
-    # Phase 1: features (only if there are any)
-    if feature_changes:
-        print("\n-- Phase 1: features --")
-        stage_features(feature_changes)
-        commit_msg = f'Add features for "{summary["name"]}"'
+    # Phase 1: features + maps_features
+    # Upload to R2 BEFORE committing so the GLBs/textures are live before
+    # placements.json references them.
+    asset_changes = feature_changes + map_feature_changes
+    if asset_changes:
+        print("\n-- Phase 1: features + maps_features --")
+        asset_paths = [p for _, p in asset_changes]
+        upload_paths_to_r2(asset_paths)
+        if not args.skip_git:
+            run(["git", "add", "--"] + asset_paths)
+            commit_msg = f'Add features for "{summary["name"]}"'
+            if commit(commit_msg):
+                push()
+
+    # Phase 2: placements
+    print("\n-- Phase 2: placements --")
+    upload_paths_to_r2([placement_path])
+    if not args.skip_git:
+        run(["git", "add", "--", placement_path])
+        commit_msg = (
+            f'Sync placements for "{summary["name"]}" '
+            f'({summary["total"]} placements, {summary["geovents"]} geovents)'
+            if asset_changes else
+            f'Re-sync placements for "{summary["name"]}" '
+            f'({summary["total"]} placements)'
+        )
         if commit(commit_msg):
             push()
-            target = pick_purge_target(feature_changes)
-            if target:
-                jsdelivr_purge(target)
-
-    # Phase 2: placements (always — even if it was unchanged we want to ensure
-    # it lines up with the GLBs we just pushed; but git will skip the commit
-    # if it's already in sync).
-    print("\n-- Phase 2: placements --")
-    run(["git", "add", "--", placement_path])
-    commit_msg = (
-        f'Sync placements for "{summary["name"]}" '
-        f'({summary["total"]} placements, {summary["geovents"]} geovents)'
-        if feature_changes else
-        f'Re-sync placements for "{summary["name"]}" '
-        f'({summary["total"]} placements)'
-    )
-    if commit(commit_msg):
-        push()
-        jsdelivr_purge(placement_path)
 
     # 5. Final summary
-    live_url = f"{JSDELIVR_CDN_BASE}/{placement_path}"
-    print(f"\nDone. Live placements:\n  {live_url}")
+    print(f"\nDone. Live placements:\n  {public_url(placement_path)}")
 
 
 if __name__ == "__main__":

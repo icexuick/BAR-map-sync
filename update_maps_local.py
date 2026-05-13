@@ -4,10 +4,10 @@ import re
 import os
 import shutil
 import time
-import ftplib
 import struct
 import io
 import sys
+import json
 import argparse
 from dotenv import load_dotenv
 
@@ -15,18 +15,15 @@ import numpy as np
 import imageio.v3 as iio
 from PIL import Image
 
+from r2_client import make_client, content_type_for, public_url, R2_BUCKET
+
 # --- CRASH PROTECTION ---
-Image.MAX_IMAGE_PIXELS = None 
+Image.MAX_IMAGE_PIXELS = None
 
 # --- CONFIGURATION ---
 load_dotenv()
 
 WEBFLOW_API_TOKEN = os.environ.get("WEBFLOW_API_TOKEN")
-FTP_HOST = os.environ.get("FTP_HOST")
-FTP_USER = os.environ.get("FTP_USER")
-FTP_PASSWORD = os.environ.get("FTP_PASSWORD")
-FTP_PATH = os.environ.get("FTP_PATH")         
-FTP_BASE_URL = os.environ.get("FTP_BASE_URL") 
 GITHUB_LAVA_URL = "https://api.github.com/repos/beyond-all-reason/Beyond-All-Reason/contents/common/configs/LavaMaps"
 
 if not WEBFLOW_API_TOKEN:
@@ -66,10 +63,75 @@ HEADERS_WEBFLOW = {
 MAX_FILE_SIZE_MB = 4
 
 # --- LOGIC SETTINGS ---
-FORCE_VERSION_OVERWRITE = True
-FORCE_CORE_OVERWRITE = True 
-FORCE_HEAVY_OVERWRITE = True
+FORCE_VERSION_OVERWRITE = False
+FORCE_CORE_OVERWRITE = False
+FORCE_HEAVY_OVERWRITE = False
 FORCE_METADATA_UPDATE = True
+
+# --- LOCAL METADATA CACHE ---
+CACHE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "maps_cache.json")
+
+def load_cache():
+    if os.path.exists(CACHE_FILE):
+        with open(CACHE_FILE, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return {}
+
+def save_cache(cache):
+    with open(CACHE_FILE, 'w', encoding='utf-8') as f:
+        json.dump(cache, f, indent=1, ensure_ascii=False)
+
+def get_sd7_fingerprint(url):
+    """HTTP HEAD request to get content-length + etag as a fast change-check."""
+    try:
+        r = requests.head(url, allow_redirects=True, timeout=10)
+        if r.status_code == 200:
+            return {
+                "content_length": r.headers.get("content-length"),
+                "etag": r.headers.get("etag"),
+                "last_modified": r.headers.get("last-modified"),
+            }
+    except:
+        pass
+    return None
+
+def cache_entry_for_map(name, sd7_url, fingerprint, data, lava_level=None):
+    """Build a cache entry dict from extracted map data."""
+    entry = {
+        "name": name,
+        "sd7_url": sd7_url,
+        "fingerprint": fingerprint,
+        "cached_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "version": data.get("version"),
+        "min_height": data.get("min"),
+        "max_height": data.get("max"),
+        "void_water": data.get("void", False),
+        "water_tint": data.get("water_tint"),
+        "water_base": data.get("water_base"),
+        "water_min": data.get("water_min"),
+        "water_absorb": data.get("water_absorb"),
+    }
+    if lava_level is not None:
+        entry["lava_level"] = lava_level
+    return entry
+
+def cache_to_webflow_data(entry):
+    """Convert a cache entry back into the dict format update_webflow_item expects."""
+    return {
+        "min": entry.get("min_height"),
+        "max": entry.get("max_height"),
+        "void": entry.get("void_water", False),
+        "water_tint": entry.get("water_tint"),
+        "water_base": entry.get("water_base"),
+        "water_min": entry.get("water_min"),
+        "water_absorb": entry.get("water_absorb"),
+        "version": entry.get("version"),
+        "normal_url": None,
+        "skybox_url": None,
+        "texture_url": None,
+        "height_url": None,
+        "metal_url": None,
+    }
 
 # --- LUA COMMENT STRIPPER ---
 def strip_lua_comments(content):
@@ -186,11 +248,17 @@ class SpringMapParser:
             
         if width_units == 0 or height_units == 0: return None
 
+        # ints[11] and ints[12] are minHeight/maxHeight as float32
+        minH = struct.unpack('<f', struct.pack('<I', ints[11]))[0]
+        maxH = struct.unpack('<f', struct.pack('<I', ints[12]))[0]
+
         ptr_start = 13
         header = {
-            "mapWidth": width_units * 128, 
+            "mapWidth": width_units * 128,
             "widthUnits": width_units,
             "heightUnits": height_units,
+            "minHeight": minH,
+            "maxHeight": maxH,
             "heightMapIndex": ints[ptr_start],
             "typeMapIndex": ints[ptr_start+1],
             "tileIndexMapIndex": ints[ptr_start+2],
@@ -339,8 +407,10 @@ class SpringMapParser:
         try:
             with open(smf_path, 'rb') as f_smf:
                 header = SpringMapParser.parse_smf_header(f_smf)
-                if not header: return {}
-                
+                if not header: return results
+
+                results["_smf_header"] = header
+
                 if task_flags.get("height"):
                     try:
                         h_img = SpringMapParser.extract_heightmap(f_smf, header)
@@ -352,13 +422,13 @@ class SpringMapParser:
                         m_img = SpringMapParser.extract_metalmap(f_smf, header)
                         if m_img: results["metalmap"] = m_img
                     except Exception as e: print(f"      [MapParser] Metalmap Error: {e}")
-                    
+
                 if task_flags.get("diffuse") and smt_path:
                     try:
                         with open(smt_path, 'rb') as f_smt:
                             d_img = SpringMapParser.extract_diffuse_texture(f_smf, f_smt, header, target_width=DIFFUSE_MAX_WIDTH)
                             if d_img: results["diffuse"] = d_img
-                    except Exception as e: 
+                    except Exception as e:
                         print(f"      [MapParser] Diffuse Error: {e}")
 
         except Exception as e: print(f"      [MapParser] Critical Error: {e}")
@@ -470,50 +540,56 @@ def get_lava_data_from_github():
         return lava_map_data
     except Exception: return {}
 
-def upload_to_ftp(local_path, target_filename):
-    if not all([FTP_HOST, FTP_USER, FTP_PASSWORD, FTP_PATH, FTP_BASE_URL]): return None
+# --- R2 upload (replaces the old FTP flow) ------------------------------
+# Map textures (diffuse / height / metal / normal / skybox) go to R2 as
+# the public origin that Webflow ingests from. Once Webflow has ingested
+# the file into its own CDN, the R2 copy is no longer needed by the live
+# site — but we keep it as an audit trail / re-ingest source. Storage at
+# R2 is cents per month.
+
+_r2 = None
+def _r2_client():
+    global _r2
+    if _r2 is None:
+        _r2 = make_client()
+    return _r2
+
+def upload_to_r2(local_path: str, key: str) -> str | None:
+    """Upload one local file to R2 under `key`. Returns the public URL."""
     try:
-        with ftplib.FTP(host=FTP_HOST, timeout=60) as ftp:
-            ftp.login(user=FTP_USER, passwd=FTP_PASSWORD)
-            try: ftp.cwd(FTP_PATH)
-            except: return None
-            with open(local_path, 'rb') as f:
-                ftp.storbinary(f'STOR {target_filename}', f)
-        return f"{FTP_BASE_URL.rstrip('/')}/{target_filename}"
+        with open(local_path, "rb") as f:
+            _r2_client().put_object(
+                Bucket=R2_BUCKET,
+                Key=key,
+                Body=f,
+                ContentType=content_type_for(local_path),
+                CacheControl="public, max-age=86400",
+            )
+        return public_url(key)
     except Exception as e:
-        print(f"   -> FTP Error: {e}")
+        print(f"   -> R2 Error: {e}")
         return None
 
-def delete_from_ftp(target_filenames):
-    if not all([FTP_HOST, FTP_USER, FTP_PASSWORD, FTP_PATH]): return
-    try:
-        with ftplib.FTP(host=FTP_HOST, timeout=30) as ftp:
-            ftp.login(user=FTP_USER, passwd=FTP_PASSWORD)
-            ftp.cwd(FTP_PATH)
-            for fname in target_filenames:
-                if fname:
-                    try: ftp.delete(fname)
-                    except: pass
-    except: pass
-
-def save_and_upload_pil_image(img, item_id, suffix):
-    filename = f"{item_id}_{suffix}.webp"
+def save_and_upload_pil_image(img, slug, suffix):
+    """Encode `img` to WebP, write to a temp file, push to R2 under
+    map-images/<slug>/<slug>_<suffix>.webp, return the public URL."""
+    filename = f"{slug}_{suffix}.webp"
     if img.width > MAX_PIXEL_DIMENSION or img.height > MAX_PIXEL_DIMENSION:
         print(f"      [Image Processing] Initial resize from {img.width}x{img.height} to max {MAX_PIXEL_DIMENSION}px")
         img.thumbnail((MAX_PIXEL_DIMENSION, MAX_PIXEL_DIMENSION), Image.Resampling.LANCZOS)
-    
+
     use_lossless = suffix in ["height", "metal"]
     quality = 85
-    current_img = img 
+    current_img = img
     resize_factor = 1.0
-    
+
     while True:
         buf = io.BytesIO()
         if resize_factor < 1.0:
             new_w = int(img.width * resize_factor)
             new_h = int(img.height * resize_factor)
             current_img = img.resize((new_w, new_h), Image.Resampling.BILINEAR)
-        
+
         current_img.save(buf, format="WEBP", quality=quality, lossless=use_lossless)
         size_mb = buf.tell() / (1024 * 1024)
         print(f"      [Image Processing] {suffix}: {current_img.width}x{current_img.height} = {size_mb:.2f} MB")
@@ -522,21 +598,20 @@ def save_and_upload_pil_image(img, item_id, suffix):
             with open(filename, "wb") as f:
                 f.write(buf.getbuffer())
             break
-        
-        if use_lossless: resize_factor *= 0.75 
+
+        if use_lossless: resize_factor *= 0.75
         else:
-            if quality > 50: quality -= 10 
-            else: resize_factor *= 0.75 
+            if quality > 50: quality -= 10
+            else: resize_factor *= 0.75
         if resize_factor < 0.1: return None
 
-    print(f"      [FTP] Uploading {filename} ({size_mb:.2f} MB)...")
-    url = upload_to_ftp(filename, filename)
-    if url:
-        if os.path.exists(filename): os.remove(filename)
-        return url
-    return None
+    key = f"map-images/{slug}/{filename}"
+    print(f"      [R2] Uploading {key} ({size_mb:.2f} MB)...")
+    url = upload_to_r2(filename, key)
+    if os.path.exists(filename): os.remove(filename)
+    return url
 
-def process_texture_from_archive(seven_zip_file, texture_filename, item_id, suffix, temp_dir):
+def process_texture_from_archive(seven_zip_file, texture_filename, slug, suffix, temp_dir):
     if not texture_filename: return None, None
     all_files = seven_zip_file.getnames()
     target_file = next((f for f in all_files if f.lower().endswith(texture_filename.lower())), None)
@@ -544,23 +619,23 @@ def process_texture_from_archive(seven_zip_file, texture_filename, item_id, suff
 
     seven_zip_file.extract(targets=[target_file], path=temp_dir)
     raw_path = os.path.join(temp_dir, target_file)
-    
+
     if suffix == "sky":
         img_pil = SkyboxProcessor.process_dds_to_equi(raw_path, target_width=SKYBOX_MAX_WIDTH)
         if img_pil:
-            public_url = save_and_upload_pil_image(img_pil, item_id, "sky")
-            return public_url, f"{item_id}_sky.webp"
+            public = save_and_upload_pil_image(img_pil, slug, "sky")
+            return public, f"map-images/{slug}/{slug}_sky.webp"
     else:
         try:
             img = Image.open(raw_path)
             img.load()
             if suffix == "normal":
                 extrema = img.convert("L").getextrema()
-                if extrema[1] == 0: 
+                if extrema[1] == 0:
                     print(f"      [Image] Skipped {texture_filename}: Image is completely black.")
                     return None, None
-            public_url = save_and_upload_pil_image(img, item_id, suffix)
-            return public_url, f"{item_id}_{suffix}.webp"
+            public = save_and_upload_pil_image(img, slug, suffix)
+            return public, f"map-images/{slug}/{slug}_{suffix}.webp"
         except Exception as e:
             print(f"      [Image] Error opening {texture_filename}: {e}")
     return None, None
@@ -653,19 +728,19 @@ def get_maps_to_process(new_only=False, map_filter=None):
         offset += limit
     return items_to_process
 
-def extract_map_data(sd7_url, item_id, tasks, current_webflow_version):
-    if not sd7_url: 
-        return {"min": None, "max": None, "void": False, "normal_url": None, 
+def extract_map_data(sd7_url, slug, tasks, current_webflow_version):
+    if not sd7_url:
+        return {"min": None, "max": None, "void": False, "normal_url": None,
                 "skybox_url": None, "texture_url": None, "height_url": None, "metal_url": None,
-                "water_tint": None, "water_base": None, "water_min": None, "water_absorb": None, 
-                "version": None, "cleanup_list": []}
+                "water_tint": None, "water_base": None, "water_min": None, "water_absorb": None,
+                "version": None}
 
     temp_archive = "temp_map.sd7"; temp_extract_dir = "temp_extract"
-    result = {"min": None, "max": None, "void": False, 
+    result = {"min": None, "max": None, "void": False,
               "normal_url": None, "skybox_url": None,
               "texture_url": None, "height_url": None, "metal_url": None,
-              "water_tint": None, "water_base": None, "water_min": None, "water_absorb": None, 
-              "version": None, "cleanup_list": []}
+              "water_tint": None, "water_base": None, "water_min": None, "water_absorb": None,
+              "version": None}
     
     if os.path.exists(temp_extract_dir): shutil.rmtree(temp_extract_dir)
     if os.path.exists(temp_archive): os.remove(temp_archive)
@@ -740,20 +815,65 @@ def extract_map_data(sd7_url, item_id, tasks, current_webflow_version):
 
                         if tasks["normal"]:
                             nm_match = re.search(r'detailNormalTex\s*=\s*["\']([^"\']+)["\']', content, re.IGNORECASE)
-                            if nm_match: 
-                                url, fname = process_texture_from_archive(z, nm_match.group(1), item_id, "normal", temp_extract_dir)
+                            if nm_match:
+                                url, _key = process_texture_from_archive(z, nm_match.group(1), slug, "normal", temp_extract_dir)
                                 result["normal_url"] = url
-                                if fname: result["cleanup_list"].append(fname)
-                        
+
                         if tasks["skybox"]:
                             sb_match = re.search(r'skyBox\s*=\s*["\']([^"\']+)["\']', content, re.IGNORECASE)
                             if sb_match:
-                                url, fname = process_texture_from_archive(z, sb_match.group(1), item_id, "sky", temp_extract_dir)
+                                url, _key = process_texture_from_archive(z, sb_match.group(1), slug, "sky", temp_extract_dir)
                                 result["skybox_url"] = url
-                                if fname: result["cleanup_list"].append(fname)
                         
                         smt_hint = SpringMapParser.get_filenames_from_lua(content)
-                
+                else:
+                    # No mapinfo.lua — try .smd fallback (old Spring map format)
+                    smd_file = next((f for f in all_files if f.lower().endswith('.smd')), None)
+                    if smd_file:
+                        z.extract(targets=[smd_file], path=temp_extract_dir)
+                        with open(os.path.join(temp_extract_dir, smd_file), 'r', encoding='utf-8', errors='ignore') as f:
+                            smd_content = f.read()
+                        print(f"      [SMD Fallback] Parsing {smd_file}")
+
+                        if tasks["minmax"]:
+                            min_match = re.search(r'minheight\s*=\s*([\d\.-]+)', smd_content, re.IGNORECASE)
+                            max_match = re.search(r'maxheight\s*=\s*([\d\.-]+)', smd_content, re.IGNORECASE)
+                            if min_match: result["min"] = float(min_match.group(1))
+                            if max_match: result["max"] = float(max_match.group(1))
+                            if min_match or max_match:
+                                print(f"      [SMD Fallback] Found Heights: min={result['min']}, max={result['max']}")
+
+                        if re.search(r'voidWater\s*=\s*(true|1)', smd_content, re.IGNORECASE):
+                            result["void"] = True
+
+                        # SMD water format: WaterBaseColor=R G B (float 0-1 space-separated)
+                        if tasks["water_tint"]:
+                            m = re.search(r'WaterSurfaceColor\s*=\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)', smd_content, re.IGNORECASE)
+                            if m:
+                                result["water_tint"] = '#{:02x}{:02x}{:02x}'.format(
+                                    int(float(m.group(1))*255), int(float(m.group(2))*255), int(float(m.group(3))*255))
+                                print(f"      [SMD Fallback] Found Water Tint: {result['water_tint']}")
+
+                        if tasks["water_base"]:
+                            m = re.search(r'WaterBaseColor\s*=\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)', smd_content, re.IGNORECASE)
+                            if m:
+                                result["water_base"] = '#{:02x}{:02x}{:02x}'.format(
+                                    int(float(m.group(1))*255), int(float(m.group(2))*255), int(float(m.group(3))*255))
+                                print(f"      [SMD Fallback] Found Water Base: {result['water_base']}")
+
+                        if tasks["water_min"]:
+                            m = re.search(r'WaterMinColor\s*=\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)', smd_content, re.IGNORECASE)
+                            if m:
+                                result["water_min"] = '#{:02x}{:02x}{:02x}'.format(
+                                    int(float(m.group(1))*255), int(float(m.group(2))*255), int(float(m.group(3))*255))
+                                print(f"      [SMD Fallback] Found Water Min: {result['water_min']}")
+
+                        if tasks["water_absorb"]:
+                            m = re.search(r'WaterAbsorb\s*=\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)', smd_content, re.IGNORECASE)
+                            if m:
+                                result["water_absorb"] = f"{m.group(1)}, {m.group(2)}, {m.group(3)}"
+                                print(f"      [SMD Fallback] Found Water Absorb: {result['water_absorb']}")
+
                 if tasks["diffuse"] or tasks["height"] or tasks["metal"]:
                     target_map_files = [f for f in all_files if f.lower().endswith('.smf')]
                     if tasks["diffuse"]:
@@ -765,17 +885,21 @@ def extract_map_data(sd7_url, item_id, tasks, current_webflow_version):
                         map_images = SpringMapParser.process_map_files(temp_extract_dir, mapinfo_file, tasks, smt_hint)
                         
                         if "diffuse" in map_images:
-                            url = save_and_upload_pil_image(map_images["diffuse"], item_id, "texture")
-                            result["texture_url"] = url
-                            if url: result["cleanup_list"].append(f"{item_id}_texture.webp")
+                            result["texture_url"] = save_and_upload_pil_image(map_images["diffuse"], slug, "texture")
                         if "heightmap" in map_images:
-                            url = save_and_upload_pil_image(map_images["heightmap"], item_id, "height")
-                            result["height_url"] = url
-                            if url: result["cleanup_list"].append(f"{item_id}_height.webp")
+                            result["height_url"] = save_and_upload_pil_image(map_images["heightmap"], slug, "height")
                         if "metalmap" in map_images:
-                            url = save_and_upload_pil_image(map_images["metalmap"], item_id, "metal")
-                            result["metal_url"] = url
-                            if url: result["cleanup_list"].append(f"{item_id}_metal.webp")
+                            result["metal_url"] = save_and_upload_pil_image(map_images["metalmap"], slug, "metal")
+
+                        # SMF header fallback for min/max height when mapinfo.lua has no values
+                        smf_header = map_images.get("_smf_header")
+                        if smf_header and tasks["minmax"] and result["min"] is None:
+                            smf_min = smf_header.get("minHeight")
+                            smf_max = smf_header.get("maxHeight")
+                            if smf_min is not None and smf_max is not None and abs(smf_max - smf_min) > 1:
+                                result["min"] = round(smf_min, 2)
+                                result["max"] = round(smf_max, 2)
+                                print(f"      [SMF Fallback] Heights from SMF header: min={result['min']}, max={result['max']}")
 
     except Exception as e:
         print(f"   -> SD7 Error: {e}")
@@ -787,7 +911,7 @@ def extract_map_data(sd7_url, item_id, tasks, current_webflow_version):
 
     return result
 
-def update_webflow_item(item_id, data, lava_level=None):
+def update_webflow_item(item_id, data, lava_level=None, publish=False):
     url_update = f"https://api.webflow.com/v2/collections/{COLLECTION_ID}/items/{item_id}"
     fields = {}
 
@@ -813,8 +937,14 @@ def update_webflow_item(item_id, data, lava_level=None):
     try:
         response = requests.patch(url_update, json={"fieldData": fields}, headers=HEADERS_WEBFLOW)
         if response.status_code == 200:
-            print(f"   -> Webflow Updated (STAGED CHANGES - NOT PUBLISHED)")
-            print(f"      [DEBUG] Updated fields: {', '.join(fields.keys())}")
+            print(f"   -> Webflow Updated. Fields: {', '.join(fields.keys())}")
+            if publish:
+                url_publish = f"https://api.webflow.com/v2/collections/{COLLECTION_ID}/items/publish"
+                pub_response = requests.post(url_publish, json={"itemIds": [item_id]}, headers=HEADERS_WEBFLOW)
+                if pub_response.status_code in [200, 202]:
+                    print(f"   -> PUBLISHED!")
+                else:
+                    print(f"   -> Publish failed: {pub_response.text}")
             return True
         else:
             print(f"   -> UPDATE FAILED: {response.text}")
@@ -829,11 +959,80 @@ def main():
                         help='Only process maps that have no version in Webflow yet (new/empty maps)')
     parser.add_argument('--map', type=str, default=None,
                         help='Process only a specific map by name (case-insensitive partial match, e.g. --map "Throne")')
+    parser.add_argument('--from-cache', action='store_true',
+                        help='Push metadata from local maps_cache.json to Webflow (no SD7 downloads)')
+    parser.add_argument('--publish', action='store_true',
+                        help='Publish each item to Webflow immediately after updating')
     args = parser.parse_args()
 
+    cache = load_cache()
+
+    if args.from_cache:
+        # ── FROM-CACHE MODE: push cached metadata straight to Webflow ──
+        # Fetch all Webflow items so we can match by name → item ID
+        print("=== FROM-CACHE MODE: pushing local metadata to Webflow ===\n")
+        url = f"https://api.webflow.com/v2/collections/{COLLECTION_ID}/items"
+        webflow_items = {}
+        offset = 0; limit = 100
+        while True:
+            params = {'limit': limit, 'offset': offset}
+            try:
+                resp = requests.get(url, headers=HEADERS_WEBFLOW, params=params)
+                resp.raise_for_status()
+                batch = resp.json().get('items', [])
+            except:
+                break
+            if not batch:
+                break
+            for it in batch:
+                n = it.get('fieldData', {}).get('name', '')
+                webflow_items[n.lower()] = it
+            if len(batch) < limit:
+                break
+            offset += limit
+        print(f"Loaded {len(webflow_items)} Webflow items, {len(cache)} cached maps\n")
+
+        lava_lookup = get_lava_data_from_github()
+        updated = 0; skipped = 0
+        for cache_key, entry in sorted(cache.items()):
+            name = entry.get('name', cache_key)
+            wf = webflow_items.get(name.lower())
+            if not wf:
+                print(f"  SKIP {name}: not found in Webflow")
+                skipped += 1
+                continue
+
+            # Apply map filter if given
+            if args.map and args.map.lower() not in name.lower():
+                continue
+
+            item_id = wf['id']
+            sd7_data = cache_to_webflow_data(entry)
+            clean_name = normalize_name(name)
+            found_lava_level = entry.get('lava_level', lava_lookup.get(clean_name))
+
+            has_updates = (
+                sd7_data["min"] is not None or
+                sd7_data["water_tint"] or sd7_data["water_base"] or
+                sd7_data["water_min"] or sd7_data["water_absorb"] or
+                sd7_data["version"] or found_lava_level is not None
+            )
+            if not has_updates:
+                skipped += 1
+                continue
+
+            print(f"  {name}: min={sd7_data['min']} max={sd7_data['max']} void={sd7_data['void']}")
+            if update_webflow_item(item_id, sd7_data, found_lava_level, publish=args.publish):
+                updated += 1
+            time.sleep(0.3)
+
+        print(f"\n=== Done: {updated} updated, {skipped} skipped ===")
+        return
+
+    # ── NORMAL MODE: download SD7s, extract metadata, update Webflow ──
     lava_lookup = get_lava_data_from_github()
     items = get_maps_to_process(new_only=args.new_only, map_filter=args.map)
-    
+
     if not items:
         if args.map:
             print(f"No maps found matching \"{args.map}\".")
@@ -845,45 +1044,85 @@ def main():
 
     mode_label = f"SINGLE MAP: {args.map}" if args.map else "NEW-ONLY MODE" if args.new_only else "VERSION SYNC MODE"
     print(f"--- Processing {len(items)} maps ({mode_label}) ---\n")
-    
+
+    skipped_cached = 0
     for item in items:
         name = item['fieldData'].get('name', 'Nameless')
         tasks = item.get('tasks', {})
         current_version = item.get('current_version')
-        print(f"Processing: {name} (Current: {current_version})")
-        
-        todo = [k for k,v in tasks.items() if v]
-        print(f"   -> Missing/Updating: {', '.join(todo)}")
 
         clean_name = normalize_name(name)
         found_lava_level = lava_lookup.get(clean_name)
-        url = item['fieldData'].get(FIELD_DOWNLOAD_URL)
-        
-        sd7_data = extract_map_data(url, item['id'], tasks, current_version)
-        
+        sd7_url = item['fieldData'].get(FIELD_DOWNLOAD_URL)
+
+        # Check if we can skip entirely using cached fingerprint
+        has_image_tasks = any(tasks.get(t) for t in ['diffuse', 'height', 'metal', 'normal', 'skybox'])
+        cached = cache.get(name)
+        fingerprint = None
+        if cached and cached.get('fingerprint') and not has_image_tasks:
+            # Only do a HEAD request if we have a cache entry and no image tasks
+            fingerprint = get_sd7_fingerprint(sd7_url) if sd7_url else None
+            if fingerprint:
+                cf = cached['fingerprint']
+                fp_match = (cf.get('etag') and cf['etag'] == fingerprint.get('etag')) or \
+                           (cf.get('content_length') and cf['content_length'] == fingerprint.get('content_length') and
+                            cf.get('last_modified') and cf['last_modified'] == fingerprint.get('last_modified'))
+                if fp_match:
+                    # SD7 unchanged + no image tasks + already cached → skip entirely
+                    skipped_cached += 1
+                    continue
+
+        print(f"Processing: {name} (Current: {current_version})")
+
+        todo = [k for k,v in tasks.items() if v]
+        print(f"   -> Missing/Updating: {', '.join(todo)}")
+
+        # Fingerprint may already be fetched above; fetch if not yet
+        if fingerprint is None:
+            fingerprint = get_sd7_fingerprint(sd7_url) if sd7_url else None
+        use_cache = False
+        if cached and fingerprint and cached.get('fingerprint') and not has_image_tasks:
+            cf = cached['fingerprint']
+            if (cf.get('etag') and cf['etag'] == fingerprint.get('etag')) or \
+               (cf.get('content_length') and cf['content_length'] == fingerprint.get('content_length') and
+                cf.get('last_modified') and cf['last_modified'] == fingerprint.get('last_modified')):
+                use_cache = True
+                print(f"   -> SD7 unchanged, using cached metadata")
+
+        if use_cache:
+            sd7_data = cache_to_webflow_data(cached)
+        else:
+            slug = item['fieldData'].get('slug') or item['id']
+            sd7_data = extract_map_data(sd7_url, slug, tasks, current_version)
+            # Update cache with freshly extracted data
+            if sd7_data.get("min") is not None or sd7_data.get("version"):
+                entry = cache_entry_for_map(name, sd7_url, fingerprint, sd7_data, found_lava_level)
+                cache[name] = entry
+                save_cache(cache)
+
         has_updates = (
-            sd7_data["min"] is not None or 
-            sd7_data["water_tint"] or 
-            sd7_data["water_base"] or 
-            sd7_data["water_min"] or 
-            sd7_data["water_absorb"] or 
-            sd7_data["texture_url"] or 
-            sd7_data["height_url"] or 
-            sd7_data["metal_url"] or 
-            sd7_data["normal_url"] or 
-            sd7_data["skybox_url"] or 
+            sd7_data["min"] is not None or
+            sd7_data["water_tint"] or
+            sd7_data["water_base"] or
+            sd7_data["water_min"] or
+            sd7_data["water_absorb"] or
+            sd7_data["texture_url"] or
+            sd7_data["height_url"] or
+            sd7_data["metal_url"] or
+            sd7_data["normal_url"] or
+            sd7_data["skybox_url"] or
             sd7_data["version"] or
             found_lava_level is not None
         )
 
         if has_updates:
-            if update_webflow_item(item['id'], sd7_data, found_lava_level):
-                if sd7_data["cleanup_list"]:
-                    time.sleep(1)
-                    delete_from_ftp(sd7_data["cleanup_list"])
+            update_webflow_item(item['id'], sd7_data, found_lava_level, publish=args.publish)
             time.sleep(1)
         else:
             print("   -> Skip: No new data or version update.")
+
+    if skipped_cached:
+        print(f"\n({skipped_cached} maps skipped — already cached & SD7 unchanged)")
 
 if __name__ == "__main__":
     main()

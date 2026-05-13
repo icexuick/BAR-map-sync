@@ -20,12 +20,12 @@
 
     // ... (Apparaat & Prestaties ongewijzigd) ...
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 800;
-    const MOBILE_PERF = { tessellation: 400, shadowSize: 512, shadowType: THREE.PCFShadowMap, reflectionRes: 256, pixelRatio: 1.5, skirtRes: 32, targetFPS: 90, shadowBias: -0.001 };
+    const MOBILE_PERF = { tessellation: 400, shadowSize: 512, shadowType: THREE.PCFShadowMap, reflectionRes: 256, pixelRatio: 1.5, skirtRes: 32, targetFPS: 90, shadowBias: -0.004 };
     const DESKTOP_TIERS = {
         0: { tessellation: 200, shadowSize: 512,  shadowType: THREE.PCFShadowMap, reflectionRes: 512, pixelRatio: 1.0, skirtRes: 64, targetFPS: 60, shadowBias: -0.001 },
         1: { tessellation: 300, shadowSize: 512,  shadowType: THREE.PCFShadowMap, reflectionRes: 512, pixelRatio: 1.2, skirtRes: 96, targetFPS: null, shadowBias: -0.0009 },
         2: { tessellation: 400, shadowSize: 1024, shadowType: THREE.PCFShadowMap, reflectionRes: 512, pixelRatio: 1.5, skirtRes: 128, targetFPS: null, shadowBias: -0.0008 },
-        3: { tessellation: 450, shadowSize: 3072, shadowType: THREE.PCFShadowMap, reflectionRes: 512, pixelRatio: 1.5, skirtRes: 256, targetFPS: null, shadowBias: -0.00056 }
+        3: { tessellation: 450, shadowSize: 2048, shadowType: THREE.PCFShadowMap, reflectionRes: 512, pixelRatio: 1.5, skirtRes: 256, targetFPS: null, shadowBias: -0.00056 }
     };
 
     const CONFIG = {
@@ -48,9 +48,9 @@
         lavaLowColor: 0x000000, lavaMidColor: 0xcf1010, lavaHighColor: 0xffaa00,
 
         useSkybox: true,
-        defaultHdrUrl: 'https://raw.githubusercontent.com/icexuick/BAR-modelviewer/main/hdr/clarens_midday_1k.hdr',
+        defaultHdrUrl: 'https://pub-da4d537d2ad142f3ab00fba8f5e67488.r2.dev/assets/hdr/clarens_midday_1k.hdr',
         defaultSkyboxUrl: 'https://cdn.prod.website-files.com/5c68622246b367adf6f3041d/6961225e370592dc30e22248_clarens_midday_1k.webp',
-        waterNormalsUrl: 'https://raw.githubusercontent.com/beyond-all-reason/map_blueprint/a7db394716730e102f84442ed35fe3f7644a01fc/maps/waterbump_4tiles.png',
+        waterNormalsUrl: 'https://pub-da4d537d2ad142f3ab00fba8f5e67488.r2.dev/assets/waterbump_4tiles.png',
 
         cmsIds: { surface: 'setting-surface-color', base: 'setting-base-color', min: 'setting-min-color', absorb: 'setting-absorb-color' }
     };

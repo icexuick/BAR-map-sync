@@ -13,3 +13,15 @@ __pycache__/
 temp_features_extract/
 temp_features_extract_map/
 *.sd7
+
+# IDE
+.vscode/
+
+# Log files from extraction / sync runs
+*.log
+
+# Locally-saved texture sets (extract_map_textures.py output)
+maps_textures/
+
+# Raw map files cache (local-only, never push to git)
+maps_files/
