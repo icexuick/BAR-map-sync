@@ -81,21 +81,30 @@ def download_sd7(url: str, dest: str) -> int:
 
 def save_webp(img: Image.Image, out_path: str, suffix: str):
     """Same size-budget logic as update_maps_local.save_and_upload_pil_image,
-    except we save to disk instead of FTP."""
+    except we save to disk instead of uploading to R2.
+
+    See that function's docstring for the full rationale; short version:
+    height and metal go lossless (data textures sampled by the viewer),
+    everything else goes lossy at q=85 (display textures)."""
     if img.width > MAX_PIXEL_DIMENSION or img.height > MAX_PIXEL_DIMENSION:
         print(f"     [resize] {suffix}: {img.width}x{img.height} -> max {MAX_PIXEL_DIMENSION}")
         img.thumbnail((MAX_PIXEL_DIMENSION, MAX_PIXEL_DIMENSION), Image.Resampling.LANCZOS)
 
+    # Lossless for data textures (height, metal); lossy q=85 for the rest.
     use_lossless = suffix in ("height", "metal")
-    quality = 85
+    quality = 85           # ignored by Pillow when lossless=True
     resize_factor = 1.0
     current_img = img
     while True:
         buf = io.BytesIO()
         if resize_factor < 1.0:
+            # Re-derive from the original img each iteration so we don't
+            # compound blur across successive shrinks.
             w = int(img.width * resize_factor)
             h = int(img.height * resize_factor)
             current_img = img.resize((w, h), Image.Resampling.BILINEAR)
+        # Pillow routes to libwebp's lossless encoder when lossless=True;
+        # `quality` becomes a no-op in that mode.
         current_img.save(buf, format="WEBP", quality=quality, lossless=use_lossless)
         size_mb = buf.tell() / (1024 * 1024)
         print(f"     [{suffix}] {current_img.width}x{current_img.height} q={quality} -> {size_mb:.2f} MB")
@@ -103,6 +112,8 @@ def save_webp(img: Image.Image, out_path: str, suffix: str):
             with open(out_path, "wb") as f:
                 f.write(buf.getbuffer())
             return out_path
+        # Too big — shrink. Lossless can only resort to downscaling
+        # (quality has no effect); lossy drops quality first, then size.
         if use_lossless:
             resize_factor *= 0.75
         else:

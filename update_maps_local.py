@@ -571,38 +571,79 @@ def upload_to_r2(local_path: str, key: str) -> str | None:
         return None
 
 def save_and_upload_pil_image(img, slug, suffix):
-    """Encode `img` to WebP, write to a temp file, push to R2 under
-    map-images/<slug>/<slug>_<suffix>.webp, return the public URL."""
+    """Encode a PIL image to WebP, write to a temp file, push to R2 under
+    map-images/<slug>/<slug>_<suffix>.webp, return the public URL.
+
+    Encoding mode is chosen per suffix:
+      - height / metal -> WebP lossless. These are data textures whose pixel
+        values are sampled directly by the 3D viewer (terrain displacement,
+        metal-spot mask). Any compression artefact would produce visible
+        terrain bumps or false metal hits, so we never throw bits away.
+      - texture / normal / sky -> WebP lossy at q=85. These are display-only
+        textures where the human eye doesn't notice the loss, and lossy
+        compression is ~5-10x smaller for the same dimensions.
+
+    The encoded file must fit within MAX_FILE_SIZE_MB (Webflow's per-image
+    ingest budget). If it doesn't, we fall back in different ways depending
+    on the mode — see the loop below."""
     filename = f"{slug}_{suffix}.webp"
+
+    # Hard cap on input dimensions before we even start encoding. Some maps
+    # ship 12288x12288 diffuse textures which exceed Pillow's safe pixel
+    # budget and waste time downstream. LANCZOS keeps the downsample sharp.
     if img.width > MAX_PIXEL_DIMENSION or img.height > MAX_PIXEL_DIMENSION:
         print(f"      [Image Processing] Initial resize from {img.width}x{img.height} to max {MAX_PIXEL_DIMENSION}px")
         img.thumbnail((MAX_PIXEL_DIMENSION, MAX_PIXEL_DIMENSION), Image.Resampling.LANCZOS)
 
+    # Pick the encoding mode for this asset type. See the docstring for why
+    # only height and metal need lossless.
     use_lossless = suffix in ["height", "metal"]
-    quality = 85
+    quality = 85               # only used when lossless=False (Pillow ignores it otherwise)
     current_img = img
-    resize_factor = 1.0
+    resize_factor = 1.0        # multiplicative scale applied on each retry
 
+    # Try-encode-shrink loop: encode at the current settings, check the
+    # output size, and if it's too big either drop quality (lossy) or
+    # downscale (lossless) and try again. This is iterative because Pillow
+    # doesn't expose a "encode to <= N bytes" API directly.
     while True:
         buf = io.BytesIO()
         if resize_factor < 1.0:
+            # Resample from the *original* img every iteration so successive
+            # shrinks compound from the source, not from an already-shrunk
+            # copy (which would cause cumulative blur).
             new_w = int(img.width * resize_factor)
             new_h = int(img.height * resize_factor)
             current_img = img.resize((new_w, new_h), Image.Resampling.BILINEAR)
 
+        # Pillow's WebP encoder takes `lossless` as a flag. When True, the
+        # `quality` argument is silently ignored — internally Pillow routes
+        # to libwebp's lossless encoder which has its own (much narrower)
+        # speed-vs-ratio knob ("method"), not a quality slider. So you'll
+        # see q=85 in the log for height/metal even though it does nothing.
         current_img.save(buf, format="WEBP", quality=quality, lossless=use_lossless)
         size_mb = buf.tell() / (1024 * 1024)
         print(f"      [Image Processing] {suffix}: {current_img.width}x{current_img.height} = {size_mb:.2f} MB")
 
+        # Fit within Webflow's per-image budget — write & exit.
         if size_mb <= MAX_FILE_SIZE_MB:
             with open(filename, "wb") as f:
                 f.write(buf.getbuffer())
             break
 
+        # Too big. Strategy differs by encoding mode:
+        #   lossless: only resolution can shrink the file (quality knob is a
+        #     no-op), so downscale by 25% each iteration.
+        #   lossy:    drop quality first (85 -> 75 -> 65 -> 55), only resort
+        #     to downscaling once quality is already at 50 — preserves
+        #     pixel resolution as long as possible for display textures.
         if use_lossless: resize_factor *= 0.75
         else:
             if quality > 50: quality -= 10
             else: resize_factor *= 0.75
+
+        # Safety net: at <10% of original resolution we give up rather than
+        # produce a 30x30-px thumbnail. Caller treats None as "no asset".
         if resize_factor < 0.1: return None
 
     key = f"map-images/{slug}/{filename}"
